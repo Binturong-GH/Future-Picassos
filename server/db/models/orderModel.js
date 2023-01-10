@@ -1,9 +1,9 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
+const Sequelize = require('sequelize');
+const db = require('../db');
 
-const Order = db.define("order", {
+const Order = db.define('order', {
   orderItems: {
-    type: Sequelize.ARRAY,
+    type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
     defaultValue: [],
   },

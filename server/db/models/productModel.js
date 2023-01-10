@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('./db');
+const db = require('../db');
 
 const Product = db.define('product', {
   title: {
@@ -30,6 +30,9 @@ const Product = db.define('product', {
   },
   artistName: {
     type: Sequelize.STRING,
+  },
+  age: {
+    type: Sequelize.INTEGER,
   },
   stockCount: {
     type: Sequelize.INTEGER,
