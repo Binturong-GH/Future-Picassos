@@ -1,18 +1,18 @@
 const Sequelize = require('sequelize');
-const db = require('./db');
+const db = require('../db');
 const Product = require('./productModel');
 const User = require('./userModel');
 
 const Cart = db.define('cart', {
   userId: {
-    type: Sequelize.STRING,
+    type: Sequelize.UUID,
     references: {
       model: User,
       key: 'id',
     },
   },
   productId: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     references: {
       model: Product,
       key: 'id',

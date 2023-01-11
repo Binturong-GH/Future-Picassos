@@ -1,5 +1,4 @@
 'use strict';
-'use strict';
 
 const {
   db,
@@ -8,8 +7,7 @@ const {
 
 const userData = require('./data/user');
 const productData = require('./data/product');
-const userData = require('./data/user');
-const productData = require('./data/product');
+
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
