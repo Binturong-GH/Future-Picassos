@@ -1,7 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
+import { productReducer, fetchAllProductsAsync } from "./slices/productsSlice";
 
-const store = configureStore({
-  reducer: {},
+export const store = configureStore({
+  reducer: {
+    products: productReducer,
+  },
 });
 
-export default store;
+export { fetchAllProductsAsync };

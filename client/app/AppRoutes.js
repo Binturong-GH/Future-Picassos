@@ -1,7 +1,13 @@
-import React from 'react';
+import React from "react";
+import ProductsList from './components/ProductsList';
 
 const AppRoutes = () => {
-  return <div>Welcome to Grace shopper</div>;
+  return (
+    <div>
+      <h1>Welcome to Grace shopper</h1>
+      <Route path="/products" element={<ProductsList />} />
+    </div>
+  );
 };
 
 export default AppRoutes;
