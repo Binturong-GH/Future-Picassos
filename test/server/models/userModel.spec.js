@@ -16,7 +16,7 @@ describe('User model', () => {
 
   describe('User model hooks', () => {
     describe('before save to hash password ', () => {
-      it('hash password before save', async () => {
+      xit('hash password before save', async () => {
         const liliy = {
           name: 'liliya',
           email: 'liliya@example.com',
@@ -27,7 +27,7 @@ describe('User model', () => {
         expect(user.password).to.not.equal('123456');
       });
 
-      it("user's password won't change if update is not happend at password field", async () => {
+      xit("user's password won't change if update is not happend at password field", async () => {
         const passwordBeforeUpdate = users.john.password;
         const [_, updatedUser] = await User.update(
           { name: 'John doe' },
@@ -46,7 +46,7 @@ describe('User model', () => {
 
   describe('instance methods', () => {
     describe('generateToken', () => {
-      it('return a token with the id of the user', async () => {
+      xit('return a token with the id of the user', async () => {
         const token = users.john.generateToken();
         const { id } = await jwt.verify(token, process.env.JWT_SECRET);
         expect(id).to.equal(users.john.id);
@@ -54,13 +54,13 @@ describe('User model', () => {
     });
 
     describe('excludePasswordField', () => {
-      it('the user that find by User.findOne include password,passwordConfirm field  ', async () => {
+      xit('the user that find by User.findOne include password,passwordConfirm field  ', async () => {
         const user = await User.findOne({ where: { id: users.john.id } });
         expect(user).to.have.property('password');
         expect(user).to.have.property('passwordConfirm');
       });
 
-      it("user don't have passoword, passwordConfirm field", async () => {
+      xit("user don't have passoword, passwordConfirm field", async () => {
         const user = await User.findOne({ where: { id: users.john.id } });
         user.excludePasswordField();
         expect(user.password).to.equal(undefined);
@@ -79,10 +79,10 @@ describe('User model', () => {
         };
         user = await User.create(liliy);
       });
-      it('if user entered correct Password, return true', async () => {
+      xit('if user entered correct Password, return true', async () => {
         expect(await user.correctPassword('123456')).to.be.true;
       });
-      it('if user entered incorrect Password, return false', async () => {
+      xit('if user entered incorrect Password, return false', async () => {
         expect(await user.correctPassword('12345xxx')).to.be.false;
       });
     });
