@@ -34,8 +34,6 @@ const signup = asyncHandler(async (req, res, next) => {
   // 2. create token
   const token = newUser.generateToken();
 
-  newUser.excludePasswordField();
-
   // 3. send token back to client
   res.status(201).json({
     status: 'success',
@@ -43,6 +41,41 @@ const signup = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc: Login user
+// @route: POST /auth/login
+// @access: Private
+const login = asyncHandler(async (req, res, next) => {
+  // 1. read email , password from req.body
+  const { email, password } = req.body;
+  // 2. check if email, password exist
+  if (!email || !password) {
+    const error = new Error('Please provide email and password!');
+    error.status = 400;
+    throw error;
+  }
+  // 3. fing user by email
+  const user = await User.findOne({
+    where: {
+      email,
+    },
+  });
+  // 4. Check if user exists && password is correct
+  if (!user || !(await user.correctPassword(password))) {
+    const error = new Error('Incorrect email or password');
+    error.status = 401;
+    throw error;
+  }
+
+  // 5. if everything is ok, return token & user info
+  const token = user.generateToken();
+
+  res.status(200).json({
+    status: 'success',
+    token,
+  });
+});
+
 module.exports = {
   signup,
+  login,
 };
