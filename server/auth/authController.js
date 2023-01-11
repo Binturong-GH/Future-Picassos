@@ -34,8 +34,6 @@ const signup = asyncHandler(async (req, res, next) => {
   // 2. create token
   const token = newUser.generateToken();
 
-  newUser.excludePasswordField();
-
   // 3. send token back to client
   res.status(201).json({
     status: 'success',
