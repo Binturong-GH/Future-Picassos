@@ -55,7 +55,6 @@ User.addHook('beforeSave', async (user) => {
 User.prototype.excludePasswordField = function () {
   this.password = undefined;
   this.passwordConfirm = undefined;
-  this.passwordChangedAt = undefined;
   return this;
 };
 
