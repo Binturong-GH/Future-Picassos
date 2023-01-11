@@ -15,14 +15,19 @@
     "test": "NODE_ENV=test JWT=a_secret mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" --require @babel/register --require esm ",
     "test:dev": "npm run test -- --watch",
     "test:dev:models": "npm run test:dev -- --grep=model",
-    "test:dev:routes": "npm run test:dev -- --grep=route"
+    "test:dev:routes": "npm run test:dev -- --grep=route",
+    "mocha": "cross-env JWT_SECRET=test JWT_EXPIRES=30d mocha ./test/**/*.spec.js --recursive --watch"
   },
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
     "compression": "^1.7.4",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.8.0",
@@ -38,6 +43,7 @@
     "axios-mock-adapter": "^1.21.2",
     "babel-loader": "^8.2.5",
     "chai": "^4.3.6",
+    "cross-env": "^7.0.3",
     "esm": "^3.2.25",
     "mocha": "^10.1.0",
     "nodemon": "^2.0.20",
