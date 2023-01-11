@@ -68,7 +68,7 @@ describe('User model', () => {
       });
     });
 
-    describe.only('correctPassword', () => {
+    describe('correctPassword', () => {
       let user;
       beforeEach(async () => {
         const liliy = {
