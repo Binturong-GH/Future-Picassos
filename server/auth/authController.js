@@ -75,7 +75,55 @@ const login = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc: Check user is login before accessing private resources
+// @route: -
+// @access: Private
+const protect = asyncHandler(async (req, res, next) => {
+  //  1) get token from header, check token is exist inside req.headers
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+  if (!token) {
+    const error = new Error(
+      'You are not logged in! Please log in to get access.'
+    );
+    error.status = 401;
+    throw error;
+  }
+  //  2) valification token, check if token is valid , auto throw error when verify is wrong
+  const decode = await User.verfiyToken(token);
+  //  3) find user by decode token , get the id to find user
+  const currentUser = await User.findByPk(decode.id);
+  //  4) check if user still exists
+  if (!currentUser) {
+    const error = new Error(
+      'The user belonging to this token does no longer exist.'
+    );
+    error.status = 401;
+    throw error;
+  }
+
+  //  5) Check if user changed password after the token was issued
+  if (currentUser.changedPasswordAfter(decode.iat)) {
+    const error = new Error(
+      'User recently changed password! Please log in again'
+    );
+    error.status = 401;
+    throw error;
+  }
+
+  //  6) Grant access to protected Route
+  req.user = currentUser;
+  req.user.passwordConfirm = undefined;
+  next();
+});
+
 module.exports = {
   signup,
   login,
+  protect,
 };
