@@ -14,7 +14,7 @@ describe('User model', () => {
     console.log('---------------------');
   });
 
-  describe.only('User model hooks', () => {
+  describe('User model hooks', () => {
     describe('before save to hash password ', () => {
       it('hash password before save', async () => {
         const liliy = {
@@ -65,6 +65,25 @@ describe('User model', () => {
         user.excludePasswordField();
         expect(user.password).to.equal(undefined);
         expect(user.passwordConfirm).to.equal(undefined);
+      });
+    });
+
+    describe.only('correctPassword', () => {
+      let user;
+      beforeEach(async () => {
+        const liliy = {
+          name: 'liliya',
+          email: 'liliya@example.com',
+          password: '123456',
+          passwordConfirm: '123456',
+        };
+        user = await User.create(liliy);
+      });
+      it('if user entered correct Password, return true', async () => {
+        expect(await user.correctPassword('123456')).to.be.true;
+      });
+      it('if user entered incorrect Password, return false', async () => {
+        expect(await user.correctPassword('12345xxx')).to.be.false;
       });
     });
   });
