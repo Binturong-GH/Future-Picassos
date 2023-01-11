@@ -1,7 +1,10 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
+const Sequelize = require('sequelize');
+const db = require('../db');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('../../../config/keys');
 
-const User = db.define("user", {
+const User = db.define('user', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
@@ -21,8 +24,8 @@ const User = db.define("user", {
     },
   },
   role: {
-    type: Sequelize.ENUM("user", "admin"),
-    defaultValue: "user",
+    type: Sequelize.ENUM('user', 'admin'),
+    defaultValue: 'user',
   },
   password: {
     type: Sequelize.STRING,
@@ -34,12 +37,33 @@ const User = db.define("user", {
     validate: {
       confirmPassword(value) {
         if (value === this.password) return;
-        const error = new Error("Passwords are not the same");
+        const error = new Error('Passwords are not the same');
         error.status = 400;
         throw error;
       },
     },
   },
 });
+
+// @desc: hash password only if password is modified
+User.addHook('beforeSave', async (user) => {
+  if (!user.changed('password')) return;
+  user.password = await bcrypt.hash(user.password, 12);
+});
+
+// @desc: exclude password, passwordConfirm field
+User.prototype.excludePasswordField = function () {
+  this.password = undefined;
+  this.passwordConfirm = undefined;
+  this.passwordChangedAt = undefined;
+  return this;
+};
+
+// @desc: generate jwt token
+User.prototype.generateToken = function () {
+  return jwt.sign({ id: this.id }, keys.JWT_SECRET, {
+    expiresIn: keys.JWT_EXPIRES,
+  });
+};
 
 module.exports = User;
