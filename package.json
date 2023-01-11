@@ -16,7 +16,7 @@
     "test:dev": "npm run test -- --watch",
     "test:dev:models": "npm run test:dev -- --grep=model",
     "test:dev:routes": "npm run test:dev -- --grep=route",
-    "mocha": "cross-env JWT_SECRET=test JWT_EXPIRES=30d mocha ./test/**/*.spec.js"
+    "mocha": "cross-env JWT_SECRET=test JWT_EXPIRES=30d mocha ./test/**/*.spec.js --recursive --watch"
   },
   "author": "Fullstack Academy of Code",
   "license": "MIT",
