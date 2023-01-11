@@ -2,11 +2,12 @@
 
 const {
   db,
-  models: { User, Product },
+  models: { User, Product, Cart },
 } = require('../server/db');
 
 const userData = require('./data/user');
 const productData = require('./data/product');
+
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -21,6 +22,7 @@ async function seed() {
       return User.create(data);
     })
   );
+  // Creating Products
   const product = await Promise.all(
     productData.map((data) => {
       return Product.create(data);
