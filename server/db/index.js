@@ -20,5 +20,7 @@ module.exports = {
   models: {
     templateUser,
     User,
+    Product,
+    Order,
   },
 };
