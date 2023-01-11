@@ -6,7 +6,10 @@ const templateUser = require('./models/User');
 const User = require('./models/userModel');
 const Product = require('./models/productModel');
 const Order = require('./models/orderModel');
+<<<<<<< HEAD
 const Cart = require('.models/cartModel');
+=======
+>>>>>>> main
 
 //associations could go here!
 Product.belongsToMany(User, { through: 'Cart' });

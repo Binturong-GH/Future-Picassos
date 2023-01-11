@@ -1,10 +1,13 @@
 'use strict';
+'use strict';
 
 const {
   db,
   models: { User, Product, Cart },
 } = require('../server/db');
 
+const userData = require('./data/user');
+const productData = require('./data/product');
 const userData = require('./data/user');
 const productData = require('./data/product');
 /**
