@@ -65,4 +65,9 @@ User.prototype.generateToken = function () {
   });
 };
 
+// @desc: check if user entered password === password in db
+User.prototype.correctPassword = async function (candidatePwd) {
+  return await bcrypt.compare(candidatePwd, this.password);
+};
+
 module.exports = User;
