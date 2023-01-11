@@ -3,16 +3,9 @@ const {
   models: { User },
 } = require('../db');
 
-const { signup } = require('./authController');
+const { signup, login } = require('./authController');
 
-router.post('/login', async (req, res, next) => {
-  try {
-    res.send({ token: await User.authenticate(req.body) });
-  } catch (err) {
-    next(err);
-  }
-});
-
+router.post('/login', login);
 router.post('/signup', signup);
 
 router.get('/me', async (req, res, next) => {
