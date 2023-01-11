@@ -2,7 +2,6 @@ import React, { Fragment, useEffect } from "react";
 import { fetchAllProductsAsync } from "../store/slices/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
 
 function ProductsList() {
   const dispatch = useDispatch();
@@ -14,12 +13,12 @@ function ProductsList() {
 
   const renderedProductsList = products.map((product) => {
     return (
-      <div key={product.id}>
-        <Box>
-          <Link to={`/products/${product.id}`}>
-            <h3>{product.title}</h3>
-          </Link>
-        </Box>
+      <div className="productsList" key={product.id}>
+        <Link to={`/products/${product.id}`}>
+          <img className="productsImg" src={product.imageUrl} />
+          <h3>{product.title}</h3>
+          <h4>${product.price}</h4>
+        </Link>
       </div>
     );
   });

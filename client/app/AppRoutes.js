@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 const AppRoutes = () => {
   return (
     <div>
-      <h1>Welcome to Grace shopper</h1>
+      <h1 className="title">Welcome to Grace shopper</h1>
       <Routes>
         <Route path="/products" element={<ProductsList />} />
       </Routes>
