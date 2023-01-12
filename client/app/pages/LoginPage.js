@@ -21,7 +21,7 @@ const valiate = yup.object({
     .required('Email is required'),
   password: yup
     .string('Enter your password')
-    .min(6, 'Password should be of mininum 8 characters length')
+    .min(6, 'Password should be of mininum 6 characters length')
     .required('Password is required'),
 });
 
