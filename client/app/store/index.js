@@ -12,13 +12,20 @@ import {
   editCartDB,
 } from './slices/cartSlice';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     products: productReducer,
     product: singleProductReducer,
     cart: cartReducer,
+
+    auth: authReducer,
   },
 });
+
+export default store;
+
+// export auth slice
+export { getMe, signup, login };
 
 export {
   fetchAllProductsAsync,
