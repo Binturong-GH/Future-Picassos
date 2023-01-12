@@ -9,6 +9,7 @@ import {
   fetchUserCart,
   addToCartDB,
   deleteFromCartDB,
+  editCartDB,
 } from './slices/cartSlice';
 
 export const store = configureStore({
@@ -25,4 +26,5 @@ export {
   fetchUserCart,
   addToCartDB,
   deleteFromCartDB,
+  editCartDB,
 };

@@ -36,6 +36,15 @@ export const deleteFromCartDB = createAsyncThunk(
   }
 );
 
+export const editCartDB = createAsyncThunk('/api/cart', async (toEdit) => {
+  try {
+    const { data } = await axios.put('/api/cart', toEdit);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: { cartItems: [] },
@@ -49,6 +58,9 @@ const cartSlice = createSlice({
     });
     builder.addCase(deleteFromCartDB.fulfilled, (state, action) => {
       return state.filter((product) => product.productId !== action.payload);
+    });
+    builder.addCase(editCartDB.fulfilled, (state, action) => {
+      return action.payload;
     });
   },
 });
