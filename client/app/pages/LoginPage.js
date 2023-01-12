@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Alert,
+  Backdrop,
+  CircularProgress,
+} from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { login } from '../store';
@@ -43,6 +51,14 @@ export default function LoginPage() {
 
   return (
     <div>
+      <Backdrop
+        open={isLoading}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color='inherit' />
+      </Backdrop>
+
+      {!isLoading && error && <Alert severity='error'>{error}</Alert>}
       <form onSubmit={formik.handleSubmit}>
         <Box display={'flex'} flexDirection={'column'}>
           <Typography>Log In</Typography>
