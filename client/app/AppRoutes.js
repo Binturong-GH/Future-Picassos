@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Cart from './pages/Cart';
+import SignupPage from './pages/SignupPage';
 
 const AppRoutes = () => {
   return (
@@ -8,6 +9,7 @@ const AppRoutes = () => {
       <main>
         <Routes>
           <Route path='/cart' element={<Cart />} />
+          <Route path='/login' element={<SignupPage />} />
         </Routes>
       </main>
     </div>
