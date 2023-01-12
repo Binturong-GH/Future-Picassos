@@ -8,7 +8,16 @@ import axios from 'axios';
 
 export const fetchUserCart = createAsyncThunk('/cart', async (id) => {
   try {
-    const { data } = await axios.get(`/cart`);
+    const { data } = await axios.get(`/api/cart`);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+export const addToCartDB = createAsyncThunk('/cart', async (newCartEntry) => {
+  try {
+    const { data } = await axios.post('/api/cart', newCartEntry);
     return data;
   } catch (err) {
     console.error(err);
@@ -21,7 +30,10 @@ const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
-      return action.payload;
+      state.cartItems.push(...action.payload);
+    });
+    builder.addCase(addToCartDB.fulfilled, (state, action) => {
+      state.cartItems.push(action.payload);
     });
   },
 });
