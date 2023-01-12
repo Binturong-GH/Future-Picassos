@@ -2,6 +2,8 @@ import React from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { signup } from '../store';
+import { useDispatch } from 'react-redux';
 
 const valiate = yup.object({
   name: yup.string('Enter your name').required('Name is required'),
@@ -23,6 +25,7 @@ const valiate = yup.object({
 });
 
 export default function SignupPage() {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -34,6 +37,7 @@ export default function SignupPage() {
     onSubmit: (values) => {
       console.log('Sign up');
       console.log(values);
+      dispatch(signup(values));
     },
   });
 
@@ -51,7 +55,7 @@ export default function SignupPage() {
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.name && formik.errors.name}
+            error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
           />
           <TextField
