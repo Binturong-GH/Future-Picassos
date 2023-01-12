@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { login } from '../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 const valiate = yup.object({
   email: yup
@@ -10,11 +13,15 @@ const valiate = yup.object({
     .required('Email is required'),
   password: yup
     .string('Enter your password')
-    .min(8, 'Password should be of mininum 8 characters length')
+    .min(6, 'Password should be of mininum 8 characters length')
     .required('Password is required'),
 });
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, user, error } = useSelector((state) => state.auth);
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -24,9 +31,16 @@ export default function LoginPage() {
     },
     validationSchema: valiate,
     onSubmit: (values) => {
-      dispatch(signup(values));
+      dispatch(login(values));
     },
   });
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
+
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
