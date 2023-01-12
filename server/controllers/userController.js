@@ -25,9 +25,10 @@ exports.getSingleUser = catchAsync(async (req, res, next) => {
 });
 
 //GET api/users/:id/cart
-exports.getUserCart = catchAsync(async (req, res, next) => {
-  const cartItems = await Cart.findAll({
-    where: { userId: req.params.id },
-  });
-  res.send(cartItems);
-});
+//moving to cartController
+// exports.getUserCart = catchAsync(async (req, res, next) => {
+//   const cartItems = await Cart.findAll({
+//     where: { userId: req.params.id },
+//   });
+//   res.send(cartItems);
+// });
