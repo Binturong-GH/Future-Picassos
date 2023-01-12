@@ -153,11 +153,6 @@ const restrictTo = (...roles) => {
   };
 };
 
-// @desc: log out current user
-// @route: /auth/logout
-// @access: Private
-const logout = asyncHandler((req, res, next) => {});
-
 module.exports = {
   signup,
   login,

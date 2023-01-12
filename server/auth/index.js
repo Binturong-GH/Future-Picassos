@@ -6,15 +6,12 @@ const {
   protect,
   getMe,
   restrictTo,
-  logout,
 } = require('./authController');
 
 router.post('/login', login);
 router.post('/signup', signup);
 
 router.get('/me', protect, getMe);
-
-router.get('/logout', logout);
 
 // example of how to use restrictTo to implement Authorization
 router.get('/isAdmin', protect, restrictTo('admin'), (req, res) => {
