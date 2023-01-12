@@ -10,12 +10,11 @@ import {
 } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { signup } from '../store';
+import { login } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 const valiate = yup.object({
-  name: yup.string('Enter your name').required('Name is required'),
   email: yup
     .string('Enter your email')
     .email('Enter a valid email')
@@ -24,19 +23,13 @@ const valiate = yup.object({
     .string('Enter your password')
     .min(6, 'Password should be of mininum 6 characters length')
     .required('Password is required'),
-  passwordConfirm: yup
-    .string('Enter your password confirm ')
-    .oneOf(
-      [yup.ref('password'), null],
-      'Password and Password Confrom must match'
-    )
-    .required('Password Confirm is required'),
 });
 
-export default function SignupPage() {
+export default function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, user, error } = useSelector((state) => state.auth);
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -46,7 +39,7 @@ export default function SignupPage() {
     },
     validationSchema: valiate,
     onSubmit: (values) => {
-      dispatch(signup(values));
+      dispatch(login(values));
     },
   });
 
@@ -68,19 +61,7 @@ export default function SignupPage() {
       {!isLoading && error && <Alert severity='error'>{error}</Alert>}
       <form onSubmit={formik.handleSubmit}>
         <Box display={'flex'} flexDirection={'column'}>
-          <Typography>Sign Up</Typography>
-          <TextField
-            fullWidth
-            id='name'
-            name='name'
-            label='Name'
-            type='text'
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-          />
+          <Typography>Log In</Typography>
           <TextField
             fullWidth
             id='email'
@@ -104,23 +85,6 @@ export default function SignupPage() {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
-          />
-          <TextField
-            fullWidth
-            id='passwordConfirm'
-            name='passwordConfirm'
-            label='Confirm password'
-            type='password'
-            value={formik.values.passwordConfirm}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.passwordConfirm &&
-              Boolean(formik.errors.passwordConfirm)
-            }
-            helperText={
-              formik.touched.passwordConfirm && formik.errors.passwordConfirm
-            }
           />
           <Button color='primary' variant='contained' fullWidth type='submit'>
             Sign up

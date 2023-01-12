@@ -10,6 +10,7 @@ import { fetchUserCart } from './slices/cartSlice';
 
 // auth slice
 import { authReducer, getMe, signup, login } from './slices/authSlice';
+import { fetchUserCart } from './slices/cartSlice';
 
 const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ const store = configureStore({
 
 
 export default store;
+
 
 // export auth slice
 export { getMe, signup, login };

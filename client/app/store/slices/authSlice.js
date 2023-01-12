@@ -14,10 +14,7 @@ export const getMe = createAsyncThunk('auth/getMe', async () => {
     const res = await axios.get('/auth/me', config);
     return res.data;
   } catch (error) {
-    const errMsg =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
+    const errMsg = error.response.data;
     throw new Error(errMsg);
   }
 });
@@ -54,10 +51,7 @@ export const login = createAsyncThunk(
       const res = await axios.post('/auth/login', body);
       return res.data;
     } catch (error) {
-      const errMsg =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+      const errMsg = error.response.data;
       throw new Error(errMsg);
     }
   }
@@ -87,8 +81,7 @@ const authSlice = createSlice({
 
     builder.addCase(getMe.rejected, (state, action) => {
       state.isLoading = false;
-      state.user = null;
-      state.error = action.error;
+      state.error = action.error.message;
     });
 
     // user signup
@@ -118,7 +111,7 @@ const authSlice = createSlice({
     });
     builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error;
+      state.error = action.error.message;
     });
   },
 });

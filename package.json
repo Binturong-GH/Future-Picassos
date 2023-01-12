@@ -44,6 +44,7 @@
     "@babel/register": "^7.18.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.4",
     "@reduxjs/toolkit": "^1.8.6",
     "axios": "^1.1.3",
