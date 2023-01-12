@@ -5,12 +5,14 @@ import {
   fetchOneProductAsync,
 } from './slices/singleProductSlice';
 import cartReducer from './slices/cartSlice';
+import { fetchUserCart } from './slices/cartSlice';
+
 
 // auth slice
 import { authReducer, getMe, signup, login } from './slices/authSlice';
 import { fetchUserCart } from './slices/cartSlice';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     products: productReducer,
     product: singleProductReducer,
@@ -20,7 +22,12 @@ export const store = configureStore({
   },
 });
 
-export { fetchAllProductsAsync, fetchOneProductAsync, fetchUserCart };
+
+export default store;
+
 
 // export auth slice
 export { getMe, signup, login };
+
+export { fetchAllProductsAsync, fetchOneProductAsync, fetchUserCart };
+
