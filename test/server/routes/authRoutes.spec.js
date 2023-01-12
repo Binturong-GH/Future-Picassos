@@ -94,7 +94,7 @@ describe('Auth Routes', () => {
     });
   });
 
-  describe.only('protect middleware to get logged in user infomration ', () => {
+  describe('protect middleware to get logged in user infomration ', () => {
     let token;
     beforeEach(async () => {
       const john = await User.findOne({
