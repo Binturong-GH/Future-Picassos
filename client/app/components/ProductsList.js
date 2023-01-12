@@ -22,7 +22,7 @@ function ProductsList() {
       </div>
     );
   });
-  return <Fragment>{renderedProductsList}Hello</Fragment>;
+  return <Fragment>{renderedProductsList}</Fragment>;
 }
 
 export default ProductsList;
