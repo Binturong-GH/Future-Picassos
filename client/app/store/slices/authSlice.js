@@ -70,7 +70,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     isLoading: false,
-    user: localStorage.get('user')
+    user: localStorage.getItem('user')
       ? JSON.parse(localStorage.getItem('user'))
       : null,
     error: null,
