@@ -1,6 +1,7 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, IconButton, Button } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { Stack } from "@mui/system";
 
 const Navbar = () => {
@@ -21,7 +22,7 @@ const Navbar = () => {
             start
             aria-label="label"
           >
-            <HomeIcon />
+            <PermIdentityIcon/>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               User Profile
             </Typography>
