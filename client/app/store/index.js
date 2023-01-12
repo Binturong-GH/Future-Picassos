@@ -5,7 +5,11 @@ import {
   fetchOneProductAsync,
 } from './slices/singleProductSlice';
 import cartReducer from './slices/cartSlice';
-import { fetchUserCart, addToCartDB } from './slices/cartSlice';
+import {
+  fetchUserCart,
+  addToCartDB,
+  deleteFromCartDB,
+} from './slices/cartSlice';
 
 export const store = configureStore({
   reducer: {
@@ -20,4 +24,5 @@ export {
   fetchOneProductAsync,
   fetchUserCart,
   addToCartDB,
+  deleteFromCartDB,
 };

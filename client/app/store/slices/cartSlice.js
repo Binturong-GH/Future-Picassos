@@ -24,6 +24,18 @@ export const addToCartDB = createAsyncThunk('/cart', async (newCartEntry) => {
   }
 });
 
+export const deleteFromCartDB = createAsyncThunk(
+  '/api/cart',
+  async (toDelete) => {
+    try {
+      await axios.delete('/api/cart', toDelete);
+      return toDelete.productId;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: { cartItems: [] },
@@ -34,6 +46,9 @@ const cartSlice = createSlice({
     });
     builder.addCase(addToCartDB.fulfilled, (state, action) => {
       state.cartItems.push(action.payload);
+    });
+    builder.addCase(deleteFromCartDB.fulfilled, (state, action) => {
+      return state.filter((product) => product.productId !== action.payload);
     });
   },
 });
