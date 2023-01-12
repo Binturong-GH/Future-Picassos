@@ -122,8 +122,19 @@ const protect = asyncHandler(async (req, res, next) => {
   next();
 });
 
+// @desc: Get currect logged in user data
+// @route: GET /auth/me
+// @access: private
+const getMe = asyncHandler(async (req, res, next) => {
+  res.status(200).json({
+    status: 'success',
+    user: req.user.excludePasswordField(),
+  });
+});
+
 module.exports = {
   signup,
   login,
   protect,
+  getMe,
 };
