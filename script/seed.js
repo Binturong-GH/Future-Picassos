@@ -7,6 +7,7 @@ const {
 
 const userData = require('./data/user');
 const productData = require('./data/product');
+const cartData = require('./data/cart');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -28,9 +29,16 @@ async function seed() {
       return Product.create(data);
     })
   );
+  // Creating Carts
+  const cart = await Promise.all(
+    cartData.map((data) => {
+      return Cart.create(data);
+    })
+  );
 
   console.log(`seeded ${users.length} users `);
   console.log(`seeded  ${product.length} products`);
+  console.log(`seeded ${cart.length} cart entries`);
   console.log(`seeded successfully`);
   return {
     users: {
