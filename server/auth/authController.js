@@ -31,6 +31,11 @@ const signup = asyncHandler(async (req, res, next) => {
     password,
     passwordConfirm,
   });
+
+  // clear passwordConfirm field in db
+  newUser.passwordConfirm = '';
+  await newUser.save({ validate: false });
+
   // 2. create token
   const token = newUser.generateToken();
 
