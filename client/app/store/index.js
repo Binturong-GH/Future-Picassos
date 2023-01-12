@@ -1,10 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit';
+
+import { configureStore } from "@reduxjs/toolkit";
+import { productReducer, fetchAllProductsAsync } from "./slices/productsSlice";
+import {
+  singleProductReducer,
+  fetchOneProductAsync,
+} from "./slices/singleProductSlice";
 import cartReducer from './slices/cartSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    cart: cartReducer,
-  },
+    products: productReducer,
+    product: singleProductReducer,
+ },
 });
 
-export default store;
+
+export { fetchAllProductsAsync, fetchOneProductAsync };
