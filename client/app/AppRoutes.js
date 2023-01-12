@@ -6,7 +6,9 @@ const AppRoutes = () => {
   return (
     <div>
       <main>
-        <Route path='/cart' element={<Cart />} />
+        <Routes>
+          <Route path='/cart' element={<Cart />} />
+        </Routes>
       </main>
     </div>
   );

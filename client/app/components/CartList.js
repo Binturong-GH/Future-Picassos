@@ -11,9 +11,10 @@ const CartList = () => {
   return (
     <div>
       <p>
-        this will be a table of products, with the following: - thumbnail image
-        of product - product name - price (individual item) - quantity, with "-"
-        and "+" to adjust - subtotal (price * quantity) - delete icon
+        this is the cart list component! this will be a table of products, with
+        the following: - thumbnail image of product - product name - price
+        (individual item) - quantity, with "-" and "+" to adjust - subtotal
+        (price * quantity) - delete icon
       </p>
     </div>
   );
