@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { signup } from '../store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 const valiate = yup.object({
   name: yup.string('Enter your name').required('Name is required'),
@@ -26,6 +27,8 @@ const valiate = yup.object({
 
 export default function SignupPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -35,11 +38,15 @@ export default function SignupPage() {
     },
     validationSchema: valiate,
     onSubmit: (values) => {
-      console.log('Sign up');
-      console.log(values);
       dispatch(signup(values));
     },
   });
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   return (
     <div>
