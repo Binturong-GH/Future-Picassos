@@ -4,11 +4,11 @@ import axios from 'axios';
 // const catchAsync = (fn) => {
 //   return (req, res, next) => fn(req, res, next).catch(next);
 // };
-//use this instead of try catch ?
+// use this instead of try catch ?
 
-export const fetchUserCart = createAsyncThunk('users/:id/cart', async (id) => {
+export const fetchUserCart = createAsyncThunk('/cart', async (id) => {
   try {
-    const { response } = await axios.get(`/users/${id}/cart`);
+    const { response } = await axios.get(`/cart`);
     return response;
   } catch (err) {
     console.err(err);
