@@ -137,9 +137,26 @@ const getMe = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc: check if a certain user is allowed to access a certain resource, even if user is logged in.
+// @route: -
+// @access: Private
+const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      const error = new Error(
+        'You do not have permission to perform this action'
+      );
+      error.status = 403;
+      throw error;
+    }
+    next();
+  };
+};
+
 module.exports = {
   signup,
   login,
   protect,
   getMe,
+  restrictTo,
 };

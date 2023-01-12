@@ -94,7 +94,7 @@ describe('Auth Routes', () => {
     });
   });
 
-  describe.only('protect middleware to get logged in user infomration ', () => {
+  describe('protect middleware to get logged in user infomration ', () => {
     let token;
     beforeEach(async () => {
       const john = await User.findOne({
@@ -169,6 +169,38 @@ describe('Auth Routes', () => {
           .set('Authorization', `Bearer ${token}`)
           .expect(401);
       }, 1000);
+    });
+  });
+
+  describe('restrict admin to access specific resource', () => {
+    let token;
+    beforeEach(async () => {
+      const cindy = await User.findOne({
+        where: {
+          email: 'cindy@example.com',
+        },
+      });
+      token = cindy.generateToken();
+    });
+
+    xit('response with 200 if user is admin', () => {
+      supertest
+        .get('/auth/isAdmin')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(200);
+    });
+
+    xit('response with 403 if logged in user is not admin', async () => {
+      const john = await User.findOne({
+        where: {
+          email: 'john@example.com',
+        },
+      });
+      const token = john.generateToken();
+      return supertest
+        .get('/auth/isAdmin')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(403);
     });
   });
 });
