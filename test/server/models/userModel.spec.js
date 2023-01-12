@@ -42,6 +42,39 @@ describe('User model', () => {
         expect(updatedUser[0].password).to.equal(passwordBeforeUpdate);
       });
     });
+
+    describe('beforeSave hook: update passwordChangedAt field', () => {
+      let liliya;
+      beforeEach(async () => {
+        const liliy = {
+          name: 'liliya',
+          email: 'liliya@example.com',
+          password: '123456',
+          passwordConfirm: '123456',
+        };
+        liliya = await User.create(liliy);
+      });
+
+      xit("don't update passwordChangeAt when create a new user ", async () => {
+        expect(liliya.passwordChangedAt).to.be.null;
+      });
+
+      xit('update passwordChangeAt when user update the password ', async () => {
+        const [_, updateUser] = await User.update(
+          {
+            password: '77777',
+          },
+          {
+            where: {
+              id: liliya.id,
+            },
+            returning: true,
+            individualHooks: true,
+          }
+        );
+        expect(updateUser[0].passwordChangedAt).to.not.be.null;
+      });
+    });
   });
 
   describe('instance methods', () => {
@@ -84,6 +117,80 @@ describe('User model', () => {
       });
       xit('if user entered incorrect Password, return false', async () => {
         expect(await user.correctPassword('12345xxx')).to.be.false;
+      });
+    });
+
+    describe('changedPasswordAfter', () => {
+      let john;
+      beforeEach(async () => {
+        john = await User.findOne({
+          where: {
+            email: 'john@example.com',
+          },
+        });
+      });
+
+      xit('return true if password changed after token was issued', () => {
+        const token = john.generateToken();
+        setTimeout(async () => {
+          const [_, updateUser] = await User.update(
+            {
+              password: 'xxxxxx',
+            },
+            {
+              where: {
+                id: john.id,
+              },
+              returning: true,
+              individualHooks: true,
+            }
+          );
+          const decode = await User.verifyToken(token);
+          const jwtTimestamp = decode.iat;
+          expect(updateUser[0].changedPasswordAfter(jwtTimestamp)).to.be.true;
+        }, 2000);
+      });
+
+      xit('return false if password changed before token was issued', async () => {
+        const [_, updateUser] = await User.update(
+          {
+            password: 'xxxxxx',
+          },
+          {
+            where: {
+              id: john.id,
+            },
+            returning: true,
+            individualHooks: true,
+          }
+        );
+
+        setTimeout(async () => {
+          const token = updateUser[0].generateToken();
+
+          const decode = await User.verifyToken(token);
+          const jwtTimestamp = decode.iat;
+          expect(updateUser[0].changedPasswordAfter(jwtTimestamp)).to.be.false;
+        }, 2000);
+      });
+    });
+  });
+
+  describe('class methods', () => {
+    describe('find user by token', () => {
+      let john;
+      beforeEach(async () => {
+        john = await User.findOne({
+          where: {
+            email: 'john@example.com',
+          },
+        });
+      });
+
+      xit('decode token and return it', async () => {
+        const token = john.generateToken();
+        const { id } = await User.verifyToken(token);
+        expect(id).to.equal(john.id);
       });
     });
   });

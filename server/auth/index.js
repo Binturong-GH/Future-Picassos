@@ -1,19 +1,21 @@
 const router = require('express').Router();
-const {
-  models: { User },
-} = require('../db');
 
-const { signup, login } = require('./authController');
+const {
+  signup,
+  login,
+  protect,
+  getMe,
+  restrictTo,
+} = require('./authController');
 
 router.post('/login', login);
 router.post('/signup', signup);
 
-router.get('/me', async (req, res, next) => {
-  try {
-    res.send(await User.findByToken(req.headers.authorization));
-  } catch (ex) {
-    next(ex);
-  }
+router.get('/me', protect, getMe);
+
+// example of how to use restrictTo to implement Authorization
+router.get('/isAdmin', protect, restrictTo('admin'), (req, res) => {
+  res.status(200).send('You are admin');
 });
 
 module.exports = router;
