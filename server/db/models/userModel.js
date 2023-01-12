@@ -81,7 +81,7 @@ User.prototype.correctPassword = async function (candidatePwd) {
 };
 
 // @desc: find user by token, if user don't exist, or token is invalid, throw error
-User.verfiyToken = async function (token) {
+User.verifyToken = async function (token) {
   try {
     const decode = await jwt.verify(token, process.env.JWT_SECRET);
     return decode;

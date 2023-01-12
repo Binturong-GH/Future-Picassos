@@ -145,7 +145,7 @@ describe('User model', () => {
               individualHooks: true,
             }
           );
-          const decode = await User.verfiyToken(token);
+          const decode = await User.verifyToken(token);
           const jwtTimestamp = decode.iat;
           expect(updateUser[0].changedPasswordAfter(jwtTimestamp)).to.be.true;
         }, 2000);
@@ -168,7 +168,7 @@ describe('User model', () => {
         setTimeout(async () => {
           const token = updateUser[0].generateToken();
 
-          const decode = await User.verfiyToken(token);
+          const decode = await User.verifyToken(token);
           const jwtTimestamp = decode.iat;
           expect(updateUser[0].changedPasswordAfter(jwtTimestamp)).to.be.false;
         }, 2000);
@@ -189,7 +189,7 @@ describe('User model', () => {
 
       xit('decode token and return it', async () => {
         const token = john.generateToken();
-        const { id } = await User.verfiyToken(token);
+        const { id } = await User.verifyToken(token);
         expect(id).to.equal(john.id);
       });
     });

@@ -95,7 +95,7 @@ const protect = asyncHandler(async (req, res, next) => {
     throw error;
   }
   //  2) valification token, check if token is valid , auto throw error when verify is wrong
-  const decode = await User.verfiyToken(token);
+  const decode = await User.verifyToken(token);
   //  3) find user by decode token , get the id to find user
   const currentUser = await User.findByPk(decode.id);
   //  4) check if user still exists
