@@ -8,10 +8,10 @@ import axios from 'axios';
 
 export const fetchUserCart = createAsyncThunk('/cart', async (id) => {
   try {
-    const { response } = await axios.get(`/cart`);
-    return response;
+    const { data } = await axios.get(`/cart`);
+    return data;
   } catch (err) {
-    console.err(err);
+    console.error(err);
   }
 });
 
@@ -19,7 +19,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: { cartItems: [] },
   reducers: {},
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
       return action.payload;
     });

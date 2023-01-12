@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const Product = db.define('product', {
+const Product = db.define("product", {
   title: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -12,7 +12,7 @@ const Product = db.define('product', {
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://cdn.britannica.com/24/189624-050-F3C5BAA9/Mona-Lisa-oil-wood-panel-Leonardo-da.jpg?w=300&h=169&c=crop',
+      "https://cdn.britannica.com/24/189624-050-F3C5BAA9/Mona-Lisa-oil-wood-panel-Leonardo-da.jpg?w=300&h=169&c=crop",
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -34,7 +34,7 @@ const Product = db.define('product', {
   age: {
     type: Sequelize.INTEGER,
   },
-  stockCount: {
+  countInStock: {
     type: Sequelize.INTEGER,
   },
 });

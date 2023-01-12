@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCart, fetchUserCart } from '../store/slices/cartSlice';
 
 const CartList = () => {
-  const dispatch = useDispatch();
-  const { cart } = useSelector(selectCart);
+  // const dispatch = useDispatch();
+  // const { cart } = useSelector(selectCart);
 
   return (
     <div>
