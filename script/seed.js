@@ -23,6 +23,13 @@ async function seed() {
       return User.create(data);
     })
   );
+
+  //clear passwordConfirm field in db
+  users.forEach(async (user) => {
+    user.passwordConfirm = '';
+    await user.save({ validate: false });
+  });
+
   // Creating Products
   const product = await Promise.all(
     productData.map((data) => {

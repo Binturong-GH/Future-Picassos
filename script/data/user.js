@@ -1,5 +1,6 @@
 module.exports = [
   {
+
     id: '56b6c73b-35e1-483c-8a82-94387ee96104',
     name: 'John',
     email: 'john@example.com',
@@ -7,6 +8,7 @@ module.exports = [
     passwordConfirm: '123456',
   },
   {
+
     id: '265fa850-d249-4fac-86f2-c6bea8747fcc',
     name: 'Anne',
     email: 'anne@example.com',
@@ -14,6 +16,7 @@ module.exports = [
     passwordConfirm: '123456',
   },
   {
+
     id: 'cd4841f4-0ba0-4c8e-bef5-670236740e1d',
     name: 'Tessa',
     email: 'tessa@example.com',
@@ -40,5 +43,75 @@ module.exports = [
     passwordConfirm: '123456',
     role: 'user',
     active: 'false',
+  },
+  {
+    name: 'Ada Lovelace',
+    email: 'ada@fsa.com',
+    role: 'user',
+    password: '123456',
+    passwordConfirm: '123456',
+  },
+  {
+    name: 'Allison Admin',
+    email: 'aa@fsa.com',
+    role: 'admin',
+    password: '123456',
+    passwordConfirm: '123456',
+  },
+  {
+    name: 'Bobby Buysstuff',
+    email: 'bb@test.com',
+    role: 'user',
+    password: '123456',
+    passwordConfirm: '123456',
+  },
+  {
+    name: 'Sharon Shopper',
+    email: 'sharon@test.com',
+    role: 'user',
+    password: '123456',
+    passwordConfirm: '123456',
+  },
+  {
+    name: 'Clarissa Creditcard',
+    email: 'ccc@test.com',
+    role: 'user',
+    password: '123456',
+    passwordConfirm: '123456',
+  },
+  {
+    name: 'Melissa Moneybags',
+    email: 'mm@test.com',
+    role: 'user',
+    password: '123456',
+    passwordConfirm: '123456',
+  },
+  {
+    name: 'Maxiel',
+    email: 'maxiel@fsa.com',
+    password: '123456',
+    passwordConfirm: '123456',
+  },
+  {
+    name: 'Galinda Gallery',
+    email: 'gg@test.com',
+    role: 'user',
+    password: '123456',
+    passwordConfirm: '123456',
+  },
+  {
+    name: 'Penelope Placeanorder',
+    email: 'pp@test.com',
+    role: 'user',
+    password: '123456',
+    passwordConfirm: '123456',
+  },
+  {
+    name: 'Otis Ownsitall',
+    email: 'oo@test.com',
+    role: 'user',
+    password: '123456',
+    passwordConfirm: '123456',
+
   },
 ];
