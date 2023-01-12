@@ -8,6 +8,7 @@ const AppRoutes = () => {
     <div>
       <main>
         <Routes>
+          <Route path='/' element={<h1>Home</h1>} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/login' element={<SignupPage />} />
         </Routes>
