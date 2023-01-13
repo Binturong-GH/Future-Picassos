@@ -12,6 +12,7 @@ const CartList = () => {
       <tr key={cartItem.id}>
         <td>{cartItem.title}</td>
         <td>{cartItem.price}</td>
+        <td>{cartItem.quantity}</td>
         <td>delete button</td>
       </tr>
     );
@@ -22,12 +23,15 @@ const CartList = () => {
       <div>
         {cartItems && cartItems.length ? (
           <table>
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Delete</th>
-            </tr>
-            {cartRows}
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>{cartRows}</tbody>
           </table>
         ) : (
           <p>Your cart is currently empty - start shopping!</p>

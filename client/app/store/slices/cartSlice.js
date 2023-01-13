@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // const catchAsync = (fn) => {
@@ -59,19 +59,14 @@ const cartSlice = createSlice({
   initialState: { cartItems: [] },
   reducers: {
     addToCart: (state, action) => {
-      console.log(
-        'hello babe from slice page. next up is console.log of state and action payload'
+      const itemInCart = state.cartItems.filter(
+        (item) => item.id === action.payload.id
       );
-      console.dir(state);
-      console.dir(action);
-      // const itemInCart = state.cartItems.indexOf(
-      //   (item) => item.productId === action.payload.productId
-      // );
-      // if (itemInCart >= 0) {
-      //   state.cartItems[itemInCart].quantity++;
-      // } else {
-      state.cartItems.push({ ...action.payload });
-      // }
+      if (itemInCart.length > 0) {
+        itemInCart[0].quantity++;
+      } else {
+        state.cartItems.push({ ...action.payload, quantity: 1 });
+      }
     },
   },
   extraReducers: (builder) => {
