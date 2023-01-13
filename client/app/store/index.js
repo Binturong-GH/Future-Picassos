@@ -14,6 +14,7 @@ import {
   editCartDB,
   addToCart,
   deleteProduct,
+  incrementOne,
 } from './slices/cartSlice';
 
 // auth slice
@@ -43,4 +44,5 @@ export {
   editCartDB,
   addToCart,
   deleteProduct,
+  incrementOne,
 };

@@ -74,6 +74,12 @@ const cartSlice = createSlice({
       );
       state.cartItems = deleteProduct;
     },
+    incrementOne: (state, action) => {
+      const product = state.cartItems.filter(
+        (item) => item.id === action.payload
+      )[0];
+      product.quantity++;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
@@ -92,5 +98,5 @@ const cartSlice = createSlice({
 });
 
 export const selectCart = (state) => state.cart;
-export const { addToCart, deleteProduct } = cartSlice.actions;
+export const { addToCart, deleteProduct, incrementOne } = cartSlice.actions;
 export default cartSlice.reducer;
