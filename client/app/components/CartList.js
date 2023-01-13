@@ -7,6 +7,7 @@ import {
   fetchUserCart,
   deleteProduct,
   incrementOne,
+  subtractOne,
 } from '../store/slices/cartSlice';
 
 const CartList = () => {
@@ -18,7 +19,15 @@ const CartList = () => {
       <tr key={cartItem.id}>
         <td>{cartItem.title}</td>
         <td>{cartItem.price}</td>
-        <td>btn</td>
+        <td>
+          <button
+            onClick={() => {
+              dispatch(subtractOne(cartItem.id));
+            }}
+          >
+            subtract one
+          </button>
+        </td>
         <td>{cartItem.quantity}</td>
         <td>
           <button

@@ -15,6 +15,7 @@ import {
   addToCart,
   deleteProduct,
   incrementOne,
+  subtractOne,
 } from './slices/cartSlice';
 
 // auth slice
@@ -45,4 +46,5 @@ export {
   addToCart,
   deleteProduct,
   incrementOne,
+  subtractOne,
 };
