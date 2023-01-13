@@ -7,7 +7,7 @@ import {
 import cartReducer from './slices/cartSlice';
 
 // auth slice
-import { authReducer, getMe, signup, login } from './slices/authSlice';
+import { authReducer, getMe, signup, login, logout } from './slices/authSlice';
 import { fetchUserCart } from './slices/cartSlice';
 
 export const store = configureStore({
@@ -23,4 +23,4 @@ export const store = configureStore({
 export { fetchAllProductsAsync, fetchOneProductAsync, fetchUserCart };
 
 // export auth slice
-export { getMe, signup, login };
+export { getMe, signup, login, logout };

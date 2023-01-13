@@ -67,7 +67,14 @@ const authSlice = createSlice({
     error: null,
     isLogged: false,
   },
-  reducers: {},
+  reducers: {
+    logout(state, action) {
+      state.user = null;
+      state.isLogged = false;
+      localStorage.removeItem('jwt');
+      localStorage.removeItem('user');
+    },
+  },
   extraReducers(builder) {
     // getme
     builder.addCase(getMe.pending, (state, action) => {
@@ -120,3 +127,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+export const { logout } = authSlice.actions;
