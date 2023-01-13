@@ -91,6 +91,8 @@ const authSlice = createSlice({
     builder.addCase(signup.fulfilled, (state, action) => {
       state.isLoading = false;
       state.user = action.payload.user;
+      state.isLogged = true;
+
       localStorage.setItem('jwt', JSON.stringify(action.payload.token));
       localStorage.setItem('user', JSON.stringify(action.payload.user));
     });
@@ -106,6 +108,7 @@ const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
       state.user = action.payload.user;
+      state.isLogged = true;
       localStorage.setItem('jwt', JSON.stringify(action.payload.token));
       localStorage.setItem('user', JSON.stringify(action.payload.user));
     });
