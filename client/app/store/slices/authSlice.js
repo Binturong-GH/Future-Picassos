@@ -4,7 +4,7 @@ import axios from 'axios';
 // @desc: get logged in user information
 export const getMe = createAsyncThunk('auth/getMe', async () => {
   try {
-    const token = localStorage.getItem('jwt');
+    const token = JSON.parse(localStorage.getItem('jwt'));
     const config = {
       headers: {
         'Content-type': 'application/json',
@@ -75,10 +75,11 @@ const authSlice = createSlice({
     });
 
     builder.addCase(getMe.fulfilled, (state, action) => {
-      isLoading = false;
+      state.isLoading = false;
       state.user = action.payload.user;
       state.isLoading = true;
       localStorage.setItem('user', JSON.stringify(action.payload.user));
+    });
     });
 
     builder.addCase(getMe.rejected, (state, action) => {
