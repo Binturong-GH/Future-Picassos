@@ -4,7 +4,7 @@ import axios from 'axios';
 // @desc: get logged in user information
 export const getMe = createAsyncThunk('auth/getMe', async () => {
   try {
-    const token = localStorage.getItem('jwt');
+    const token = JSON.parse(localStorage.getItem('jwt'));
     const config = {
       headers: {
         'Content-type': 'application/json',
@@ -65,8 +65,16 @@ const authSlice = createSlice({
       ? JSON.parse(localStorage.getItem('user'))
       : null,
     error: null,
+    isLogged: false,
   },
-  reducers: {},
+  reducers: {
+    logout(state, action) {
+      state.user = null;
+      state.isLogged = false;
+      localStorage.removeItem('jwt');
+      localStorage.removeItem('user');
+    },
+  },
   extraReducers(builder) {
     // getme
     builder.addCase(getMe.pending, (state, action) => {
@@ -74,14 +82,13 @@ const authSlice = createSlice({
     });
 
     builder.addCase(getMe.fulfilled, (state, action) => {
-      isLoading = false;
-      state.user = action.payload.user;
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      state.isLoading = false;
+      state.isLogged = true;
     });
 
     builder.addCase(getMe.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.isLogged = false;
     });
 
     // user signup
@@ -91,6 +98,8 @@ const authSlice = createSlice({
     builder.addCase(signup.fulfilled, (state, action) => {
       state.isLoading = false;
       state.user = action.payload.user;
+      state.isLogged = true;
+
       localStorage.setItem('jwt', JSON.stringify(action.payload.token));
       localStorage.setItem('user', JSON.stringify(action.payload.user));
     });
@@ -106,6 +115,7 @@ const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
       state.user = action.payload.user;
+      state.isLogged = true;
       localStorage.setItem('jwt', JSON.stringify(action.payload.token));
       localStorage.setItem('user', JSON.stringify(action.payload.user));
     });
@@ -117,3 +127,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+export const { logout } = authSlice.actions;
