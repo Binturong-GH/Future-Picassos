@@ -3,11 +3,10 @@ import { productReducer, fetchAllProductsAsync } from "./slices/productsSlice";
 import {
   singleProductReducer,
   fetchOneProductAsync,
-} from './slices/singleProductSlice';
-
+} from "./slices/singleProductSlice";
 
 //cart slice
-import cartReducer from './slices/cartSlice';
+import cartReducer from "./slices/cartSlice";
 import {
   fetchUserCart,
   addToCartDB,
@@ -17,11 +16,10 @@ import {
   deleteProduct,
   incrementOne,
   subtractOne,
-} from './slices/cartSlice';
+} from "./slices/cartSlice";
 
 // auth slice
-import { authReducer, getMe, signup, login, logout } from './slices/authSlice';
-
+import { authReducer, getMe, signup, login, logout } from "./slices/authSlice";
 
 const store = configureStore({
   reducer: {
@@ -37,8 +35,8 @@ export default store;
 // export auth slice
 export { getMe, signup, login, logout };
 
-
-export { fetchAllProductsAsync, fetchOneProductAsync, fetchUserCart };
+//export product slice
+export { fetchAllProductsAsync, fetchOneProductAsync };
 
 //export cart slice
 export {
@@ -51,4 +49,3 @@ export {
   incrementOne,
   subtractOne,
 };
-
