@@ -18,11 +18,11 @@ function SingleProduct() {
     <div>
       <img alt="product image" src={product.imageUrl} />
       <h3>{product.title}</h3>
-      <h3>Artist</h3>
-      <p>{product.artistName}</p>
-      <h3>Description</h3>
+      <h3>Artist: {product.artistName}</h3>
+
+      <h4>Description: {product.description} </h4>
       <p>
-        {product.description} ${product.price}
+         ${product.price}
       </p>
       <IconButton size="small" color="primary edge=" start aria-label="label">
           <AddShoppingCartIcon />

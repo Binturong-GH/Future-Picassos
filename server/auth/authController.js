@@ -43,6 +43,7 @@ const signup = asyncHandler(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     token,
+    user: newUser.excludePasswordField(),
   });
 });
 
@@ -77,6 +78,7 @@ const login = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     token,
+    user: user.excludePasswordField(),
   });
 });
 
