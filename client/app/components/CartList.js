@@ -2,20 +2,78 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCart, fetchUserCart } from '../store/slices/cartSlice';
+import {
+  selectCart,
+  fetchUserCart,
+  deleteProduct,
+  incrementOne,
+  subtractOne,
+} from '../store/slices/cartSlice';
 
 const CartList = () => {
-  // const dispatch = useDispatch();
-  // const { cart } = useSelector(selectCart);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector(selectCart);
+
+  const cartRows = cartItems.map((cartItem) => {
+    return (
+      <tr key={cartItem.id}>
+        <td>{cartItem.title}</td>
+        <td>${cartItem.price}</td>
+        <td>
+          <button
+            onClick={() => {
+              dispatch(subtractOne(cartItem.id));
+            }}
+          >
+            subtract one
+          </button>
+        </td>
+        <td>{cartItem.quantity}</td>
+        <td>
+          <button
+            onClick={() => {
+              dispatch(incrementOne(cartItem.id));
+            }}
+          >
+            add one
+          </button>
+        </td>
+        <td>{cartItem.quantity * cartItem.price}</td>
+        <td>
+          <button
+            onClick={() => {
+              dispatch(deleteProduct(cartItem.id));
+            }}
+          >
+            Remove from Cart
+          </button>
+        </td>
+      </tr>
+    );
+  });
 
   return (
     <div>
-      <p>
-        this is the cart list component! this will be a table of products, with
-        the following: - thumbnail image of product - product name - price
-        (individual item) - quantity, with "-" and "+" to adjust - subtotal
-        (price * quantity) - delete icon
-      </p>
+      <div>
+        {cartItems && cartItems.length ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th> </th>
+                <th>Quantity</th>
+                <th> </th>
+                <th>Total</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>{cartRows}</tbody>
+          </table>
+        ) : (
+          <p>Your cart is currently empty - start shopping!</p>
+        )}
+      </div>
     </div>
   );
 };

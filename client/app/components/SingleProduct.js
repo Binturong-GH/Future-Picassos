@@ -5,9 +5,11 @@ import { fetchOneProductAsync } from "../store/slices/singleProductSlice";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { IconButton, Typography} from "@mui/material";
 
+
 function SingleProduct() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.product);
+  const { cartItems } = useSelector(selectCart);
   const { productId } = useParams();
 
   useEffect(() => {
@@ -16,7 +18,7 @@ function SingleProduct() {
 
   return (
     <div>
-      <img alt="product image" src={product.imageUrl} />
+      <img alt='product image' src={product.imageUrl} />
       <h3>{product.title}</h3>
       <h3>Artist: {product.artistName}</h3>
 
@@ -24,7 +26,9 @@ function SingleProduct() {
       <p>
          ${product.price}
       </p>
-      <IconButton size="small" color="primary edge=" start aria-label="label">
+      <IconButton  onClick={() => {
+          dispatch(addToCart(product));
+        } size="small" color="primary edge=" start aria-label="label">
           <AddShoppingCartIcon />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Add to cart

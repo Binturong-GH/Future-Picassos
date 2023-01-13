@@ -8,8 +8,9 @@ const catchAsync = (fn) => {
 
 //GET api/cart
 exports.getUserCart = catchAsync(async (req, res, next) => {
+  const user = localStorage.getItem('user');
   const cartItems = await Cart.findAll({
-    where: { userId: req.userId },
+    where: { userId: user.id },
   });
   res.json(cartItems);
 });
