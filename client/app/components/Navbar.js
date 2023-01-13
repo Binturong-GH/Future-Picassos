@@ -23,6 +23,12 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const dispatch = useDispatch();
   const { isLogged } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [isLogged]);
+
+  // MUI handle dropdown menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -31,10 +37,6 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  useEffect(() => {
-    dispatch(getMe());
-  }, []);
 
   return (
     <>
