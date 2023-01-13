@@ -12,7 +12,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { login } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router-dom';
 
 const valiate = yup.object({
   email: yup
@@ -87,8 +87,12 @@ export default function LoginPage() {
             helperText={formik.touched.password && formik.errors.password}
           />
           <Button color='primary' variant='contained' fullWidth type='submit'>
-            Sign up
+            Sign in
           </Button>
+          <Typography>
+            If you haven't an account, please
+            <Link to='/signup'> sign up </Link>first
+          </Typography>
         </Box>
       </form>
     </div>
