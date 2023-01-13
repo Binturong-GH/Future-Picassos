@@ -12,7 +12,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { signup } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router-dom';
 
 const valiate = yup.object({
   name: yup.string('Enter your name').required('Name is required'),
@@ -125,6 +125,10 @@ export default function SignupPage() {
           <Button color='primary' variant='contained' fullWidth type='submit'>
             Sign up
           </Button>
+          <Typography>
+            If you already have an account, Let's
+            <Link to='/login'> Log in </Link>
+          </Typography>
         </Box>
       </form>
     </div>
