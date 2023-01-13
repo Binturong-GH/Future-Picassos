@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { isLogged } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -53,7 +53,7 @@ const Navbar = () => {
           </Typography>
 
           <Stack direction='row' spacing={2}>
-            {user ? (
+            {isLogged ? (
               <Button
                 id='basic-button'
                 aria-controls={open ? 'basic-menu' : undefined}
