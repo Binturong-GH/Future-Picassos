@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -13,7 +13,16 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Stack } from '@mui/system';
 
+// auth slice to check login status
+import { useDispatch, useSelector } from 'react-redux';
+import { getMe } from '../store';
+
+// router
+import { Link } from 'react-router-dom';
+
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -22,6 +31,10 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, []);
 
   return (
     <>
@@ -40,15 +53,21 @@ const Navbar = () => {
           </Typography>
 
           <Stack direction='row' spacing={2}>
-            <Button
-              id='basic-button'
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup='true'
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-            >
-              <PermIdentityIcon />
-            </Button>
+            {user ? (
+              <Button
+                id='basic-button'
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup='true'
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+              >
+                <PermIdentityIcon />
+              </Button>
+            ) : (
+              <Button>
+                <Link to='/login'>Sign In</Link>
+              </Button>
+            )}
 
             <IconButton
               size='small'
