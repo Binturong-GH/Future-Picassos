@@ -2,18 +2,31 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCart, fetchUserCart } from '../store/slices/cartSlice';
+import {
+  selectCart,
+  fetchUserCart,
+  deleteProduct,
+} from '../store/slices/cartSlice';
 
 const CartList = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
+
   const cartRows = cartItems.map((cartItem) => {
     return (
       <tr key={cartItem.id}>
         <td>{cartItem.title}</td>
         <td>{cartItem.price}</td>
         <td>{cartItem.quantity}</td>
-        <td>delete button</td>
+        <td>
+          <button
+            onClick={() => {
+              dispatch(deleteProduct(cartItem.id));
+            }}
+          >
+            Remove from Cart
+          </button>
+        </td>
       </tr>
     );
   });

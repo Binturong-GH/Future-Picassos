@@ -17,7 +17,13 @@ const Navbar = () => {
   return (
     <AppBar color='secondary' position='stick'>
       <Toolbar>
-        <IconButton size='small' color='primary edge=' start aria-label='label'>
+        <IconButton
+          onClick={redirectToAllProducts}
+          size='small'
+          color='primary edge='
+          start
+          aria-label='label'
+        >
           <HomeIcon />
         </IconButton>
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
@@ -26,7 +32,6 @@ const Navbar = () => {
 
         <Stack direction='row' spacing={2}>
           <IconButton
-            onClick={redirectToAllProducts}
             size='small'
             color='primary edge='
             start

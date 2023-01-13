@@ -13,6 +13,7 @@ import {
   deleteFromCartDB,
   editCartDB,
   addToCart,
+  deleteProduct,
 } from './slices/cartSlice';
 
 // auth slice
@@ -35,4 +36,11 @@ export { getMe, signup, login };
 export { fetchAllProductsAsync, fetchOneProductAsync };
 
 //export cart slice
-export { fetchUserCart, addToCartDB, deleteFromCartDB, editCartDB, addToCart };
+export {
+  fetchUserCart,
+  addToCartDB,
+  deleteFromCartDB,
+  editCartDB,
+  addToCart,
+  deleteProduct,
+};

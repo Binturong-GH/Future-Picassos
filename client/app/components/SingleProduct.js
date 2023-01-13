@@ -14,8 +14,7 @@ function SingleProduct() {
   useEffect(() => {
     dispatch(fetchOneProductAsync(productId));
   }, []);
-  console.log('babe, here is cartItems vvv');
-  console.dir(cartItems);
+
   return (
     <div>
       <img alt='product image' src={product.imageUrl} />
@@ -28,7 +27,6 @@ function SingleProduct() {
       </p>
       <button
         onClick={() => {
-          console.log('click!');
           dispatch(addToCart(product));
         }}
       >
