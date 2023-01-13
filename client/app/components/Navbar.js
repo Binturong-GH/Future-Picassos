@@ -49,7 +49,7 @@ const Navbar = () => {
             <HomeIcon />
           </IconButton>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            Grace Shopper
+            <Link to={'/'}>Grace Shopper</Link>
           </Typography>
 
           <Stack direction='row' spacing={2}>
