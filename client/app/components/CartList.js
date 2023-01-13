@@ -5,17 +5,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCart, fetchUserCart } from '../store/slices/cartSlice';
 
 const CartList = () => {
-  // const dispatch = useDispatch();
-  // const { cart } = useSelector(selectCart);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector(selectCart);
+  const cartRows = cartItems.map((cartItem) => {
+    return (
+      <tr key={cartItem.id}>
+        <td>{cartItem.title}</td>
+        <td>{cartItem.price}</td>
+        <td>delete button</td>
+      </tr>
+    );
+  });
 
   return (
     <div>
-      <p>
-        this is the cart list component! this will be a table of products, with
-        the following: - thumbnail image of product - product name - price
-        (individual item) - quantity, with "-" and "+" to adjust - subtotal
-        (price * quantity) - delete icon
-      </p>
+      <div>
+        {cartItems && cartItems.length ? (
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Delete</th>
+            </tr>
+            {cartRows}
+          </table>
+        ) : (
+          <p>Your cart is currently empty - start shopping!</p>
+        )}
+      </div>
     </div>
   );
 };
