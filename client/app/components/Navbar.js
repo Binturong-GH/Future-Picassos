@@ -15,7 +15,7 @@ import { Stack } from '@mui/system';
 
 // auth slice to check login status
 import { useDispatch, useSelector } from 'react-redux';
-import { getMe } from '../store';
+import { getMe, logout } from '../store';
 
 // router
 import { Link } from 'react-router-dom';
@@ -36,6 +36,10 @@ const Navbar = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -96,7 +100,9 @@ const Navbar = () => {
         }}
       >
         <MenuList onClick={handleClose}>Profile</MenuList>
-        <MenuList onClick={handleClose}>Logout</MenuList>
+        <MenuList onClick={handleClose}>
+          <div onClick={handleLogout}>Logout</div>
+        </MenuList>
       </Menu>
     </>
   );
