@@ -65,6 +65,7 @@ const authSlice = createSlice({
       ? JSON.parse(localStorage.getItem('user'))
       : null,
     error: null,
+    isLogged: false,
   },
   reducers: {},
   extraReducers(builder) {
@@ -76,12 +77,13 @@ const authSlice = createSlice({
     builder.addCase(getMe.fulfilled, (state, action) => {
       isLoading = false;
       state.user = action.payload.user;
+      state.isLoading = true;
       localStorage.setItem('user', JSON.stringify(action.payload.user));
     });
 
     builder.addCase(getMe.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.isLogged = false;
     });
 
     // user signup
