@@ -100,6 +100,8 @@ const Navbar = () => {
         }}
       >
         <MenuList onClick={handleClose}>Profile</MenuList>
+        <MenuList onClick={handleClose}>Order History</MenuList>
+
         <MenuList onClick={handleClose}>
           <div onClick={handleLogout}>Logout</div>
         </MenuList>
