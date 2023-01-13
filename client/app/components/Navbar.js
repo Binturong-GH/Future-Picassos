@@ -1,41 +1,51 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, IconButton, Button } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Stack } from "@mui/system";
+import React from 'react';
+import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Stack } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const redirectToCart = () => {
+    navigate('/cart');
+  };
+  const redirectToAllProducts = () => {
+    navigate('/products');
+  };
   return (
-    <AppBar color="secondary" position="stick">
+    <AppBar color='secondary' position='stick'>
       <Toolbar>
-        <IconButton size="small" color="primary edge=" start aria-label="label">
+        <IconButton size='small' color='primary edge=' start aria-label='label'>
           <HomeIcon />
         </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           Grace Shopper
         </Typography>
 
-        <Stack direction="row" spacing={2}>
+        <Stack direction='row' spacing={2}>
           <IconButton
-            size="small"
-            color="primary edge="
+            onClick={redirectToAllProducts}
+            size='small'
+            color='primary edge='
             start
-            aria-label="label"
+            aria-label='label'
           >
             <PermIdentityIcon />
-            <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant='h8' component='div' sx={{ flexGrow: 1 }}>
               User Profile
             </Typography>
           </IconButton>
           <IconButton
-            size="small"
-            color="primary edge="
+            onClick={redirectToCart}
+            size='small'
+            color='primary edge='
             start
-            aria-label="label"
+            aria-label='label'
           >
             <ShoppingCartIcon />
-            <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant='h8' component='div' sx={{ flexGrow: 1 }}>
               Cart
             </Typography>
           </IconButton>

@@ -4,20 +4,25 @@ import {
   singleProductReducer,
   fetchOneProductAsync,
 } from './slices/singleProductSlice';
+
+//cart slice
 import cartReducer from './slices/cartSlice';
 import {
   fetchUserCart,
   addToCartDB,
   deleteFromCartDB,
   editCartDB,
+  addToCart,
 } from './slices/cartSlice';
+
+// auth slice
+import { authReducer, getMe, signup, login } from './slices/authSlice';
 
 const store = configureStore({
   reducer: {
     products: productReducer,
     product: singleProductReducer,
     cart: cartReducer,
-
     auth: authReducer,
   },
 });
@@ -27,11 +32,7 @@ export default store;
 // export auth slice
 export { getMe, signup, login };
 
-export {
-  fetchAllProductsAsync,
-  fetchOneProductAsync,
-  fetchUserCart,
-  addToCartDB,
-  deleteFromCartDB,
-  editCartDB,
-};
+export { fetchAllProductsAsync, fetchOneProductAsync };
+
+//export cart slice
+export { fetchUserCart, addToCartDB, deleteFromCartDB, editCartDB, addToCart };

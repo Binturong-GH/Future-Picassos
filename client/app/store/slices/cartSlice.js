@@ -6,26 +6,32 @@ import axios from 'axios';
 // };
 // use this instead of try catch ?
 
-export const fetchUserCart = createAsyncThunk('/cart', async (id) => {
-  try {
-    const { data } = await axios.get(`/api/cart`);
-    return data;
-  } catch (err) {
-    console.error(err);
+export const fetchUserCart = createAsyncThunk(
+  'cart/fetchUserCart',
+  async (id) => {
+    try {
+      const { data } = await axios.get(`/api/cart`);
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
   }
-});
+);
 
-export const addToCartDB = createAsyncThunk('/cart', async (newCartEntry) => {
-  try {
-    const { data } = await axios.post('/api/cart', newCartEntry);
-    return data;
-  } catch (err) {
-    console.error(err);
+export const addToCartDB = createAsyncThunk(
+  'cart/addToCartDB',
+  async (newCartEntry) => {
+    try {
+      const { data } = await axios.post('/api/cart', newCartEntry);
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
   }
-});
+);
 
 export const deleteFromCartDB = createAsyncThunk(
-  '/api/cart',
+  'cart/deleteFromCartDB',
   async (toDelete) => {
     try {
       await axios.delete('/api/cart', toDelete);
@@ -36,19 +42,38 @@ export const deleteFromCartDB = createAsyncThunk(
   }
 );
 
-export const editCartDB = createAsyncThunk('/api/cart', async (toEdit) => {
-  try {
-    const { data } = await axios.put('/api/cart', toEdit);
-    return data;
-  } catch (err) {
-    console.error(err);
+export const editCartDB = createAsyncThunk(
+  '/cart/editCartDB',
+  async (toEdit) => {
+    try {
+      const { data } = await axios.put('/api/cart', toEdit);
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
   }
-});
+);
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: { cartItems: [] },
-  reducers: {},
+  reducers: {
+    addToCart: (state, action) => {
+      console.log(
+        'hello babe from slice page. next up is console.log of state and action payload'
+      );
+      console.dir(state);
+      console.dir(action);
+      // const itemInCart = state.cartItems.indexOf(
+      //   (item) => item.productId === action.payload.productId
+      // );
+      // if (itemInCart >= 0) {
+      //   state.cartItems[itemInCart].quantity++;
+      // } else {
+      state.cartItems.push({ ...action.payload });
+      // }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
       state.cartItems.push(...action.payload);
@@ -66,4 +91,5 @@ const cartSlice = createSlice({
 });
 
 export const selectCart = (state) => state.cart;
+export const { addToCart } = cartSlice.actions;
 export default cartSlice.reducer;
