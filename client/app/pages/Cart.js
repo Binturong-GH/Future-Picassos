@@ -8,21 +8,31 @@ import { selectCart } from '../store/slices/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cart = useSelector(selectCart);
+  const { cartItems } = useSelector(selectCart);
 
-  // useEffect(() => {
-  //   console.log('useEffect kicking in, babe');
-  //   dispatch(fetchUserCart());
-  // }, [dispatch]);
+  const subtotal = cartItems.reduce(
+    (sum, currentItem) => sum + currentItem.price * currentItem.quantity,
+    0
+  );
+  const shipping = cartItems.length ? 5 : 0;
+  const tax = ((subtotal + shipping) * 0.0425).toFixed(2);
+  const total = parseInt(subtotal) + parseInt(shipping) + tax;
 
   return (
     <>
       <CartList />
-      <p>MAIN CART PAGE</p>
-      <p>subtotal: this will be the summary of all product subtotals</p>
-      <p>shipping: this will be the shipping charge</p>
-      <p>tax: this will be the tax </p>
-      <p>order total: this will be the final price</p>
+
+      <p>subtotal: ${subtotal}</p>
+      <p>shipping: ${shipping}</p>
+      <p>tax: ${tax}</p>
+      <p>order total: ${total}</p>
+      <button
+        onClick={() => {
+          console.log('proceeding to checkout!');
+        }}
+      >
+        Proceed to Checkout
+      </button>
     </>
   );
 };

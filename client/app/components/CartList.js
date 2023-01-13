@@ -18,7 +18,7 @@ const CartList = () => {
     return (
       <tr key={cartItem.id}>
         <td>{cartItem.title}</td>
-        <td>{cartItem.price}</td>
+        <td>${cartItem.price}</td>
         <td>
           <button
             onClick={() => {
@@ -38,6 +38,7 @@ const CartList = () => {
             add one
           </button>
         </td>
+        <td>{cartItem.quantity * cartItem.price}</td>
         <td>
           <button
             onClick={() => {
@@ -63,6 +64,7 @@ const CartList = () => {
                 <th> </th>
                 <th>Quantity</th>
                 <th> </th>
+                <th>Total</th>
                 <th>Delete</th>
               </tr>
             </thead>
