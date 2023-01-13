@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchOneProductAsync } from "../store/slices/singleProductSlice";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { IconButton, Typography} from "@mui/material";
 
 function SingleProduct() {
   const dispatch = useDispatch();
@@ -22,6 +24,12 @@ function SingleProduct() {
       <p>
         {product.description} ${product.price}
       </p>
+      <IconButton size="small" color="primary edge=" start aria-label="label">
+          <AddShoppingCartIcon />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Add to cart
+          </Typography>
+          </IconButton>
       <div></div>
     </div>
   );
