@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import Cart from './pages/Cart';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const AppRoutes = () => {
   return (
@@ -17,9 +18,9 @@ const AppRoutes = () => {
         <Route path='/cart' element={<Cart />} />
         <Route path='/signup' element={<SignupPage />} />
         <Route path='/login' element={<LoginPage />} />
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </main>
-
   );
 };
 
