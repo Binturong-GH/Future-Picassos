@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { productReducer, fetchAllProductsAsync } from './slices/productsSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { productReducer, fetchAllProductsAsync } from "./slices/productsSlice";
 import {
   singleProductReducer,
   fetchOneProductAsync,
@@ -9,7 +9,7 @@ import { fetchUserCart } from './slices/cartSlice';
 
 // auth slice
 import { authReducer, getMe, signup, login, logout } from './slices/authSlice';
-import { fetchUserCart } from './slices/cartSlice';
+
 
 const store = configureStore({
   reducer: {

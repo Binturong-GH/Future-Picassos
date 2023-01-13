@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import {
   AppBar,
@@ -11,16 +12,19 @@ import {
 import HomeIcon from '@mui/icons-material/Home';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ColorLensIcon from "@mui/icons-material/ColorLens";
 import { Stack } from '@mui/system';
+
 
 // auth slice to check login status
 import { useDispatch, useSelector } from 'react-redux';
 import { getMe, logout } from '../store';
 
 // router
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+ const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLogged } = useSelector((state) => state.auth);
 
@@ -41,6 +45,19 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logout());
   };
+  
+  // redirect to diffenet page
+  const redirectToHome = () => {
+    navigate("/");
+  };
+
+  const redirectToAllProducts = () => {
+    navigate("/products");
+  };
+
+  const redirectToCart = () => {
+    navigate("/cart");
+  };
 
   return (
     <>
@@ -54,11 +71,32 @@ const Navbar = () => {
           >
             <HomeIcon />
           </IconButton>
-          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            <Link to={'/'}>Grace Shopper</Link>
-          </Typography>
+          
+          <Typography
+          onClick={redirectToHome}
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1 }}
+        >
+          Grace Shopper
+        </Typography>
 
           <Stack direction='row' spacing={2}>
+          
+          <IconButton
+            onClick={redirectToAllProducts}
+            size="small"
+            color="primary edge="
+            start
+            aria-label="label"
+          >
+            <ColorLensIcon />
+            <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+              All Products
+            </Typography>
+          </IconButton>
+          
+          
             {isLogged ? (
               <Button
                 id='basic-button'
@@ -76,6 +114,7 @@ const Navbar = () => {
             )}
 
             <IconButton
+              onClick={redirectToCart}
               size='small'
               color='primary edge='
               start
