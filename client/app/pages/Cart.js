@@ -10,9 +10,9 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
 
-  // useEffect(() => {
-  //   dispatch(fetchUserCart(), []);
-  // });
+  useEffect(() => {
+    dispatch(fetchUserCart());
+  }, []);
 
   const subtotal = cartItems
     .reduce(
