@@ -4,7 +4,7 @@ const { protect } = require('../auth/authController');
 
 router.get('/', protect, cartController.getUserCart);
 router.post('/', protect, cartController.addToCart);
-router.put('/', cartController.editQuantity);
+router.put('/', protect, cartController.editQuantity);
 router.delete('/', cartController.deleteItem);
 
 module.exports = router;

@@ -80,14 +80,21 @@ exports.addToCart = catchAsync(async (req, res, next) => {
   // 3. send new cart Item back to user
 });
 
-//PUT api/cart
+// @desc: edit quantity of item in user's cart
+//@route: PUT api/cart
+//@access: Private
 exports.editQuantity = catchAsync(async (req, res, next) => {
-  const [quant, item] = await Cart.update(req.body, {
-    where: {
-      userId: req.userId,
-    },
+  const userId = req.user.id;
+  const productId = req.body.productId;
+  // const quantity = req.body.quantity;
+  const cartEntry = await Cart.findAll({
+    where: { userId: userId, productId: productId },
   });
-  res.json(item);
+  res.json(await cartEntry[0].update(req.body));
+  //1. get the user id, product id, and updated quantity of product
+
+  //2. edit that line in the db
+  //3. return the edited cart item
 });
 
 //DELETE api/cart
