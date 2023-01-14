@@ -10,7 +10,15 @@ export const fetchUserCart = createAsyncThunk(
   'cart/fetchUserCart',
   async (id) => {
     try {
-      const { data } = await axios.get(`/api/cart`);
+      const token = JSON.parse(localStorage.getItem('jwt'));
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.get(`/api/cart`, config);
       return data;
     } catch (err) {
       console.error(err);

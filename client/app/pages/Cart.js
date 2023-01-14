@@ -10,6 +10,10 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
 
+  useEffect(() => {
+    dispatch(fetchUserCart(), []);
+  });
+
   const subtotal = cartItems
     .reduce(
       (sum, currentItem) => sum + currentItem.price * currentItem.quantity,
