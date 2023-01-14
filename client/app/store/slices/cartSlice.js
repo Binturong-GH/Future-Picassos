@@ -1,25 +1,29 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-// const catchAsync = (fn) => {
-//   return (req, res, next) => fn(req, res, next).catch(next);
-// };
-// use this instead of try catch ?
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const fetchUserCart = createAsyncThunk(
-  'cart/fetchUserCart',
-  async (id) => {
+  "cart/fetchUserCart",
+  async () => {
     try {
-      const token = JSON.parse(localStorage.getItem('jwt'));
+      const token = JSON.parse(localStorage.getItem("jwt"));
       const config = {
         headers: {
-          'Content-type': 'application/json',
+          "Content-type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
 
       const { data } = await axios.get(`/api/cart`, config);
-      return data;
+      const cartArr = data.cartDetails.map((prod) => {
+        return {
+          id: prod.productInfo.id,
+          imageUrl: prod.productInfo.imageUrl,
+          price: prod.productInfo.price,
+          title: prod.productInfo.title,
+          quantity: prod.quantity,
+        };
+      });
+      return cartArr;
     } catch (err) {
       console.error(err);
     }
@@ -27,10 +31,10 @@ export const fetchUserCart = createAsyncThunk(
 );
 
 export const addToCartDB = createAsyncThunk(
-  'cart/addToCartDB',
+  "cart/addToCartDB",
   async (newCartEntry) => {
     try {
-      const { data } = await axios.post('/api/cart', newCartEntry);
+      const { data } = await axios.post("/api/cart", newCartEntry);
       return data;
     } catch (err) {
       console.error(err);
@@ -39,10 +43,10 @@ export const addToCartDB = createAsyncThunk(
 );
 
 export const deleteFromCartDB = createAsyncThunk(
-  'cart/deleteFromCartDB',
+  "cart/deleteFromCartDB",
   async (toDelete) => {
     try {
-      await axios.delete('/api/cart', toDelete);
+      await axios.delete("/api/cart", toDelete);
       return toDelete.productId;
     } catch (err) {
       console.error(err);
@@ -51,10 +55,10 @@ export const deleteFromCartDB = createAsyncThunk(
 );
 
 export const editCartDB = createAsyncThunk(
-  '/cart/editCartDB',
+  "/cart/editCartDB",
   async (toEdit) => {
     try {
-      const { data } = await axios.put('/api/cart', toEdit);
+      const { data } = await axios.put("/api/cart", toEdit);
       return data;
     } catch (err) {
       console.error(err);
@@ -63,7 +67,7 @@ export const editCartDB = createAsyncThunk(
 );
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState: { cartItems: [] },
   reducers: {
     addToCart: (state, action) => {
@@ -99,7 +103,7 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
-      state.cartItems.push(...action.payload);
+      return { cartItems: action.payload };
     });
     builder.addCase(addToCartDB.fulfilled, (state, action) => {
       state.cartItems.push(action.payload);
