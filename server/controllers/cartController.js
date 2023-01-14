@@ -39,7 +39,6 @@ exports.getUserCart = catchAsync(async (req, res, next) => {
 // @route: POST api/cart
 // @access: Private
 exports.addToCart = catchAsync(async (req, res, next) => {
-  // 1.check if the product already exist in user's cart
   const cartItem = await Cart.findOne({
     where: {
       userId: req.user.id,
@@ -52,7 +51,6 @@ exports.addToCart = catchAsync(async (req, res, next) => {
   });
 
   if (!cartItem) {
-    // 2.1 if not, add this new product to user's cart
     const newCartItem = await Cart.create({
       userId: req.user.id,
       productId: req.body.productId,
@@ -66,7 +64,6 @@ exports.addToCart = catchAsync(async (req, res, next) => {
       },
     });
   } else {
-    // 2.2 if exist, update the quantity
     cartItem.quantity += req.body.quantity;
     await cartItem.save();
     res.status(200).json({
@@ -76,34 +73,22 @@ exports.addToCart = catchAsync(async (req, res, next) => {
       },
     });
   }
-
-  // 3. send new cart Item back to user
 });
 
 // @desc: edit quantity of item in user's cart
 //@route: PUT api/cart
 //@access: Private
 exports.editQuantity = catchAsync(async (req, res, next) => {
-  const userId = req.user.id;
-  const productId = req.body.productId;
-  // const quantity = req.body.quantity;
   const cartEntry = await Cart.findAll({
-    where: { userId: userId, productId: productId },
+    where: { userId: req.user.id, productId: req.body.productId },
   });
   res.json(await cartEntry[0].update(req.body));
-  //1. get the user id, product id, and updated quantity of product
-
-  //2. edit that line in the db
-  //3. return the edited cart item
 });
 
 //DELETE api/cart
 exports.deleteItem = catchAsync(async (req, res, next) => {
   const deletedItem = await Cart.destroy({
-    where: {
-      userId: req.userId,
-      productId: req.body.productId,
-    },
+    where: { userId: req.user.id, productId: req.body.productId },
   });
   res.json(deletedItem);
 });
