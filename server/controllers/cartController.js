@@ -19,7 +19,9 @@ exports.getUserCart = catchAsync(async (req, res, next) => {
   const cartDetails = await Promise.all(
     cartItems.map(async (cartObj) => {
       return {
-        productInfo: await Product.findByPk(cartObj.productId),
+        productInfo: await Product.findByPk(cartObj.productId, {
+          attributes: ['id', 'imageUrl', 'title', 'price'],
+        }),
         quantity: cartObj.quantity,
       };
     })
@@ -31,7 +33,6 @@ exports.getUserCart = catchAsync(async (req, res, next) => {
 
   res.json({
     cartDetails: cartDetails,
-    userId: req.user.id,
   });
 });
 
