@@ -1,3 +1,4 @@
+const { default: axios } = require('axios');
 const {
   models: { Product, User, Cart },
 } = require('../db');
@@ -8,35 +9,87 @@ const catchAsync = (fn) => {
 
 //GET api/cart
 exports.getUserCart = catchAsync(async (req, res, next) => {
-  const user = localStorage.getItem('user');
+  // 1. find all productId by  userId
   const cartItems = await Cart.findAll({
-    where: { userId: user.id },
+    where: { userId: req.user.id },
   });
-  res.json(cartItems);
+  //cart items will be an array of objects: {userId, productId, quantity}
+  // 2. get product detail by productId
+
+  const cartDetails = await Promise.all(
+    cartItems.map(async (cartObj) => {
+      return {
+        productInfo: await Product.findByPk(cartObj.productId, {
+          attributes: ['id', 'imageUrl', 'title', 'price'],
+        }),
+        quantity: cartObj.quantity,
+      };
+    })
+  );
+
+  // 3. send response back to user {cartItem:[{}]}
+
+  //audit what we need to include in cart page, do not need to include all data about each
+
+  res.json({
+    cartDetails: cartDetails,
+  });
 });
 
-//POST api/cart
+// @desc: add new item to user's cart
+// @route: POST api/cart
+// @access: Private
 exports.addToCart = catchAsync(async (req, res, next) => {
-  res.json(await Cart.create(req.body));
-});
-
-//PUT api/cart
-exports.editQuantity = catchAsync(async (req, res, next) => {
-  const [quant, item] = await Cart.update(req.body, {
+  const cartItem = await Cart.findOne({
     where: {
-      userId: req.userId,
+      userId: req.user.id,
+      productId: req.body.productId,
     },
   });
-  res.json(item);
+
+  const product = await Product.findByPk(req.body.productId, {
+    attributes: ['id', 'imageUrl', 'title', 'price'],
+  });
+
+  if (!cartItem) {
+    const newCartItem = await Cart.create({
+      userId: req.user.id,
+      productId: req.body.productId,
+      quantity: req.body.quantity,
+    });
+
+    res.status(201).json({
+      cartItem: {
+        product,
+        quantity: req.body.quantity,
+      },
+    });
+  } else {
+    cartItem.quantity += req.body.quantity;
+    await cartItem.save();
+    res.status(200).json({
+      cartItem: {
+        product,
+        quantity: req.body.quantity,
+      },
+    });
+  }
+});
+
+// @desc: edit quantity of item in user's cart
+//@route: PUT api/cart
+//@access: Private
+exports.editQuantity = catchAsync(async (req, res, next) => {
+  const cartEntry = await Cart.findAll({
+    where: { userId: req.user.id, productId: req.body.productId },
+  });
+  res.json(await cartEntry[0].update(req.body));
 });
 
 //DELETE api/cart
 exports.deleteItem = catchAsync(async (req, res, next) => {
   const deletedItem = await Cart.destroy({
-    where: {
-      userId: req.userId,
-      productId: req.body.productId,
-    },
+    where: { userId: req.user.id, productId: req.body.productId },
   });
   res.json(deletedItem);
 });
