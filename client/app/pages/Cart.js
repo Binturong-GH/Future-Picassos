@@ -9,9 +9,13 @@ import { selectCart } from "../store/slices/cartSlice";
 const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(fetchUserCart());
+    console.dir(user);
+    if (user) {
+      dispatch(fetchUserCart());
+    }
   }, []);
 
   const subtotal = cartItems
