@@ -71,3 +71,56 @@ exports.addNewProduct = catchAsync(async (req, res, next) => {
     product: createdProduct,
   });
 });
+
+// @desc: Edit exit product
+// @route: PUT /api/products/:id
+// @access: Private and only allow admin
+exports.editProduct = catchAsync(async (req, res, next) => {
+  // find the product by id
+  const existedProduct = await Product.findByPk(req.params.id);
+  if (!existedProduct) {
+    const error = new Error("This is product is not existed anymore");
+    error.status = 400;
+    throw error;
+  }
+
+  // update product
+  // 1. check if admin try to update title, imageUrl, price
+  // 2. make sure the data is valid
+  // 3. update product
+  if (req.body.title.length === 0) {
+    const error = new Error("Title of Product is required");
+    error.status = 400;
+    throw error;
+  }
+
+  if (req.body.imageUrl.length === 0) {
+    const error = new Error("ImageUrl of Product is required");
+    error.status = 400;
+    throw error;
+  }
+
+  if (req.body.price < 0) {
+    const error = new Error(
+      "Price of Product is required and must be greater than 0."
+    );
+    error.status = 400;
+    throw error;
+  }
+
+  const [count, updatedProduct] = await Product.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+    validate: true,
+    returning: true,
+  });
+
+  res.status(200).json({
+    status: "success",
+    updatedCount: count,
+    product: updatedProduct[0],
+  });
+
+  // send product back
+});
