@@ -1,18 +1,27 @@
 //cart list component, could reuse this on checkout page?
 
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectCart,
   fetchUserCart,
   deleteProduct,
   incrementOne,
   subtractOne,
-} from '../store/slices/cartSlice';
+  deleteFromCartDB,
+} from "../store/slices/cartSlice";
 
 const CartList = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    console.dir(user);
+    if (user) {
+      dispatch(fetchUserCart());
+    }
+  }, []);
 
   const cartRows = cartItems.map((cartItem) => {
     return (
@@ -43,6 +52,9 @@ const CartList = () => {
           <button
             onClick={() => {
               dispatch(deleteProduct(cartItem.id));
+              if (user) {
+                dispatch(deleteFromCartDB(cartItem));
+              }
             }}
           >
             Remove from Cart

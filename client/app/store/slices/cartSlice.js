@@ -34,6 +34,13 @@ export const addToCartDB = createAsyncThunk(
   "cart/addToCartDB",
   async (newCartEntry) => {
     try {
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
       const { data } = await axios.post("/api/cart", newCartEntry);
       return data;
     } catch (err) {
@@ -46,8 +53,16 @@ export const deleteFromCartDB = createAsyncThunk(
   "cart/deleteFromCartDB",
   async (toDelete) => {
     try {
-      await axios.delete("/api/cart", toDelete);
-      return toDelete.productId;
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: toDelete,
+      };
+      await axios.delete("/api/cart", config);
+      return { productId: toDelete.id };
     } catch (err) {
       console.error(err);
     }
@@ -81,10 +96,10 @@ const cartSlice = createSlice({
       }
     },
     deleteProduct: (state, action) => {
-      const deleteProduct = state.cartItems.filter(
+      const remainingItems = state.cartItems.filter(
         (item) => item.id !== action.payload
       );
-      state.cartItems = deleteProduct;
+      state.cartItems = remainingItems;
     },
     incrementOne: (state, action) => {
       const product = state.cartItems.filter(
@@ -109,7 +124,12 @@ const cartSlice = createSlice({
       state.cartItems.push(action.payload);
     });
     builder.addCase(deleteFromCartDB.fulfilled, (state, action) => {
-      return state.filter((product) => product.productId !== action.payload);
+      console.log("delete thunk ran");
+      // return {
+      //   cartItems: state.cartItems.filter(
+      //     (product) => product.productId !== action.payload
+      //   ),
+      // };
     });
     builder.addCase(editCartDB.fulfilled, (state, action) => {
       return action.payload;

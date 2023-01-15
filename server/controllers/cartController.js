@@ -1,7 +1,7 @@
-const { default: axios } = require('axios');
+const { default: axios } = require("axios");
 const {
   models: { Product, User, Cart },
-} = require('../db');
+} = require("../db");
 
 const catchAsync = (fn) => {
   return (req, res, next) => fn(req, res, next).catch(next);
@@ -20,7 +20,7 @@ exports.getUserCart = catchAsync(async (req, res, next) => {
     cartItems.map(async (cartObj) => {
       return {
         productInfo: await Product.findByPk(cartObj.productId, {
-          attributes: ['id', 'imageUrl', 'title', 'price'],
+          attributes: ["id", "imageUrl", "title", "price"],
         }),
         quantity: cartObj.quantity,
       };
@@ -48,7 +48,7 @@ exports.addToCart = catchAsync(async (req, res, next) => {
   });
 
   const product = await Product.findByPk(req.body.productId, {
-    attributes: ['id', 'imageUrl', 'title', 'price'],
+    attributes: ["id", "imageUrl", "title", "price"],
   });
 
   if (!cartItem) {
@@ -89,7 +89,7 @@ exports.editQuantity = catchAsync(async (req, res, next) => {
 //DELETE api/cart
 exports.deleteItem = catchAsync(async (req, res, next) => {
   const deletedItem = await Cart.destroy({
-    where: { userId: req.user.id, productId: req.body.productId },
+    where: { userId: req.user.id, productId: req.body.id },
   });
   res.json(deletedItem);
 });

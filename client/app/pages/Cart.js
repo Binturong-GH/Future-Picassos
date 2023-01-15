@@ -9,14 +9,6 @@ import { selectCart } from "../store/slices/cartSlice";
 const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
-  const { user } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    console.dir(user);
-    if (user) {
-      dispatch(fetchUserCart());
-    }
-  }, []);
 
   const subtotal = cartItems
     .reduce(
