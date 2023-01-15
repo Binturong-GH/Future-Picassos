@@ -119,6 +119,8 @@ export default function UsersList() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell align="center">Index</TableCell>
+
               <TableCell>ID</TableCell>
               <TableCell align="right">Name</TableCell>
               <TableCell align="right">Email</TableCell>
@@ -126,11 +128,12 @@ export default function UsersList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
+            {users.map((user, index) => (
               <TableRow
                 key={user.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
+                <TableCell align="center">{index + 1}</TableCell>
                 <TableCell component="th" scope="row">
                   {user.id}
                 </TableCell>
