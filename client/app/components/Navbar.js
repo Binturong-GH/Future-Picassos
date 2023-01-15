@@ -72,7 +72,7 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar color="secondary" position="stick">
+      <AppBar color="secondary" position="static">
         <Toolbar>
           <IconButton
             onClick={redirectToHome}
