@@ -25,13 +25,17 @@ export default function UsersList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, users, error } = useSelector((state) => state.users);
-  const { isLogged, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!(isLogged && user.role === "admin")) {
+    if (
+      !(
+        localStorage.getItem("user") &&
+        JSON.parse(localStorage.getItem("user")).role === "admin"
+      )
+    ) {
       navigate("/");
     }
-  }, [isLogged, user]);
+  }, []);
 
   useEffect(() => {
     dispatch(getAllUsers());
