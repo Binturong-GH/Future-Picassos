@@ -10,6 +10,9 @@ import {
   Paper,
   Typography,
   Icon,
+  Backdrop,
+  CircularProgress,
+  Alert,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -43,6 +46,13 @@ export default function UsersList() {
 
   return (
     <>
+      <Backdrop
+        open={isLoading}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      {!isLoading && error && <Alert severity="error">{error}</Alert>}
       <Typography variant="h3">Users</Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
