@@ -43,7 +43,7 @@ const productsSlice = createSlice({
 
       state.products = action.payload.products;
     });
-    builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
+    builder.addCase(fetchAllProductsAsync.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.messsage;
     });
