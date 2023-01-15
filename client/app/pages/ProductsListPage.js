@@ -22,6 +22,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
+import { pink } from "@mui/material/colors";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -150,7 +151,7 @@ export default function ProductsListPage() {
                       handleDeleteProduct(product.id);
                     }}
                   >
-                    <DeleteIcon />
+                    <DeleteIcon sx={{ color: pink[500] }} />
                   </IconButton>
                 </TableCell>
               </TableRow>
