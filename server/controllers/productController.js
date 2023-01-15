@@ -124,3 +124,17 @@ exports.editProduct = catchAsync(async (req, res, next) => {
 
   // send product back
 });
+
+// @desc: Delete exist product
+// @route: DELETE /api/products/:di
+// @access: Private and only allow admin
+exports.deleteProduct = catchAsync(async (req, res, next) => {
+  await Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  });
+  res.status(204).json({
+    status: "success",
+  });
+});
