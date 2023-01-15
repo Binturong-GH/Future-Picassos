@@ -17,10 +17,11 @@ import {
   Box,
   Pagination,
   Stack,
+  Button,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
+import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -65,9 +66,26 @@ export default function ProductsListPage() {
     }
   }, [isLogged]);
 
+  const handleCreateProduct = () => {
+    console.log("create new product");
+  };
+
+  const handleEditProduct = (id) => {
+    console.log("edit product");
+  };
+  const handleDeleteProduct = (id) => {
+    console.log("delete product");
+  };
+
   return (
     <>
-      <Typography variant="h3">Products</Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="h3">Products</Typography>
+        <Button variant="contained" onClick={handleCreateProduct}>
+          <AddIcon /> <span> Create a new Product</span>
+        </Button>
+      </Box>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -78,6 +96,8 @@ export default function ProductsListPage() {
               <TableCell align="right">Title</TableCell>
               <TableCell align="right">Price</TableCell>
               <TableCell align="right">Count in stock</TableCell>
+              <TableCell align="right">Edit</TableCell>
+              <TableCell align="right">Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -110,6 +130,28 @@ export default function ProductsListPage() {
                   ) : (
                     <Typography>Out of stock</Typography>
                   )}
+                </TableCell>
+
+                <TableCell align="right">
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => {
+                      handleEditProduct(product.id);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </TableCell>
+
+                <TableCell align="right">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => {
+                      handleDeleteProduct(product.id);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
