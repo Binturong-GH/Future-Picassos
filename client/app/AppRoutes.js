@@ -6,7 +6,8 @@ import Cart from "./pages/Cart";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import UsersList from "./components/UsersList";
+import UsersListPage from "./pages/UsersListPage";
+import ProductListpage from "./pages/ProductsListPage";
 
 const AppRoutes = () => {
   return (
@@ -19,7 +20,8 @@ const AppRoutes = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin/users" element={<UsersList />} />
+        <Route path="/admin/users" element={<UsersListPage />} />
+        <Route path="/admin/products" element={<ProductListpage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

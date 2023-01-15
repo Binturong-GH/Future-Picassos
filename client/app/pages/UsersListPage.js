@@ -40,12 +40,10 @@ export default function UsersList() {
       )
     ) {
       navigate("/");
+    } else {
+      dispatch(getAllUsers());
     }
   }, [isLogged]);
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, []);
 
   const handleDeleteUser = (id) => {
     dispatch(deleteUser(id));
