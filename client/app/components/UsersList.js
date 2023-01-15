@@ -28,10 +28,10 @@ export default function UsersList() {
   const { isLogged, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!isLogged || user.role !== "admin") {
+    if (!isLogged && user.role !== "admin") {
       navigate("/");
     }
-  }, []);
+  }, [isLogged, user]);
 
   useEffect(() => {
     dispatch(getAllUsers());
