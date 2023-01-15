@@ -77,8 +77,8 @@ const Navbar = () => {
           <IconButton
             onClick={redirectToHome}
             size="small"
-            color="primary edge="
-            start
+            color="primary"
+            edge="start"
             aria-label="label"
           >
             <HomeIcon />
@@ -97,8 +97,8 @@ const Navbar = () => {
             <IconButton
               onClick={redirectToAllProducts}
               size="small"
-              color="primary edge="
-              start
+              color="primary"
+              edge="start"
               aria-label="label"
             >
               <ColorLensIcon />
@@ -138,8 +138,8 @@ const Navbar = () => {
             <IconButton
               onClick={redirectToCart}
               size="small"
-              color="primary edge="
-              start
+              color="primary"
+              edge="start"
               aria-label="label"
             >
               <ShoppingCartIcon />
