@@ -22,54 +22,31 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, deleteUser } from "../store";
+import { fetchAllProductsAsync } from "../store";
 
 // Router
 import { useNavigate } from "react-router-dom";
 
-const products = [
-  {
-    id: 2,
-    title: "My First Day",
-    imageUrl:
-      "https://babyology.com.au/wp-content/uploads/2019/02/funny-kids-drawings.jpg",
-    price: "350.00",
-    countInStock: 20,
-  },
-  {
-    id: 1,
-    title: "The Kiss of Sun",
-    imageUrl:
-      "https://babyolohttps://i.pinimg.com/originals/bb/85/0e/bb850e430413db391cb623b7e522961a.jpggy.com.au/wp-content/uploads/2019/02/funny-kids-drawings.jpg",
-    price: "550.00",
-    countInStock: 25,
-  },
-  {
-    id: 4,
-    title: "In The Playground",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
-    price: "250.00",
-    countInStock: 30,
-  },
-  {
-    id: 3,
-    title: "Chip And Me",
-    imageUrl: "http://www.natureartists.com/art/resized/253_dog_and_boy.jpg",
-    price: "750.00",
-    countInStock: 35,
-  },
-  {
-    id: 5,
-    title: "When I Am ANGRY",
-    imageUrl:
-      "https://cdn.britannica.com/24/189624-050-F3C5BAA9/Mona-Lisa-oil-wood-panel-Leonardo-da.jpg?w=300&h=169&c=crop",
-    price: "300.00",
-    countInStock: 0,
-  },
-];
-
 export default function ProductsListPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, products, error } = useSelector((state) => state.products);
+  const { isLogged } = useSelector((state) => state.auth);
+
+  // check if user is logged and user is an admin
+  useEffect(() => {
+    if (
+      !(
+        localStorage.getItem("user") &&
+        JSON.parse(localStorage.getItem("user")).role === "admin"
+      )
+    ) {
+      navigate("/");
+    } else {
+      dispatch(fetchAllProductsAsync());
+    }
+  }, [isLogged]);
+
   return (
     <>
       <Typography variant="h3">Products</Typography>
