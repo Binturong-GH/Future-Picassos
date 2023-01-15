@@ -11,7 +11,7 @@ const catchAsync = (fn) => {
 // @access: Public
 exports.getAllProducts = catchAsync(async (req, res, next) => {
   const products = await Product.findAll({
-    attributes: ["id", "title", "imageUrl", "price"],
+    attributes: ["id", "title", "imageUrl", "price", "countInStock"],
   });
   res.status(200).json({
     status: "success",
