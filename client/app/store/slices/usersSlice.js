@@ -31,7 +31,7 @@ export const deleteUser = createAsyncThunk("admin/deleteUser", async (id) => {
       },
     };
     const res = await axios.delete(`/api/users/${id}`, config);
-    return id;
+    return { id: id };
   } catch (error) {
     const errMsg = error.response.data;
     throw new Error(errMsg);

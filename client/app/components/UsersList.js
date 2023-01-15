@@ -13,13 +13,15 @@ import {
   Backdrop,
   CircularProgress,
   Alert,
+  IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../store";
+import { getAllUsers, deleteUser } from "../store";
 
 // Router
 import { useNavigate } from "react-router-dom";
@@ -45,6 +47,10 @@ export default function UsersList() {
     dispatch(getAllUsers());
   }, []);
 
+  const handleDeleteUser = (id) => {
+    dispatch(deleteUser(id));
+  };
+
   return (
     <>
       <Backdrop
@@ -65,6 +71,7 @@ export default function UsersList() {
               <TableCell align="right">Name</TableCell>
               <TableCell align="right">Email</TableCell>
               <TableCell align="right">Admin</TableCell>
+              <TableCell align="right">Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -83,6 +90,16 @@ export default function UsersList() {
                   <Icon color={user.role === "admin" ? "success" : "error"}>
                     {user.role === "admin" ? <CheckIcon /> : <ClearIcon />}
                   </Icon>
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => {
+                      handleDeleteUser(user.id);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
