@@ -11,7 +11,7 @@ const catchAsync = (fn) => {
 // @access: Private & only admins are allowed to access
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.findAll({
-    attributes: ["id", "name"],
+    attributes: ["id", "name", "email", "role"],
   });
   res.status(200).json({
     status: "success",
