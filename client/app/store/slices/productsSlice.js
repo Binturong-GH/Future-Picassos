@@ -14,16 +14,25 @@ export const fetchAllProductsAsync = createAsyncThunk(
   }
 );
 
-// export const addNewProductAsync = createAsyncThunk(
-//   "products/add",
-//   async (product) => {
-//     const response = await axios.post(
-//       "http://localhost:1337/api/products",
-//       product
-//     );
-//     return response.data;
-//   }
-// );
+export const createNewProduct = createAsyncThunk(
+  "products/create",
+  async (product) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const res = await axios.post("/api/products", product, config);
+      return res.data;
+    } catch (error) {
+      const errMsg = error.response.data;
+      throw new Error(errMsg);
+    }
+  }
+);
 
 const productsSlice = createSlice({
   name: "products",
@@ -44,11 +53,21 @@ const productsSlice = createSlice({
     });
     builder.addCase(fetchAllProductsAsync.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.messsage;
+      state.error = action.error.message;
     });
-    // builder.addCase(addNewProductAsync.fulfilled, (state, action) => {
-    //   state.push(action.payload);
-    // });
+
+    // create new products
+    builder.addCase(createNewProduct.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(createNewProduct.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.products.push(action.payload.products);
+    });
+    builder.addCase(createNewProduct.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
   },
 });
 
