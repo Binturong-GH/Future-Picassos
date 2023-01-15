@@ -118,7 +118,7 @@ export default function ProductsListPage() {
       </TableContainer>
       <Stack spacing={2}>
         <Pagination
-          count={productsPerPage.length}
+          count={paginate(products).length}
           onChange={handlePageChange}
         />
       </Stack>
