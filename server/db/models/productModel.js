@@ -24,9 +24,7 @@ const Product = db.define("product", {
   price: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    defaultValue: 0,
   },
   artistName: {
     type: Sequelize.STRING,
@@ -36,6 +34,7 @@ const Product = db.define("product", {
   },
   countInStock: {
     type: Sequelize.INTEGER,
+    defaultValue: 1,
   },
 });
 module.exports = Product;
