@@ -180,6 +180,9 @@ const Navbar = () => {
         <MenuList onClick={handleAdminMenuClose}>
           <Link to={"/admin/users"}>Users</Link>
         </MenuList>
+        <MenuList onClick={handleAdminMenuClose}>
+          <Link to={"/admin/products"}>product</Link>
+        </MenuList>
       </Menu>
     </>
   );
