@@ -8,7 +8,8 @@ export const fetchAllProductsAsync = createAsyncThunk(
       const response = await axios.get("/api/products");
       return response.data;
     } catch (error) {
-      console.log(error);
+      const errMsg = error.response.data;
+      throw new Error(errMsg);
     }
   }
 );
@@ -27,12 +28,24 @@ export const fetchAllProductsAsync = createAsyncThunk(
 const productsSlice = createSlice({
   name: "products",
   initialState: {
+    isLoading: false,
     products: [],
+    error: null,
   },
   reducers: {},
   extraReducers(builder) {
+    // get all products
+    builder.addCase(fetchAllProductsAsync.pending, (state, action) => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
+      state.isLoading = false;
+
       state.products = action.payload.products;
+    });
+    builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.messsage;
     });
     // builder.addCase(addNewProductAsync.fulfilled, (state, action) => {
     //   state.push(action.payload);
