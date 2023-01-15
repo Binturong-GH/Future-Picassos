@@ -29,6 +29,7 @@ export default function UsersList() {
   const navigate = useNavigate();
   const { isLoading, users, error } = useSelector((state) => state.users);
 
+  // check if user is logged and user is an admin
   useEffect(() => {
     if (
       !(
