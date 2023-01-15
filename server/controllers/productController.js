@@ -6,10 +6,18 @@ const catchAsync = (fn) => {
   return (req, res, next) => fn(req, res, next).catch(next);
 };
 
+// @desc: get all products
+// @route: GET /api/products
+// @access: Public
 exports.getAllProducts = catchAsync(async (req, res, next) => {
-  console.log("Im working");
-  const products = await Product.findAll();
-  res.json(products);
+  const products = await Product.findAll({
+    attributes: ["id", "title", "imageUrl", "price"],
+  });
+  res.status(200).json({
+    status: "success",
+    results: products.length,
+    products,
+  });
 });
 
 exports.getProduct = catchAsync(async (req, res, next) => {
