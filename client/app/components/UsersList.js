@@ -28,7 +28,7 @@ export default function UsersList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, users, error } = useSelector((state) => state.users);
-
+  const { isLogged } = useSelector((state) => state.auth);
   // check if user is logged and user is an admin
   useEffect(() => {
     if (
@@ -39,7 +39,7 @@ export default function UsersList() {
     ) {
       navigate("/");
     }
-  }, []);
+  }, [isLogged]);
 
   useEffect(() => {
     dispatch(getAllUsers());
