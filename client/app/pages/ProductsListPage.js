@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // MUI
 import {
   Table,
@@ -15,6 +15,8 @@ import {
   Alert,
   IconButton,
   Box,
+  Pagination,
+  Stack,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
@@ -27,11 +29,27 @@ import { fetchAllProductsAsync } from "../store";
 // Router
 import { useNavigate } from "react-router-dom";
 
+// from utils
+import paginate from "../utils/paginate";
+
 export default function ProductsListPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, products, error } = useSelector((state) => state.products);
   const { isLogged } = useSelector((state) => state.auth);
+
+  // pagination
+  const [page, setPage] = useState(0);
+  const [productsPerPage, setProductsPerPage] = useState([]);
+  const handlePageChange = (event, value) => {
+    setPage(value - 1);
+  };
+  useEffect(() => {
+    if (isLoading) return;
+    if (products.length > 0) {
+      setProductsPerPage(paginate(products)[page]);
+    }
+  }, [isLoading, products, page]);
 
   // check if user is logged and user is an admin
   useEffect(() => {
@@ -55,7 +73,6 @@ export default function ProductsListPage() {
           <TableHead>
             <TableRow>
               <TableCell align="center">Index</TableCell>
-
               <TableCell>ID</TableCell>
               <TableCell align="center">Image</TableCell>
               <TableCell align="right">Title</TableCell>
@@ -64,7 +81,7 @@ export default function ProductsListPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product, index) => (
+            {productsPerPage.map((product, index) => (
               <TableRow
                 key={product.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -99,6 +116,12 @@ export default function ProductsListPage() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Stack spacing={2}>
+        <Pagination
+          count={productsPerPage.length}
+          onChange={handlePageChange}
+        />
+      </Stack>
     </>
   );
 }

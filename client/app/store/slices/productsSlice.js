@@ -40,7 +40,6 @@ const productsSlice = createSlice({
     });
     builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
       state.isLoading = false;
-
       state.products = action.payload.products;
     });
     builder.addCase(fetchAllProductsAsync.rejected, (state, action) => {
