@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { logout } from "./authSlice";
 
 // @desc: Admin get all users list
 export const getAllUsers = createAsyncThunk("admin/getAllUsers", async () => {
@@ -39,6 +40,11 @@ const usersSlice = createSlice({
     builder.addCase(getAllUsers.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
+    });
+
+    // add case for user logout
+    builder.addCase(logout, (state, action) => {
+      state.users = [];
     });
   },
 });
