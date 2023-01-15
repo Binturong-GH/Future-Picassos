@@ -26,7 +26,7 @@ import { pink } from "@mui/material/colors";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProductsAsync } from "../store";
+import { fetchAllProductsAsync, deleteExisedProduct } from "../store";
 
 // Router
 import { useNavigate } from "react-router-dom";
@@ -75,7 +75,7 @@ export default function ProductsListPage() {
     console.log("edit product");
   };
   const handleDeleteProduct = (id) => {
-    console.log("delete product");
+    dispatch(deleteExisedProduct(id));
   };
 
   return (

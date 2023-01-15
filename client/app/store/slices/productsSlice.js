@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// @desc : get all products
 export const fetchAllProductsAsync = createAsyncThunk(
   "products/fetchAll",
   async () => {
@@ -14,6 +15,7 @@ export const fetchAllProductsAsync = createAsyncThunk(
   }
 );
 
+// @desc : create a new products
 export const createNewProduct = createAsyncThunk(
   "products/create",
   async (product) => {
@@ -27,6 +29,27 @@ export const createNewProduct = createAsyncThunk(
       };
       const res = await axios.post("/api/products", product, config);
       return res.data;
+    } catch (error) {
+      const errMsg = error.response.data;
+      throw new Error(errMsg);
+    }
+  }
+);
+
+// @desc : delete existed product
+export const deleteExisedProduct = createAsyncThunk(
+  "products/deleteOne",
+  async (id) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const res = await axios.delete(`/api/products/${id}`, config);
+      return { id: id };
     } catch (error) {
       const errMsg = error.response.data;
       throw new Error(errMsg);
@@ -65,6 +88,22 @@ const productsSlice = createSlice({
       state.products.push(action.payload.products);
     });
     builder.addCase(createNewProduct.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
+    // delete product
+    builder.addCase(deleteExisedProduct.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteExisedProduct.fulfilled, (state, action) => {
+      state.isLoading = false;
+      const restedProducts = state.products.filter(
+        (item) => item.id !== action.payload.id
+      );
+      state.products = restedProducts;
+    });
+    builder.addCase(deleteExisedProduct.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });
