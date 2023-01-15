@@ -25,10 +25,10 @@ export default function UsersList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, users, error } = useSelector((state) => state.users);
-  const { isLogged } = useSelector((state) => state.auth);
+  const { isLogged, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!isLogged) {
+    if (!isLogged || user.role !== "admin") {
       navigate("/");
     }
   }, []);
