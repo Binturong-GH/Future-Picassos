@@ -6,6 +6,7 @@ import * as yup from "yup";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneProductAsync } from "../store";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -18,13 +19,21 @@ const style = {
   p: 4,
 };
 
-// const validate = yup.object({
-//   title: yup.required("Title of product is required."),
-//   imageUrl: yup.required("Image URL of product is required."),
-//   price: yup
-//     .number("Price must be a decimal number.")
-//     .equired("Price of product is required."),
-// });
+const validate = yup.object({
+  title: yup
+    .string("Enter title of product")
+    .required("Title of product is required."),
+  imageUrl: yup
+    .string("Enter Imgae URL of product.")
+    .required("Image URL of product is required."),
+  price: yup
+    .number("Price must be a decimal number.")
+    .required("Price of product is required."),
+  description: yup.string("Enter description of product"),
+  artistName: yup.string("Enter name of artist"),
+  age: yup.number("Enter age of artist."),
+  countInStock: yup.number("Enter count in stock of product."),
+});
 
 export default function EditProduct({ handleClose, open, id }) {
   const dispatch = useDispatch();
@@ -33,6 +42,23 @@ export default function EditProduct({ handleClose, open, id }) {
   useEffect(() => {
     dispatch(fetchOneProductAsync(id));
   }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      title: product.title,
+      imageUrl: product.imageUrl,
+      price: product.price,
+      description: product.description,
+      artistName: product.artistName,
+      age: product.age,
+      countInStock: product.countInStock,
+    },
+    enableReinitialize: true,
+    validationSchema: validate,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
 
   return (
     <div>
