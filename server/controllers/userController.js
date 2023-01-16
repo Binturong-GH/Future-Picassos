@@ -36,3 +36,20 @@ exports.getSingleUser = catchAsync(async (req, res, next) => {
 //   });
 //   res.send(cartItems);
 // });
+
+// @desc: Delete users
+// @route: DElETE api/users/:id
+// @access: Private & only admins are allowed to access
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByPk(req.params.id);
+  if (!user) {
+    const error = new Error("User not found.");
+    error.status = 404;
+    throw error;
+  }
+
+  await user.destroy();
+  res.status(204).json({
+    status: "success",
+  });
+});

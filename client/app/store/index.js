@@ -22,7 +22,7 @@ import {
 import { authReducer, getMe, signup, login, logout } from "./slices/authSlice";
 
 // users slice
-import { usersReducer, getAllUsers } from "./slices/usersSlice";
+import { usersReducer, getAllUsers, deleteUser } from "./slices/usersSlice";
 
 const store = configureStore({
   reducer: {
@@ -55,4 +55,4 @@ export {
 };
 
 // export users slice
-export { getAllUsers };
+export { getAllUsers, deleteUser };

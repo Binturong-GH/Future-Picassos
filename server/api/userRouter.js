@@ -4,6 +4,9 @@ const { protect, restrictTo } = require("../auth/authController");
 
 router.get("/", protect, restrictTo("admin"), userController.getAllUsers);
 
-router.get("/:id", userController.getSingleUser);
+router
+  .route("/:id")
+  .get(userController.getSingleUser)
+  .delete(protect, restrictTo("admin"), userController.deleteUser);
 
 module.exports = router;
