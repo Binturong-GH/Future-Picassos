@@ -21,12 +21,16 @@ import {
 // auth slice
 import { authReducer, getMe, signup, login, logout } from "./slices/authSlice";
 
+// users slice
+import { usersReducer, getAllUsers, deleteUser } from "./slices/usersSlice";
+
 const store = configureStore({
   reducer: {
     products: productReducer,
     product: singleProductReducer,
     cart: cartReducer,
     auth: authReducer,
+    users: usersReducer,
   },
 });
 
@@ -49,3 +53,6 @@ export {
   incrementOne,
   subtractOne,
 };
+
+// export users slice
+export { getAllUsers, deleteUser };

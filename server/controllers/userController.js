@@ -1,25 +1,29 @@
 const {
   models: { Product, User, Cart },
-} = require('../db');
+} = require("../db");
 
 const catchAsync = (fn) => {
   return (req, res, next) => fn(req, res, next).catch(next);
 };
 
-//GET api/users
+// @desc: Get all users
+// @route: GET api/users
+// @access: Private & only admins are allowed to access
 exports.getAllUsers = catchAsync(async (req, res, next) => {
-  console.log('hello, na!');
   const users = await User.findAll({
-    attributes: ['id', 'name'],
+    attributes: ["id", "name", "email", "role"],
   });
-  console.dir(users);
-  res.status(200).json(users);
+  res.status(200).json({
+    status: "success",
+    results: users.length,
+    users: users,
+  });
 });
 
 //GET api/users/:id
 exports.getSingleUser = catchAsync(async (req, res, next) => {
   const user = await User.findByPk(req.params.id, {
-    attributes: ['id', 'name'],
+    attributes: ["id", "name"],
   });
   res.json(user);
 });
@@ -32,3 +36,20 @@ exports.getSingleUser = catchAsync(async (req, res, next) => {
 //   });
 //   res.send(cartItems);
 // });
+
+// @desc: Delete users
+// @route: DElETE api/users/:id
+// @access: Private & only admins are allowed to access
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByPk(req.params.id);
+  if (!user) {
+    const error = new Error("User not found.");
+    error.status = 404;
+    throw error;
+  }
+
+  await user.destroy();
+  res.status(204).json({
+    status: "success",
+  });
+});

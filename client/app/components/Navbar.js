@@ -24,13 +24,15 @@ import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLogged } = useSelector((state) => state.auth);
+  const { isLogged, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getMe());
   }, [isLogged]);
 
   // MUI handle dropdown menu
+
+  // user dropdown menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -40,6 +42,17 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
+  // admin dropdown menu
+  const [adminAnchorEl, setAdminAnchorEl] = useState(null);
+  const openAdmin = Boolean(adminAnchorEl);
+  const handleAdminMenuClick = (event) => {
+    setAdminAnchorEl(event.currentTarget);
+  };
+  const handleAdminMenuClose = () => {
+    setAdminAnchorEl(null);
+  };
+
+  // user logout
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -59,13 +72,13 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar color="secondary" position="stick">
+      <AppBar color="secondary" position="static">
         <Toolbar>
           <IconButton
             onClick={redirectToHome}
             size="small"
-            color="primary edge="
-            start
+            color="primary"
+            edge="start"
             aria-label="label"
           >
             <HomeIcon />
@@ -84,8 +97,8 @@ const Navbar = () => {
             <IconButton
               onClick={redirectToAllProducts}
               size="small"
-              color="primary edge="
-              start
+              color="primary"
+              edge="start"
               aria-label="label"
             >
               <ColorLensIcon />
@@ -96,8 +109,8 @@ const Navbar = () => {
 
             {isLogged ? (
               <Button
-                id="basic-button"
-                aria-controls={open ? "basic-menu" : undefined}
+                id="user-button"
+                aria-controls={open ? "user-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
@@ -110,11 +123,23 @@ const Navbar = () => {
               </Button>
             )}
 
+            {isLogged && user.role === "admin" && (
+              <Button
+                id="admin-button"
+                aria-controls={openAdmin ? "admin-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openAdmin ? "true" : undefined}
+                onClick={handleAdminMenuClick}
+              >
+                Admin
+              </Button>
+            )}
+
             <IconButton
               onClick={redirectToCart}
               size="small"
-              color="primary edge="
-              start
+              color="primary"
+              edge="start"
               aria-label="label"
             >
               <ShoppingCartIcon />
@@ -127,12 +152,12 @@ const Navbar = () => {
       </AppBar>
 
       <Menu
-        id="basic-menu"
+        id="user-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          "aria-labelledby": "basic-button",
+          "aria-labelledby": "user-button",
         }}
       >
         <MenuList onClick={handleClose}>Profile</MenuList>
@@ -140,6 +165,23 @@ const Navbar = () => {
 
         <MenuList onClick={handleClose}>
           <div onClick={handleLogout}>Logout</div>
+        </MenuList>
+      </Menu>
+
+      <Menu
+        id="admin-menu"
+        anchorEl={adminAnchorEl}
+        open={openAdmin}
+        onClose={handleAdminMenuClose}
+        MenuListProps={{
+          "aria-labelledby": "admin-button",
+        }}
+      >
+        <MenuList onClick={handleAdminMenuClose}>
+          <Link to={"/admin/users"}>Users</Link>
+        </MenuList>
+        <MenuList onClick={handleAdminMenuClose}>
+          <Link to={"/admin/products"}>product</Link>
         </MenuList>
       </Menu>
     </>
