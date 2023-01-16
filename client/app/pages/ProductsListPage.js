@@ -37,6 +37,7 @@ import paginate from "../utils/paginate";
 // from components
 import DeleteProductPrompt from "../components/DeleteProductPrompt";
 import EditProduct from "../components/EditProduct";
+import CreateProductPrompt from "../components/CreateProductPrompt";
 
 export default function ProductsListPage() {
   const dispatch = useDispatch();
@@ -71,8 +72,14 @@ export default function ProductsListPage() {
     }
   }, [isLogged]);
 
+  // handle create product prompt
   const handleCreateProduct = () => {
-    console.log("create new product");
+    setOpenCreateProductPrompt(true);
+  };
+  const [openCreateProductPrompt, setOpenCreateProductPrompt] = useState(false);
+
+  const handleCreateProductPromptClose = () => {
+    setOpenCreateProductPrompt(false);
   };
 
   // handle edit prompt
@@ -146,6 +153,11 @@ export default function ProductsListPage() {
             id={productWillBeEdit}
           />
         )}
+
+        <CreateProductPrompt
+          handleClose={handleCreateProductPromptClose}
+          open={openCreateProductPrompt}
+        />
       </>
 
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
