@@ -10,26 +10,7 @@ function ProductsList() {
   const { products } = useSelector((state) => state.products);
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
-  }, []);
-
-  //const handleAddProduct = products => {
-    //   const ProductExist = cartItems.find(item => item.id === products.id);
-    //   if (ProductExist) {
-    //     setCartItems(
-    //       cartItems.map(item =>
-    //         item.id === products.id
-    //           ? { ...ProductExist, quantity: ProductExist.quantity + 1 }
-    //           : item
-    //       )
-    //     );
-    //   } else {
-    //     setCartItems([...cartItems, {
-    //       ...products,
-    //       quantity: ProductExist.quantity + 1
-    //     }]);
-    //   }
-    // };
-
+  }, [products]);
 
   const renderedProductsList = products.map((product) => {
     return (
