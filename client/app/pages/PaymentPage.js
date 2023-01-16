@@ -1,7 +1,49 @@
 import React from "react";
-import CartList from "../components/CartList";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCart } from "../store/slices/cartSlice";
 
 export default function PaymentPage() {
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector(selectCart);
+
+  const cartRows = cartItems.map((cartItem) => {
+    return (
+      <tr key={cartItem.id}>
+        <td>{cartItem.title}</td>
+        <td>${cartItem.price}</td>
+        <td>
+          <button
+            onClick={() => {
+              dispatch(subtractOne(cartItem.id));
+            }}
+          >
+            subtract one
+          </button>
+        </td>
+        <td>{cartItem.quantity}</td>
+        <td>
+          <button
+            onClick={() => {
+              dispatch(incrementOne(cartItem.id));
+            }}
+          >
+            add one
+          </button>
+        </td>
+        <td>{cartItem.quantity * cartItem.price}</td>
+        <td>
+          <button
+            onClick={() => {
+              dispatch(deleteProduct(cartItem.id));
+            }}
+          >
+            Remove from Cart
+          </button>
+        </td>
+      </tr>
+    );
+  });
+
   var checkout_HTML = "";
 
   checkout_HTML = (
@@ -101,7 +143,6 @@ export default function PaymentPage() {
 
   return (
     <div>
-      <CartList />
       <div
         className="modal fade"
         id="payOnlineModal"
