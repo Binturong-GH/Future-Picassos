@@ -93,7 +93,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.products = action.payload.products.sort((a, b) => a.id - b.id);
+      state.products = action.payload.products.sort((a, b) => a.id - b);
     });
     builder.addCase(fetchAllProductsAsync.rejected, (state, action) => {
       state.isLoading = false;
