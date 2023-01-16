@@ -27,6 +27,13 @@ const style = {
 // });
 
 export default function EditProduct({ handleClose, open, id }) {
+  const dispatch = useDispatch();
+  const { product } = useSelector((state) => state.product);
+
+  useEffect(() => {
+    dispatch(fetchOneProductAsync(id));
+  }, []);
+
   return (
     <div>
       <Modal
