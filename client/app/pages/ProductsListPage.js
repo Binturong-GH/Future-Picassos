@@ -97,6 +97,21 @@ export default function ProductsListPage() {
     setProductWillBeDeleted(null);
   };
 
+  if (isLoading) {
+    return (
+      <Backdrop
+        open={isLoading}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
+
+  if (!isLoading && error) {
+    return <Alert severity="error">{error}</Alert>;
+  }
+
   return (
     <>
       <>
