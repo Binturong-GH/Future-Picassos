@@ -55,7 +55,11 @@ export default function ProductsListPage() {
   useEffect(() => {
     if (isLoading) return;
     if (products.length > 0) {
-      setProductsPerPage(paginate(products)[page]);
+      if (page > Math.ceil(products.length / 10) - 1) {
+        setPage((prev) => prev - 1);
+      } else {
+        setProductsPerPage(paginate(products)[page]);
+      }
     }
   }, [isLoading, products, page]);
 
