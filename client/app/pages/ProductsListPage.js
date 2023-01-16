@@ -36,6 +36,7 @@ import paginate from "../utils/paginate";
 
 // from components
 import DeleteProductPrompt from "../components/DeleteProductPrompt";
+import EditProduct from "../components/EditProduct";
 
 export default function ProductsListPage() {
   const dispatch = useDispatch();
@@ -74,8 +75,23 @@ export default function ProductsListPage() {
     console.log("create new product");
   };
 
+  // handle edit prompt
+  const [productWillBeEdit, setProductWillBeEdit] = useState(null);
+  const [openEditProductPrompt, setOpenEditProductPrompt] = useState(false);
+
+  useEffect(() => {
+    if (productWillBeEdit !== null) {
+      setOpenEditProductPrompt(true);
+    }
+  }, [productWillBeEdit]);
+
   const handleEditProduct = (id) => {
-    console.log("edit product");
+    setProductWillBeEdit(id);
+  };
+
+  const handleEditProductPromptClose = () => {
+    setOpenEditProductPrompt(false);
+    setProductWillBeEdit(null);
   };
 
   // handle delete prompt
@@ -97,6 +113,7 @@ export default function ProductsListPage() {
     setProductWillBeDeleted(null);
   };
 
+  // handle loading and error state
   if (isLoading) {
     return (
       <Backdrop
@@ -120,6 +137,13 @@ export default function ProductsListPage() {
             handleClose={handleDeleteProductPromptClose}
             open={openDeleteProductPrompt}
             product={productWillBeDeleted}
+          />
+        )}
+        {productWillBeEdit && (
+          <EditProduct
+            handleClose={handleEditProductPromptClose}
+            open={openEditProductPrompt}
+            product={productWillBeEdit}
           />
         )}
       </>
