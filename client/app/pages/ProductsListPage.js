@@ -143,7 +143,7 @@ export default function ProductsListPage() {
           <EditProduct
             handleClose={handleEditProductPromptClose}
             open={openEditProductPrompt}
-            id={productWillBeEdit}
+            product={productWillBeEdit}
           />
         )}
       </>
