@@ -120,11 +120,10 @@ const productsSlice = createSlice({
     builder.addCase(editExistedProduct.fulfilled, (state, action) => {
       state.isLoading = false;
       const updatedProducts = state.products.map((item) => {
-        if (item.id !== action.payload.id) return item;
+        if (item.id !== action.payload.product.id) return item;
         return action.payload.product;
       });
       state.products = updatedProducts;
-      console.log(state.products);
     });
     builder.addCase(editExistedProduct.rejected, (state, action) => {
       state.isLoading = false;

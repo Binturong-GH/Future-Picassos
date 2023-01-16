@@ -17,7 +17,7 @@ import { Field, useFormik } from "formik";
 import * as yup from "yup";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneProductAsync } from "../store";
+import { fetchOneProductAsync, editExistedProduct } from "../store";
 
 const validate = yup.object({
   title: yup
@@ -56,7 +56,13 @@ export default function EditProduct({ handleClose, open, id }) {
     enableReinitialize: true,
     validationSchema: validate,
     onSubmit: (values) => {
-      console.log(values);
+      dispatch(
+        editExistedProduct({
+          id: id,
+          product: values,
+        })
+      );
+      handleClose();
     },
   });
 
