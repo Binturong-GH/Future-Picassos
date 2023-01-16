@@ -20,7 +20,12 @@ function ProductsList() {
           <h3>{product.title}</h3>
           <h3>${product.price}</h3>
         </Link>
-        <IconButton size="small" color="primary edge=" start aria-label="label">
+        <IconButton
+          size="small"
+          color="primary"
+          edge="start"
+          aria-label="label"
+        >
           <AddShoppingCartIcon />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Add to cart
