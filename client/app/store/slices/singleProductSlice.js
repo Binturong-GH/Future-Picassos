@@ -8,8 +8,11 @@ export const fetchOneProductAsync = createAsyncThunk(
       const response = await axios.get(`/api/products/${productId}`);
       return response.data;
     } catch (error) {
-      console.log(error);
-      next(error);
+      const errMsg =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      throw new Error(errMsg);
     }
   }
 );
@@ -61,12 +64,24 @@ export const fetchOneProductAsync = createAsyncThunk(
 const singleProductSlice = createSlice({
   name: "product",
   initialState: {
+    isLoading: false,
     product: {},
+    error: null,
   },
   reducers: {},
   extraReducers(builder) {
+    builder.addCase(fetchOneProductAsync.pending, (state, action) => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchOneProductAsync.fulfilled, (state, action) => {
+      state.isLoading = false;
+
       state.product = action.payload;
+    });
+    builder.addCase(fetchOneProductAsync.rejected, (state, action) => {
+      state.isLoading = false;
+
+      state.error = action.error.message;
     });
     //  .addCase(addNewProductAsync.fulfilled, (state, action) => {
     //     state.product.push(action.payload);
