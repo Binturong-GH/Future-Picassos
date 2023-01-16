@@ -5,6 +5,7 @@ import {
   productReducer,
   fetchAllProductsAsync,
   createNewProduct,
+  editExistedProduct,
   deleteExisedProduct,
 } from "./slices/productsSlice";
 
@@ -49,7 +50,12 @@ export default store;
 export { getMe, signup, login, logout };
 
 //export all products slice
-export { fetchAllProductsAsync, createNewProduct, deleteExisedProduct };
+export {
+  fetchAllProductsAsync,
+  createNewProduct,
+  editExistedProduct,
+  deleteExisedProduct,
+};
 
 //export single product slice
 export { fetchOneProductAsync };

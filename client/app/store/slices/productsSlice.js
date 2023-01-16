@@ -36,6 +36,27 @@ export const createNewProduct = createAsyncThunk(
   }
 );
 
+// @desc : create a new products
+export const editExistedProduct = createAsyncThunk(
+  "products/update",
+  async (id) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const res = await axios.put(`/api/products/${id}`, product, config);
+      return res.data;
+    } catch (error) {
+      const errMsg = error.response.data;
+      throw new Error(errMsg);
+    }
+  }
+);
+
 // @desc : delete existed product
 export const deleteExisedProduct = createAsyncThunk(
   "products/deleteOne",
@@ -88,6 +109,23 @@ const productsSlice = createSlice({
       state.products.push(action.payload.products);
     });
     builder.addCase(createNewProduct.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
+    // update product
+    builder.addCase(editExistedProduct.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(editExistedProduct.fulfilled, (state, action) => {
+      state.isLoading = false;
+      const updatedProducts = state.products.filter((item) => {
+        if (item.id !== action.payload.id) return item;
+        return action.payload.product;
+      });
+      state.products = updatedProducts;
+    });
+    builder.addCase(editExistedProduct.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });
