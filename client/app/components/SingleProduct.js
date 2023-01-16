@@ -36,10 +36,6 @@ function SingleProduct() {
       quantity: 1,
     };
     if (user) {
-      console.log(
-        "adding to cart, user is logged in, now triggering async thunk"
-      );
-      console.log("req", req);
       dispatch(addToCartDB(req));
     }
   }

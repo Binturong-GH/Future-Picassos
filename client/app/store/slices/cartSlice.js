@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
+/*
+to consider:
+Your application may have multiple API requests, and you may want to set request headers for all of them. Instead of adding the headers to each request, you can put them as default headers, and they will apply to all the requests. To do so, use the defaults.headers property of the axios object.
+https://rapidapi.com/guides/request-headers-axios
+*/
 
 export const fetchUserCart = createAsyncThunk(
   "cart/fetchUserCart",
@@ -41,7 +46,6 @@ export const addToCartDB = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       };
-      console.log("config", config);
       const { data } = await axios.post("/api/cart", newCartEntry, config);
       return data;
     } catch (err) {
@@ -74,7 +78,14 @@ export const editCartDB = createAsyncThunk(
   "/cart/editCartDB",
   async (toEdit) => {
     try {
-      const { data } = await axios.put("/api/cart", toEdit);
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put("/api/cart", toEdit, config);
       return data;
     } catch (err) {
       console.error(err);
@@ -134,7 +145,7 @@ const cartSlice = createSlice({
       // };
     });
     builder.addCase(editCartDB.fulfilled, (state, action) => {
-      return action.payload;
+      // return action.payload;
     });
   },
 });

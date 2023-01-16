@@ -9,6 +9,7 @@ import {
   incrementOne,
   subtractOne,
   deleteFromCartDB,
+  editCartDB,
 } from "../store/slices/cartSlice";
 
 const CartList = () => {
@@ -17,35 +18,44 @@ const CartList = () => {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    console.dir(user);
     if (user) {
       dispatch(fetchUserCart());
     }
   }, []);
 
   const cartRows = cartItems.map((cartItem) => {
+    function handleSubtract() {
+      dispatch(subtractOne(cartItem.id));
+      const req = {
+        productId: cartItem.id,
+        quantity: cartItem.quantity - 1,
+      };
+      if (user) {
+        dispatch(editCartDB(req));
+      }
+    }
+
+    function handleIncrement() {
+      console.log("cartItem", cartItem);
+      dispatch(incrementOne(cartItem.id));
+      const req = {
+        productId: cartItem.id,
+        quantity: cartItem.quantity + 1,
+      };
+      if (user) {
+        dispatch(editCartDB(req));
+      }
+    }
     return (
       <tr key={cartItem.id}>
         <td>{cartItem.title}</td>
         <td>${cartItem.price}</td>
         <td>
-          <button
-            onClick={() => {
-              dispatch(subtractOne(cartItem.id));
-            }}
-          >
-            subtract one
-          </button>
+          <button onClick={handleSubtract}>subtract one</button>
         </td>
         <td>{cartItem.quantity}</td>
         <td>
-          <button
-            onClick={() => {
-              dispatch(incrementOne(cartItem.id));
-            }}
-          >
-            add one
-          </button>
+          <button onClick={handleIncrement}>add one</button>
         </td>
         <td>{cartItem.quantity * cartItem.price}</td>
         <td>
