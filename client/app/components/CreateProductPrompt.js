@@ -39,11 +39,11 @@ export default function CreateProductPrompt({ handleClose, open }) {
     initialValues: {
       title: "",
       imageUrl: "",
-      price: "",
+      price: 0,
       description: "",
       artistName: "",
-      age: "",
-      countInStock: "",
+      age: 0,
+      countInStock: 0,
     },
     validationSchema: validate,
     onSubmit: (values) => {
@@ -121,7 +121,7 @@ export default function CreateProductPrompt({ handleClose, open }) {
                 inputProps={{
                   step: 0.01,
                 }}
-                value={formik.values.price}
+                value={formik.values.price === 0 ? "" : formik.values.price}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={formik.touched.price && Boolean(formik.errors.price)}
@@ -149,7 +149,7 @@ export default function CreateProductPrompt({ handleClose, open }) {
                 name="age"
                 label="age"
                 type="number"
-                value={formik.values.age}
+                value={formik.values.age === 0 ? "" : formik.values.age}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={formik.touched.age && Boolean(formik.errors.age)}
@@ -161,7 +161,11 @@ export default function CreateProductPrompt({ handleClose, open }) {
                 name="countInStock"
                 label="Count In Stock"
                 type="number"
-                value={formik.values.countInStock}
+                value={
+                  formik.values.countInStock === 0
+                    ? ""
+                    : formik.values.countInStock
+                }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={
