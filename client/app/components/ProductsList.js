@@ -12,25 +12,6 @@ function ProductsList() {
     dispatch(fetchAllProductsAsync());
   }, []);
 
-  //const handleAddProduct = products => {
-    //   const ProductExist = cartItems.find(item => item.id === products.id);
-    //   if (ProductExist) {
-    //     setCartItems(
-    //       cartItems.map(item =>
-    //         item.id === products.id
-    //           ? { ...ProductExist, quantity: ProductExist.quantity + 1 }
-    //           : item
-    //       )
-    //     );
-    //   } else {
-    //     setCartItems([...cartItems, {
-    //       ...products,
-    //       quantity: ProductExist.quantity + 1
-    //     }]);
-    //   }
-    // };
-
-
   const renderedProductsList = products.map((product) => {
     return (
       <div className="productsList" key={product.id}>
@@ -39,7 +20,12 @@ function ProductsList() {
           <h3>{product.title}</h3>
           <h3>${product.price}</h3>
         </Link>
-        <IconButton size="small" color="primary edge=" start aria-label="label">
+        <IconButton
+          size="small"
+          color="primary"
+          edge="start"
+          aria-label="label"
+        >
           <AddShoppingCartIcon />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Add to cart

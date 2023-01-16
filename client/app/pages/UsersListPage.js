@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // MUI
 import {
   Table,
@@ -14,6 +14,8 @@ import {
   CircularProgress,
   Alert,
   IconButton,
+  Pagination,
+  Stack,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
@@ -26,11 +28,28 @@ import { getAllUsers, deleteUser } from "../store";
 // Router
 import { useNavigate } from "react-router-dom";
 
+// from utils
+import paginate from "../utils/paginate";
+
 export default function UsersList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, users, error } = useSelector((state) => state.users);
   const { isLogged } = useSelector((state) => state.auth);
+
+  // pagination
+  const [page, setPage] = useState(0);
+  const [usersPerPage, setUsersPerPage] = useState([]);
+  const handlePageChange = (event, value) => {
+    setPage(value - 1);
+  };
+  useEffect(() => {
+    if (isLoading) return;
+    if (users.length > 0) {
+      setUsersPerPage(paginate(users)[page]);
+    }
+  }, [isLoading, users, page]);
+
   // check if user is logged and user is an admin
   useEffect(() => {
     if (
@@ -73,7 +92,7 @@ export default function UsersList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user, index) => (
+            {usersPerPage.map((user, index) => (
               <TableRow
                 key={user.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -104,6 +123,13 @@ export default function UsersList() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Stack spacing={2}>
+        <Pagination
+          count={paginate(users).length}
+          onChange={handlePageChange}
+        />
+      </Stack>
     </>
   );
 }

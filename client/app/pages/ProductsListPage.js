@@ -17,10 +17,12 @@ import {
   Box,
   Pagination,
   Stack,
+  Button,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
+import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
+import { pink } from "@mui/material/colors";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -32,10 +34,16 @@ import { useNavigate } from "react-router-dom";
 // from utils
 import paginate from "../utils/paginate";
 
+// from components
+import DeleteProductPrompt from "../components/DeleteProductPrompt";
+import EditProduct from "../components/EditProduct";
+import CreateProductPrompt from "../components/CreateProductPrompt";
+
 export default function ProductsListPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, products, error } = useSelector((state) => state.products);
+  const { isLoading, products, error, errorOfCreate, errorOfEdit } =
+    useSelector((state) => state.products);
   const { isLogged } = useSelector((state) => state.auth);
 
   // pagination
@@ -47,7 +55,11 @@ export default function ProductsListPage() {
   useEffect(() => {
     if (isLoading) return;
     if (products.length > 0) {
-      setProductsPerPage(paginate(products)[page]);
+      if (page > Math.ceil(products.length / 10) - 1) {
+        setPage((prev) => prev - 1);
+      } else {
+        setProductsPerPage(paginate(products)[page]);
+      }
     }
   }, [isLoading, products, page]);
 
@@ -65,9 +77,108 @@ export default function ProductsListPage() {
     }
   }, [isLogged]);
 
+  // handle create product prompt
+  const handleCreateProduct = () => {
+    setOpenCreateProductPrompt(true);
+  };
+  const [openCreateProductPrompt, setOpenCreateProductPrompt] = useState(false);
+
+  const handleCreateProductPromptClose = () => {
+    setOpenCreateProductPrompt(false);
+  };
+
+  // handle edit prompt
+  const [productWillBeEdit, setProductWillBeEdit] = useState(null);
+  const [openEditProductPrompt, setOpenEditProductPrompt] = useState(false);
+
+  useEffect(() => {
+    if (productWillBeEdit !== null) {
+      setOpenEditProductPrompt(true);
+    }
+  }, [productWillBeEdit]);
+
+  const handleEditProduct = (id) => {
+    setProductWillBeEdit(id);
+  };
+
+  const handleEditProductPromptClose = () => {
+    setOpenEditProductPrompt(false);
+    setProductWillBeEdit(null);
+  };
+
+  // handle delete prompt
+  const [productWillBeDeleted, setProductWillBeDeleted] = useState(null);
+  const [openDeleteProductPrompt, setOpenDeleteProductPrompt] = useState(false);
+
+  useEffect(() => {
+    if (productWillBeDeleted !== null) {
+      setOpenDeleteProductPrompt(true);
+    }
+  }, [productWillBeDeleted]);
+
+  const handleDeleteProduct = (product) => {
+    setProductWillBeDeleted(product);
+  };
+
+  const handleDeleteProductPromptClose = () => {
+    setOpenDeleteProductPrompt(false);
+    setProductWillBeDeleted(null);
+  };
+
+  // handle loading and error state
+  if (isLoading) {
+    return (
+      <Backdrop
+        open={isLoading}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
+
+  if (!isLoading && error) {
+    return <Alert severity="error">{error}</Alert>;
+  }
+
   return (
     <>
-      <Typography variant="h3">Products</Typography>
+      {!isLoading && errorOfCreate && (
+        <Alert severity="error">{errorOfCreate}</Alert>
+      )}
+      {!isLoading && errorOfEdit && (
+        <Alert severity="error">{errorOfEdit}</Alert>
+      )}
+
+      <>
+        {productWillBeDeleted && (
+          <DeleteProductPrompt
+            handleClose={handleDeleteProductPromptClose}
+            open={openDeleteProductPrompt}
+            product={productWillBeDeleted}
+          />
+        )}
+        {productWillBeEdit && (
+          <EditProduct
+            handleClose={handleEditProductPromptClose}
+            open={openEditProductPrompt}
+            id={productWillBeEdit}
+          />
+        )}
+
+        <CreateProductPrompt
+          handleClose={handleCreateProductPromptClose}
+          open={openCreateProductPrompt}
+        />
+      </>
+
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="h3">Products</Typography>
+        <Button variant="contained" onClick={handleCreateProduct}>
+          <AddIcon /> <span> Create a new Product</span>
+        </Button>
+      </Box>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -78,6 +189,8 @@ export default function ProductsListPage() {
               <TableCell align="right">Title</TableCell>
               <TableCell align="right">Price</TableCell>
               <TableCell align="right">Count in stock</TableCell>
+              <TableCell align="right">Edit</TableCell>
+              <TableCell align="right">Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -111,6 +224,28 @@ export default function ProductsListPage() {
                     <Typography>Out of stock</Typography>
                   )}
                 </TableCell>
+
+                <TableCell align="right">
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => {
+                      handleEditProduct(product.id);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </TableCell>
+
+                <TableCell align="right">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => {
+                      handleDeleteProduct(product);
+                    }}
+                  >
+                    <DeleteIcon sx={{ color: pink[500] }} />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -118,7 +253,7 @@ export default function ProductsListPage() {
       </TableContainer>
       <Stack spacing={2}>
         <Pagination
-          count={productsPerPage.length}
+          count={paginate(products).length}
           onChange={handlePageChange}
         />
       </Stack>

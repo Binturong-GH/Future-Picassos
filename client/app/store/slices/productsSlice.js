@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// @desc : get all products
 export const fetchAllProductsAsync = createAsyncThunk(
   "products/fetchAll",
   async () => {
@@ -14,16 +15,68 @@ export const fetchAllProductsAsync = createAsyncThunk(
   }
 );
 
-// export const addNewProductAsync = createAsyncThunk(
-//   "products/add",
-//   async (product) => {
-//     const response = await axios.post(
-//       "http://localhost:1337/api/products",
-//       product
-//     );
-//     return response.data;
-//   }
-// );
+// @desc : create a new products
+export const createNewProduct = createAsyncThunk(
+  "products/create",
+  async (product) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const res = await axios.post("/api/products", product, config);
+      return res.data;
+    } catch (error) {
+      const errMsg = error.response.data;
+      throw new Error(errMsg);
+    }
+  }
+);
+
+// @desc : create a new products
+export const editExistedProduct = createAsyncThunk(
+  "products/update",
+  async ({ id, product }) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const res = await axios.put(`/api/products/${id}`, product, config);
+      return res.data;
+    } catch (error) {
+      const errMsg = error.response.data;
+      throw new Error(errMsg);
+    }
+  }
+);
+
+// @desc : delete existed product
+export const deleteExisedProduct = createAsyncThunk(
+  "products/deleteOne",
+  async (id) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const res = await axios.delete(`/api/products/${id}`, config);
+      return { id: id };
+    } catch (error) {
+      const errMsg = error.response.data;
+      throw new Error(errMsg);
+    }
+  }
+);
 
 const productsSlice = createSlice({
   name: "products",
@@ -31,6 +84,8 @@ const productsSlice = createSlice({
     isLoading: false,
     products: [],
     error: null,
+    errorOfCreate: null,
+    errorOfEdit: null,
   },
   reducers: {},
   extraReducers(builder) {
@@ -44,11 +99,55 @@ const productsSlice = createSlice({
     });
     builder.addCase(fetchAllProductsAsync.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.messsage;
+      state.error = action.error.message;
     });
-    // builder.addCase(addNewProductAsync.fulfilled, (state, action) => {
-    //   state.push(action.payload);
-    // });
+
+    // create new products
+    builder.addCase(createNewProduct.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(createNewProduct.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.errorOfCreate = null;
+      state.products.push(action.payload.product);
+    });
+    builder.addCase(createNewProduct.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errorOfCreate = action.error.message;
+    });
+
+    // update product
+    builder.addCase(editExistedProduct.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(editExistedProduct.fulfilled, (state, action) => {
+      state.isLoading = false;
+      const updatedProducts = state.products.map((item) => {
+        if (item.id !== action.payload.product.id) return item;
+        return action.payload.product;
+      });
+      state.products = updatedProducts;
+    });
+    builder.addCase(editExistedProduct.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errorOfEdit = action.error.message;
+    });
+
+    // delete product
+    builder.addCase(deleteExisedProduct.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteExisedProduct.fulfilled, (state, action) => {
+      state.isLoading = false;
+      const restedProducts = state.products.filter(
+        (item) => item.id !== action.payload.id
+      );
+      state.products = restedProducts;
+    });
+    builder.addCase(deleteExisedProduct.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
   },
 });
 

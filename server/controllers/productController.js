@@ -13,6 +13,7 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
   const products = await Product.findAll({
     attributes: ["id", "title", "imageUrl", "price", "countInStock"],
   });
+  products.sort((a, b) => a.id - b.id);
   res.status(200).json({
     status: "success",
     results: products.length,

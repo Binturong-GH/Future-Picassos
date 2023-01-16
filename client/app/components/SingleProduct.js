@@ -8,7 +8,7 @@ import { IconButton, Typography } from "@mui/material";
 
 function SingleProduct() {
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.product);
+  const { product } = useSelector((state) => state.product);
   const { cartItems } = useSelector(selectCart);
   const { productId } = useParams();
 

@@ -1,5 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { productReducer, fetchAllProductsAsync } from "./slices/productsSlice";
+
+// all products slice
+import {
+  productReducer,
+  fetchAllProductsAsync,
+  createNewProduct,
+  editExistedProduct,
+  deleteExisedProduct,
+} from "./slices/productsSlice";
+
+// single product slice
 import {
   singleProductReducer,
   fetchOneProductAsync,
@@ -39,8 +49,16 @@ export default store;
 // export auth slice
 export { getMe, signup, login, logout };
 
-//export product slice
-export { fetchAllProductsAsync, fetchOneProductAsync };
+//export all products slice
+export {
+  fetchAllProductsAsync,
+  createNewProduct,
+  editExistedProduct,
+  deleteExisedProduct,
+};
+
+//export single product slice
+export { fetchOneProductAsync };
 
 //export cart slice
 export {
