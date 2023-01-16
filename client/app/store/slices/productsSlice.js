@@ -84,6 +84,8 @@ const productsSlice = createSlice({
     isLoading: false,
     products: [],
     error: null,
+    errorOfCreate: null,
+    errorOfEdit: null,
   },
   reducers: {},
   extraReducers(builder) {
@@ -110,7 +112,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(createNewProduct.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.errorOfCreate = action.error.message;
     });
 
     // update product
@@ -127,7 +129,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(editExistedProduct.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.errorOfEdit = action.error.message;
     });
 
     // delete product

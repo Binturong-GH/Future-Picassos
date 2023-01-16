@@ -34,16 +34,16 @@ const validate = yup.object({
 
 export default function CreateProductPrompt({ handleClose, open }) {
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector((state) => state.product);
+  const { isLoading, errorOfCreate } = useSelector((state) => state.product);
   const formik = useFormik({
     initialValues: {
       title: "",
       imageUrl: "",
-      price: 0.0,
+      price: "",
       description: "",
       artistName: "",
-      age: 1,
-      countInStock: 1,
+      age: "",
+      countInStock: "",
     },
     validationSchema: validate,
     onSubmit: (values) => {
@@ -60,7 +60,9 @@ export default function CreateProductPrompt({ handleClose, open }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {!isLoading && error && <Alert severity="error">{error}</Alert>}
+        {!isLoading && errorOfCreate && (
+          <Alert severity="error">{errorOfCreate}</Alert>
+        )}
         <DialogTitle>Create a new Product</DialogTitle>
         <form onSubmit={formik.handleSubmit}>
           <DialogContent>
@@ -173,7 +175,7 @@ export default function CreateProductPrompt({ handleClose, open }) {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button type="submit">Update</Button>
+            <Button type="submit">Create</Button>
             <Button onClick={handleClose}>Cancel</Button>
           </DialogActions>
         </form>

@@ -42,7 +42,8 @@ import CreateProductPrompt from "../components/CreateProductPrompt";
 export default function ProductsListPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, products, error } = useSelector((state) => state.products);
+  const { isLoading, products, error, errorOfCreate, errorOfEdit } =
+    useSelector((state) => state.products);
   const { isLogged } = useSelector((state) => state.auth);
 
   // pagination
@@ -138,6 +139,13 @@ export default function ProductsListPage() {
 
   return (
     <>
+      {!isLoading && errorOfCreate && (
+        <Alert severity="error">{errorOfCreate}</Alert>
+      )}
+      {!isLoading && errorOfEdit && (
+        <Alert severity="error">{errorOfEdit}</Alert>
+      )}
+
       <>
         {productWillBeDeleted && (
           <DeleteProductPrompt
