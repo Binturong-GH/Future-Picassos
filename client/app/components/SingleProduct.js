@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchOneProductAsync } from "../store/slices/singleProductSlice";
-import { selectCart, addToCart } from "../store/slices/cartSlice";
+import {
+  selectCart,
+  addToCart,
+  fetchUserCart,
+  addToCartDB,
+} from "../store/slices/cartSlice";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { IconButton, Typography } from "@mui/material";
 
@@ -11,30 +16,51 @@ function SingleProduct() {
   const product = useSelector((state) => state.product);
   const { cartItems } = useSelector(selectCart);
   const { productId } = useParams();
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(fetchOneProductAsync(productId));
   }, []);
 
+  useEffect(() => {
+    console.dir(user);
+    if (user) {
+      dispatch(fetchUserCart());
+    }
+  }, []);
+
+  function handleAdd() {
+    dispatch(addToCart(product));
+    const req = {
+      productId: productId,
+      quantity: 1,
+    };
+    if (user) {
+      console.log(
+        "adding to cart, user is logged in, now triggering async thunk"
+      );
+      console.log("req", req);
+      dispatch(addToCartDB(req));
+    }
+  }
+
   return (
     <div>
-      <img alt="product image" src={product.imageUrl} />
+      <img alt='product image' src={product.imageUrl} />
       <h3>{product.title}</h3>
       <h3>Artist: {product.artistName}</h3>
 
       <h4>Description: {product.description} </h4>
       <p>${product.price}</p>
       <IconButton
-        onClick={() => {
-          dispatch(addToCart(product));
-        }}
-        size="small"
-        color="primary edge="
+        onClick={handleAdd}
+        size='small'
+        color='primary edge='
         start
-        aria-label="label"
+        aria-label='label'
       >
         <AddShoppingCartIcon />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           Add to cart
         </Typography>
       </IconButton>

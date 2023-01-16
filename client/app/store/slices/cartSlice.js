@@ -41,7 +41,8 @@ export const addToCartDB = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await axios.post("/api/cart", newCartEntry);
+      console.log("config", config);
+      const { data } = await axios.post("/api/cart", newCartEntry, config);
       return data;
     } catch (err) {
       console.error(err);
@@ -121,10 +122,11 @@ const cartSlice = createSlice({
       return { cartItems: action.payload };
     });
     builder.addCase(addToCartDB.fulfilled, (state, action) => {
-      state.cartItems.push(action.payload);
+      // state.cartItems.push(action.payload);
+      console.log("item added to cart db");
     });
     builder.addCase(deleteFromCartDB.fulfilled, (state, action) => {
-      console.log("delete thunk ran");
+      console.log("db updated!");
       // return {
       //   cartItems: state.cartItems.filter(
       //     (product) => product.productId !== action.payload
