@@ -26,13 +26,16 @@ import { pink } from "@mui/material/colors";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProductsAsync, deleteExisedProduct } from "../store";
+import { fetchAllProductsAsync } from "../store";
 
 // Router
 import { useNavigate } from "react-router-dom";
 
 // from utils
 import paginate from "../utils/paginate";
+
+// from components
+import DeleteProductPrompt from "../components/DeleteProductPrompt";
 
 export default function ProductsListPage() {
   const dispatch = useDispatch();
@@ -74,12 +77,38 @@ export default function ProductsListPage() {
   const handleEditProduct = (id) => {
     console.log("edit product");
   };
-  const handleDeleteProduct = (id) => {
-    dispatch(deleteExisedProduct(id));
+
+  // handle delete prompt
+  const [productWillBeDeleted, setProductWillBeDeleted] = useState(null);
+  const [openDeleteProductPrompt, setOpenDeleteProductPrompt] = useState(false);
+
+  useEffect(() => {
+    if (productWillBeDeleted !== null) {
+      setOpenDeleteProductPrompt(true);
+    }
+  }, [productWillBeDeleted]);
+
+  const handleDeleteProduct = (product) => {
+    setProductWillBeDeleted(product);
+  };
+
+  const handleDeleteProductPromptClose = () => {
+    setOpenDeleteProductPrompt(false);
+    setProductWillBeDeleted(null);
   };
 
   return (
     <>
+      <>
+        {productWillBeDeleted && (
+          <DeleteProductPrompt
+            handleClose={handleDeleteProductPromptClose}
+            open={openDeleteProductPrompt}
+            product={productWillBeDeleted}
+          />
+        )}
+      </>
+
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h3">Products</Typography>
         <Button variant="contained" onClick={handleCreateProduct}>
@@ -148,7 +177,7 @@ export default function ProductsListPage() {
                   <IconButton
                     aria-label="delete"
                     onClick={() => {
-                      handleDeleteProduct(product.id);
+                      handleDeleteProduct(product);
                     }}
                   >
                     <DeleteIcon sx={{ color: pink[500] }} />
