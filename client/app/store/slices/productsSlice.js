@@ -39,7 +39,7 @@ export const createNewProduct = createAsyncThunk(
 // @desc : create a new products
 export const editExistedProduct = createAsyncThunk(
   "products/update",
-  async (id) => {
+  async ({ id, product }) => {
     try {
       const token = JSON.parse(localStorage.getItem("jwt"));
       const config = {
@@ -93,7 +93,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.products = action.payload.products;
+      state.products = action.payload.products.sort((a, b) => a.id - b.id);
     });
     builder.addCase(fetchAllProductsAsync.rejected, (state, action) => {
       state.isLoading = false;
@@ -119,11 +119,12 @@ const productsSlice = createSlice({
     });
     builder.addCase(editExistedProduct.fulfilled, (state, action) => {
       state.isLoading = false;
-      const updatedProducts = state.products.filter((item) => {
+      const updatedProducts = state.products.map((item) => {
         if (item.id !== action.payload.id) return item;
         return action.payload.product;
       });
       state.products = updatedProducts;
+      console.log(state.products);
     });
     builder.addCase(editExistedProduct.rejected, (state, action) => {
       state.isLoading = false;
