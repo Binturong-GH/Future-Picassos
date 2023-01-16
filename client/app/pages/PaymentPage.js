@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCart } from "../store/slices/cartSlice";
+import {
+  selectCart,
+  fetchUserCart,
+  deleteProduct,
+  incrementOne,
+  subtractOne,
+} from "../store/slices/cartSlice";
 
 export default function PaymentPage() {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
+
+  useEffect(() => {
+    dispatch(fetchUserCart(), []);
+  });
 
   const cartRows = cartItems.map((cartItem) => {
     return (
@@ -43,6 +53,22 @@ export default function PaymentPage() {
       </tr>
     );
   });
+
+  const subtotal = cartItems
+    .reduce(
+      (sum, currentItem) => sum + currentItem.price * currentItem.quantity,
+      0
+    )
+    .toFixed(2);
+  const shipping = (cartItems.length ? 5 : 0).toFixed(2);
+  const tax = ((parseFloat(subtotal) + parseFloat(shipping)) * 0.0425).toFixed(
+    2
+  );
+  const total = (
+    parseFloat(subtotal) +
+    parseFloat(shipping) +
+    parseFloat(tax)
+  ).toFixed(2);
 
   var checkout_HTML = "";
 
@@ -143,6 +169,30 @@ export default function PaymentPage() {
 
   return (
     <div>
+      <div>
+        {cartItems && cartItems.length ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th> </th>
+                <th>Quantity</th>
+                <th> </th>
+                <th>Total</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>{cartRows}</tbody>
+          </table>
+        ) : (
+          <p>Your cart is currently empty - start shopping!</p>
+        )}
+      </div>
+      <p>subtotal: ${subtotal}</p>
+      <p>shipping: ${shipping}</p>
+      <p>tax: ${tax}</p>
+      <p>order total: ${total}</p>
       <div
         className="modal fade"
         id="payOnlineModal"
