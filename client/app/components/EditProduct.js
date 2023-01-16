@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { Modal, Box, Typography } from "@mui/material";
+import {
+  Modal,
+  Box,
+  Typography,
+  Alert,
+  Backdrop,
+  CircularProgress,
+} from "@mui/material";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -37,7 +44,7 @@ const validate = yup.object({
 
 export default function EditProduct({ handleClose, open, id }) {
   const dispatch = useDispatch();
-  const { product } = useSelector((state) => state.product);
+  const { isLoading, product, error } = useSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchOneProductAsync(id));
@@ -59,6 +66,21 @@ export default function EditProduct({ handleClose, open, id }) {
       console.log(values);
     },
   });
+
+  if (isLoading) {
+    return (
+      <Backdrop
+        open={isLoading}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
+
+  if (!isLoading && error) {
+    return <Alert severity="error">{error}</Alert>;
+  }
 
   return (
     <div>
