@@ -10,7 +10,7 @@ function ProductsList() {
   const { products } = useSelector((state) => state.products);
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
-  }, [products]);
+  }, []);
 
   const renderedProductsList = products.map((product) => {
     return (
