@@ -28,9 +28,6 @@ import {
   subtractOne,
 } from "./slices/cartSlice";
 
-//oder slice
-import { addNewOrderAsync, orderReducer } from "./slices/orderSlice";
-
 // auth slice
 import { authReducer, getMe, signup, login, logout } from "./slices/authSlice";
 
@@ -42,7 +39,6 @@ const store = configureStore({
     products: productReducer,
     product: singleProductReducer,
     cart: cartReducer,
-    order: orderReducer,
     auth: authReducer,
     users: usersReducer,
   },
