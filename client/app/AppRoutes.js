@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Cart from "./pages/Cart";
 import PaymentPage from "./pages/PaymentPage";
 import LoginPage from "./pages/LoginPage";
@@ -10,7 +10,55 @@ import NotFoundPage from "./pages/NotFoundPage";
 import UsersListPage from "./pages/UsersListPage";
 import ProductListpage from "./pages/ProductsListPage";
 
+// socket
+import socket from "./utils/socket";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProductsAsync, fetchOneProductAsync } from "./store";
+
 const AppRoutes = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { product } = useSelector((state) => state.product);
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Connected");
+    });
+
+    socket.on("product/create", (message) => {
+      dispatch(fetchAllProductsAsync());
+    });
+
+    socket.on("product/edit", (message) => {
+      if (
+        location.pathname === "/products" ||
+        location.pathname === "/admin/products"
+      ) {
+        dispatch(fetchAllProductsAsync());
+      }
+
+      message === product.id && dispatch(fetchOneProductAsync(message));
+    });
+
+    socket.on("product/delete", (message) => {
+      if (
+        location.pathname === "/products" ||
+        location.pathname === "/admin/products"
+      ) {
+        dispatch(fetchAllProductsAsync());
+      }
+      if (product.id === message) {
+        dispatch(fetchOneProductAsync(message));
+      }
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("product/create");
+      socket.off("product/edit");
+      socket.off("product/delete");
+    };
+  }, [product]);
+
   return (
     <main>
       <h1 className="title">Welcome to Grace shopper</h1>

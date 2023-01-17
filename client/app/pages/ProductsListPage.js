@@ -47,15 +47,21 @@ export default function ProductsListPage() {
   const { isLogged } = useSelector((state) => state.auth);
 
   // pagination
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(
+    localStorage.getItem("currentPage")
+      ? Number(localStorage.getItem("currentPage"))
+      : 0
+  );
   const [productsPerPage, setProductsPerPage] = useState([]);
   const handlePageChange = (event, value) => {
+    localStorage.setItem("currentPage", value - 1);
     setPage(value - 1);
   };
   useEffect(() => {
     if (isLoading) return;
     if (products.length > 0) {
       if (page > Math.ceil(products.length / 10) - 1) {
+        localStorage.setItem("currentPage", page - 1);
         setPage((prev) => prev - 1);
       } else {
         setProductsPerPage(paginate(products)[page]);
@@ -254,6 +260,7 @@ export default function ProductsListPage() {
       <Stack spacing={2}>
         <Pagination
           count={paginate(products).length}
+          page={page + 1}
           onChange={handlePageChange}
         />
       </Stack>

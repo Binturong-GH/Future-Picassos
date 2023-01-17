@@ -44,7 +44,15 @@ const Cart = () => {
       <p>shipping: ${shipping}</p>
       <p>tax: ${tax}</p>
       <p>order total: ${total}</p>
+
       <button onClick={redirectToPaymentPage}>Proceed to Checkout</button>
+      <button
+        onClick={() => {
+          console.log("proceeding to checkout!");
+        }}
+      >
+        Proceed to Checkout
+      </button>
     </>
   );
 };

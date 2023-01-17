@@ -1,67 +1,21 @@
 module.exports = [
   {
-    title: "In The Playground",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
-    description:
-      "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
-    price: "250",
-    age: 5,
-    artistName: "Benjamin Dassani",
-    countInStock: 30,
-  },
-
-  {
-    title: "My First Day",
-    imageUrl:
-      "https://babyology.com.au/wp-content/uploads/2019/02/funny-kids-drawings.jpg",
-    description:
-      "This work of art of created by Jena on May 3rd, 2022. She has been creating art since she was three years old.",
-    price: "350",
-    age: 7,
-    artistName: "Jena Dassani",
-    countInStock: 20,
-  },
-
-  {
-    title: "The Kiss of Sun",
-    imageUrl:
-      "https://1620media.com/wp-content/uploads/2015/10/childrens_drawings_2_thumbnail.jpg",
-    description:
-      "This work of art of created by Mario on June 11th, 2021. He has been creating art since he was two years old.",
-    price: "550",
-    age: 10,
-    artistName: "Rajeev Dassani",
-    countInStock: 25,
-  },
-
-  {
-    title: "Chip And Me",
-    imageUrl: "http://www.natureartists.com/art/resized/253_dog_and_boy.jpg",
-    description:
-      "This work of art of created by Rajeev on July 4th, 2019. He has been creating art since he was two years old.",
-    price: "750",
-    age: 10,
-    artistName: "Rajeev Dassani ",
-    countInStock: 35,
-  },
-  {
     title: "When I Am ANGRY",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    description: "We always encourage Rajeev to express his feelings!",
     price: "300",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 100,
+    imageUrl: "/images/whenIAmAngry.png",
   },
   {
     title: "When I Am Excited!!!!",
-    description:
-      "This work of art of created by Rajeev on July 18th, 2019. He has been creating art since he was two years old.",
+    description: "Enjoy this beautiful depiction of when Rajeev is excited. ",
     price: "300",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 100,
+    imageUrl: "/images/whenIAmExcited.png",
   },
   {
     title: "Princess Pikachu",
@@ -70,33 +24,34 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 200,
+    imageUrl: "/images/princessPikachu.png",
   },
   {
     title: "My Hotdog",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    description: "Please enjoy this beautiful hotdog drawn by Rajeev",
     price: "300",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 100,
+    imageUrl: "/images/myHotdog.png",
   },
   {
     title: "The Party",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    description: "Doesn't this look like the perfect party?",
     price: "300",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 100,
+    imageUrl: "/images/party.png",
   },
   {
-    title: "Self Portrait",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    title: "Potato",
+    description: "Please enjoy this gorgeous potato.",
     price: "300",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 100,
+    imageUrl: "/images/potato.png",
   },
   {
     title: "Untitled I",
@@ -106,6 +61,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 100,
+    imageUrl: "/images/untitledIRajeev.png",
   },
   {
     title: "Untitled II",
@@ -115,6 +71,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 100,
+    imageUrl: "/images/untitledIiRajeev.png",
   },
   {
     title: "A Day At The Beach",
@@ -123,6 +80,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 100,
+    imageUrl: "/images/beach.png",
   },
   {
     title: "Untitled III",
@@ -132,24 +90,26 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/untitledIiiRajeev.png",
   },
   {
     title: "Gloomy Monday",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    description: "Reminiscent of Picasso's Blue Period.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/gloomyMonday.png",
   },
   {
-    title: "Momma Lisa",
+    title: "Mama Lisa",
     description:
       "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/mamaLisa.png",
   },
   {
     title: "Starry Night",
@@ -159,6 +119,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/starryNight.png",
   },
   {
     title: "Whistler's Mommy",
@@ -168,15 +129,26 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/whistlersMommy.png",
   },
   {
     title: "Kitty",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    description: "One of Rajeev's earlier works, of his beloved pet cat.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/kitty.png",
+  },
+  {
+    title: "First Day",
+    description:
+      "This emotional and evocative piece was created after Rajeev's first day of second grade.",
+    price: "200",
+    age: 10,
+    artistName: "Rajeev Dassani ",
+    countInStock: 200,
+    imageUrl: "/images/firstDay.png",
   },
   {
     title: "Untitled IV",
@@ -186,15 +158,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
-  },
-  {
-    title: "Untitled III",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
-    price: "200",
-    age: 10,
-    artistName: "Rajeev Dassani ",
-    countInStock: 200,
+    imageUrl: "/images/untitledIvRajeev.png",
   },
   {
     title: "Drawing",
@@ -204,6 +168,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/drawing.png",
   },
   {
     title: "Still Life",
@@ -213,6 +178,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/stillLife.png",
   },
   {
     title: "Happy",
@@ -222,33 +188,26 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/happy.png",
   },
+
   {
-    title: "I Hate Homework",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    title: "Boat!",
+    description: "A boat.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
-  },
-  {
-    title: "Me and My Friend",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
-    price: "200",
-    age: 10,
-    artistName: "Rajeev Dassani ",
-    countInStock: 200,
+    imageUrl: "/images/boat.png",
   },
   {
     title: "House",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    description: "A nostalgic piece about the comforts of home.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/house.png",
   },
   {
     title: "Mermaid",
@@ -258,16 +217,9 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/mermaid.png",
   },
-  {
-    title: "Lost",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
-    price: "200",
-    age: 10,
-    artistName: "Rajeev Dassani ",
-    countInStock: 200,
-  },
+
   {
     title: "Untitled V",
     description:
@@ -276,24 +228,17 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/untitledVRajeev.png",
   },
-  {
-    title: "My Favorite Day",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
-    price: "200",
-    age: 10,
-    artistName: "Rajeev Dassani ",
-    countInStock: 200,
-  },
+
   {
     title: "School",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    description: "A place for education, and for the dreams of a child.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/school.png",
   },
   {
     title: "Summer",
@@ -303,6 +248,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/summer.png",
   },
   {
     title: "Peppa Pig",
@@ -312,24 +258,27 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/pp.png",
   },
   {
-    title: "Untitled V",
+    title: "When I Am Angry II",
     description:
       "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/angry2.png",
   },
   {
-    title: "Rajeev",
+    title: "When I Am Angry III",
     description:
       "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/angry3.png",
   },
   {
     title: "Untitled VI",
@@ -339,33 +288,37 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/untitledViRajeev.png",
   },
   {
-    title: "Cora, Na, and Madeleine",
+    title: "Hero",
     description:
       "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/hero.png",
   },
   {
-    title: "Kara and Maxiel",
+    title: "Volcano",
     description:
       "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/volcano.png",
   },
   {
-    title: "Grace Hopper",
+    title: "The Persistence of Memory",
     description:
       "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/persistence.png",
   },
   {
     title: "Math",
@@ -375,6 +328,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/ilovemath.png",
   },
   {
     title: "School Makes Me Feel...",
@@ -384,6 +338,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/schoolFeel.png",
   },
   {
     title: "Untitled VII",
@@ -393,6 +348,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/untitledViiRajeev.png",
   },
   {
     title: "Botticelli's Venus",
@@ -402,15 +358,17 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/venus.png",
   },
   {
-    title: "Princess Mustache",
+    title: "Mr. Mustache",
     description:
       "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/mrMustache.png",
   },
   {
     title: "Time Out",
@@ -420,15 +378,16 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/timeout.png",
   },
   {
-    title: "When I Grow Up...",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    title: "Grow Up...",
+    description: "A sly play on words...",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/grow.png",
   },
   {
     title: "Untitled VIII",
@@ -438,6 +397,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/untitledViiiRajeev.png",
   },
   {
     title: "Cubist Experiment I",
@@ -447,6 +407,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/cubism1.png",
   },
   {
     title: "Cubist Experiment II",
@@ -456,6 +417,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/cubism2.png",
   },
   {
     title: "Untitled IX",
@@ -465,15 +427,16 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/untitledIxRajeev.png",
   },
   {
-    title: "Dad",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
+    title: "The Cabbage Man!",
+    description: "My cabbages!",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/cabbageMan.png",
   },
   {
     title: "Christmas",
@@ -483,6 +446,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/santa.png",
   },
   {
     title: "My Monster",
@@ -492,6 +456,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/myMonster.png",
   },
   {
     title: "Invisible Friend",
@@ -501,6 +466,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/invisibleFriend.png",
   },
   {
     title: "Apple",
@@ -510,6 +476,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/apple.png",
   },
   {
     title: "I Hate Broccoli!",
@@ -519,6 +486,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/broc.png",
   },
   {
     title: "Untitled X",
@@ -528,15 +496,17 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/untitledXRajeev.png",
   },
   {
-    title: "X",
+    title: "Salamander",
     description:
       "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/salamander.png",
   },
   {
     title: "Hand Tired But I Love Drawing",
@@ -546,6 +516,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/handTired.png",
   },
   {
     title: "The Kiss",
@@ -555,6 +526,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/kiss.png",
   },
   {
     title: "The Last Dinner",
@@ -564,6 +536,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/supper.png",
   },
   {
     title: "The Bedtime Watch",
@@ -573,6 +546,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/bedtimeWatch.png",
   },
   {
     title: "A Sunday Naptime on the Island of La Grande Jatte",
@@ -582,6 +556,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/sundayAft.png",
   },
   {
     title: "Mommy With A Pearl Earring",
@@ -591,16 +566,9 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/earring.png",
   },
-  {
-    title: "Las Mommynas",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
-    price: "200",
-    age: 10,
-    artistName: "Rajeev Dassani ",
-    countInStock: 200,
-  },
+
   {
     title: "Preschool Gothic",
     description:
@@ -609,6 +577,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/preschoolGothic.png",
   },
   {
     title: "Goo Goo Gaa Gaanica",
@@ -618,15 +587,17 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/guernica.png",
   },
   {
-    title: "Daddy and Mommy Dont Know Im Up Past Bedtime",
+    title: "Daddy and Mommy Dont Know I'm Up Past Bedtime",
     description:
       "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
     price: "200",
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/pastBedtime.png",
   },
   {
     title: "Impression, Naptime",
@@ -636,6 +607,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/impression.png",
   },
   {
     title: "Mommy with an Ermine",
@@ -645,24 +617,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
-  },
-  {
-    title: "A Shipwreck In The Bathtub!",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
-    price: "200",
-    age: 10,
-    artistName: "Rajeev Dassani ",
-    countInStock: 200,
-  },
-  {
-    title: "Luncheon of the School Cafeteria",
-    description:
-      "This work of art of created by Rajeev on July 19th, 2019. He has been creating art since he was two years old.",
-    price: "200",
-    age: 10,
-    artistName: "Rajeev Dassani ",
-    countInStock: 200,
+    imageUrl: "/images/ermine.png",
   },
   {
     title: "Mommy Crossing the Alps",
@@ -672,6 +627,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/mommyAlps.png",
   },
   {
     title: "View of My Preschool",
@@ -681,6 +637,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/preschool.png",
   },
   {
     title: "The Day I Was Born",
@@ -690,6 +647,7 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/born.png",
   },
   {
     title: "Untitled XI",
@@ -699,11 +657,12 @@ module.exports = [
     age: 10,
     artistName: "Rajeev Dassani ",
     countInStock: 200,
+    imageUrl: "/images/untitledXiRajeev.png",
   },
   {
     title: "My Drawing I",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+
+    imageUrl: "/images/ben1.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -713,8 +672,7 @@ module.exports = [
   },
   {
     title: "My Drawing II",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/ben2.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -724,8 +682,7 @@ module.exports = [
   },
   {
     title: "My Drawing III",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/ben3.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -735,8 +692,7 @@ module.exports = [
   },
   {
     title: "My Drawing IV",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/ben4.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -746,8 +702,7 @@ module.exports = [
   },
   {
     title: "Daddy Descending a Staircase, No. 2",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/stairs2.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -757,8 +712,7 @@ module.exports = [
   },
   {
     title: "The Swing",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/swing.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -768,8 +722,7 @@ module.exports = [
   },
   {
     title: "Fun Day",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/funDay.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -779,8 +732,7 @@ module.exports = [
   },
   {
     title: "Monster Under My Bed",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/bedMonster.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -790,8 +742,7 @@ module.exports = [
   },
   {
     title: "Feelings",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/feelings.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -801,8 +752,7 @@ module.exports = [
   },
   {
     title: "My Drawing V",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/ben5.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -812,8 +762,7 @@ module.exports = [
   },
   {
     title: "My Drawing VI",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/ben6.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -823,8 +772,7 @@ module.exports = [
   },
   {
     title: "My Drawing VII",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/ben7.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -834,8 +782,7 @@ module.exports = [
   },
   {
     title: "My Drawing VIII",
-    imageUrl:
-      "https://yesofcorsa.com/wp-content/uploads/2019/03/Childrens-Drawings-Wallpaper-For-IPhone-Free.jpg",
+    imageUrl: "/images/ben8.png",
     description:
       "This work of art of created by Benjamin on January 3rd, 2022. He has been creating art since he was two years old.",
     price: "250",
@@ -851,6 +798,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/ellie1.png",
   },
   {
     title: "Self Portrait II",
@@ -860,6 +808,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/ellie2.png",
   },
   {
     title: "Self Portrait III",
@@ -869,6 +818,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/ellie3.png",
   },
   {
     title: "Self Portrait IV",
@@ -878,6 +828,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/ellie4.png",
   },
   {
     title: "Self Portrait V",
@@ -887,6 +838,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/ellie5.png",
   },
   {
     title: "Mrs. Hotdog is Getting Married",
@@ -895,6 +847,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/hotdogMarried.png",
   },
   {
     title: "Self Portrait VI",
@@ -904,6 +857,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/ellie6.png",
   },
   {
     title: "Mrs. Hotdog is Going to the Store",
@@ -912,6 +866,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/hotdogStore.png",
   },
   {
     title: "Mrs. Hotdog is Swimming",
@@ -920,6 +875,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/hotdogSwim.png",
   },
   {
     title: "Mrs. Hotdog is in Outer Space",
@@ -928,6 +884,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/hotdogSpace.png",
   },
   {
     title: "Mrs. Hotdog is Slam Dunking a Basketball",
@@ -936,5 +893,141 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
+    imageUrl: "/images/hotdogDunk.png",
+  },
+  {
+    title: "Fairy 1",
+    description: "The first in Ellie's Fairy series",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/fairy1.png",
+  },
+  {
+    title: "Fairy 2",
+    description: "The second in Ellie's Fairy series.",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/fairy2.png",
+  },
+  {
+    title: "Alien 1",
+    description: "The first in Ellie's Alien series",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/alien1.png",
+  },
+  {
+    title: "Alien 2",
+    description: "The second in Ellie's Alien series",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/alien2.png",
+  },
+  {
+    title: "Alien 3",
+    description: "The third in Ellie's Alien series",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/alien3.png",
+  },
+  {
+    title: "Alien Family",
+    description: "A Family Piece",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/alienFam.png",
+  },
+  {
+    title: "My Stinky Brother",
+    description: "A portrait of the artist's brother.",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/bro.png",
+  },
+  {
+    title: "Spider",
+    description: "A gothic piece. ",
+    price: "200",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/spider.png",
+  },
+  {
+    title: "Rainbow",
+    description: "A beautiful rainbow!",
+    price: "500",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/rainbow.png",
+  },
+  {
+    title: "Goku",
+    description: "A man named Goku. ",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/goku.png",
+  },
+  {
+    title: "The Garden of Earthly Delights",
+    description: "Inspired by Bosch!",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/garden.png",
+  },
+  {
+    title: "Helping The Animals Escape From The Zoo",
+    description: "An altruistic piece. ",
+    price: "200",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/zoo.png",
+  },
+  {
+    title: "Pizza",
+    description: "A delicious pizza. ",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/pizza.png",
+  },
+  {
+    title: "WNBA",
+    description: "Ellie's favorite basketball moment. ",
+    price: "100",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/wnba.png",
+  },
+  {
+    title: "Robot and Dino",
+    description: "A showdown for the ages. ",
+    price: "180",
+    age: 7,
+    artistName: "Ellie Stoppard ",
+    countInStock: 75,
+    imageUrl: "/images/dino.png",
   },
 ];
