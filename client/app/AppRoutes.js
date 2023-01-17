@@ -11,19 +11,25 @@ import ProductListpage from "./pages/ProductsListPage";
 
 // socket
 import socket from "./utils/socket";
-import { useDispatch } from "react-redux";
-import { fetchAllProductsAsync } from "./store";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProductsAsync, fetchOneProductAsync } from "./store";
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
+  const { product } = useSelector((state) => state.product);
 
   useEffect(() => {
     socket.on("connect", () => {
-      console.log("I am now connected to the server!");
-
       // admin create a new product
-      socket.on("product/create", () => {
+      socket.on("product/create", (message) => {
         dispatch(fetchAllProductsAsync());
+      });
+
+      // admin edit a exist product
+      socket.on("product/edit", (message) => {
+        if (product.id === message.product.id) {
+          dispatch(fetchOneProductAsync(message.product.id));
+        }
       });
     });
   }, []);

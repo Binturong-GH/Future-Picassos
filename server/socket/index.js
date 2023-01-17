@@ -7,5 +7,10 @@ module.exports = (io) => {
     socket.on("product/create", (message) => {
       socket.broadcast.emit("product/create", message);
     });
+
+    socket.on("product/edit", (message) => {
+      // console.log(message);
+      socket.broadcast.emit("product/edit", message);
+    });
   });
 };

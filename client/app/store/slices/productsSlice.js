@@ -51,6 +51,7 @@ export const editExistedProduct = createAsyncThunk(
         },
       };
       const res = await axios.put(`/api/products/${id}`, product, config);
+      socket.emit("product/edit", res.data);
       return res.data;
     } catch (error) {
       const errMsg = error.response.data;
