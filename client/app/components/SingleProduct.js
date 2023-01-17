@@ -28,6 +28,13 @@ function SingleProduct() {
     dispatch(fetchOneProductAsync(productId));
   }, []);
 
+  useEffect(() => {
+    console.dir(user);
+    if (user) {
+      dispatch(fetchUserCart());
+    }
+  }, []);
+
   if (isLoading) {
     return (
       <Backdrop
@@ -49,12 +56,6 @@ function SingleProduct() {
       </>
     );
   }
-  useEffect(() => {
-    console.dir(user);
-    if (user) {
-      dispatch(fetchUserCart());
-    }
-  }, []);
 
   function handleAdd() {
     dispatch(addToCart(product));
