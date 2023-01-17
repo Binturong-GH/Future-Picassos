@@ -134,7 +134,12 @@ const cartSlice = createSlice({
     },
     //@desc: pull cart from localstorage and set as cart in state
     getLocalCart: (state, action) => {
-      const cart = JSON.parse(localStorage.getItem("cart"));
+      let cart;
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+
+      console.log("getlocalcart on slice page, here is cart", cart);
       if (cart) {
         state.cartItems = cart;
       }

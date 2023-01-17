@@ -23,6 +23,7 @@ const CartList = () => {
     if (user) {
       dispatch(fetchUserCart());
     } else {
+      console.log("cartlist useeffect - not user, dispatching getlocalcart");
       dispatch(getLocalCart());
     }
   }, []);
@@ -36,6 +37,8 @@ const CartList = () => {
       };
       if (user) {
         dispatch(editCartDB(req));
+      } else {
+        dispatch(setLocalCart(cartItems));
       }
     }
 
@@ -48,6 +51,8 @@ const CartList = () => {
       };
       if (user) {
         dispatch(editCartDB(req));
+      } else {
+        dispatch(setLocalCart(cartItems));
       }
     }
     return (
@@ -68,6 +73,8 @@ const CartList = () => {
               dispatch(deleteProduct(cartItem.id));
               if (user) {
                 dispatch(deleteFromCartDB(cartItem));
+              } else {
+                dispatch(setLocalCart(cartItems));
               }
             }}
           >

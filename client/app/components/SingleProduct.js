@@ -7,6 +7,8 @@ import {
   addToCart,
   fetchUserCart,
   addToCartDB,
+  setLocalCart,
+  getLocalCart,
 } from "../store/slices/cartSlice";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
@@ -28,13 +30,19 @@ function SingleProduct() {
     dispatch(fetchOneProductAsync(productId));
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchUserCart());
+    }
+  }, []);
+
   if (isLoading) {
     return (
       <Backdrop
         open={isLoading}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color='inherit' />
       </Backdrop>
     );
   }
@@ -42,19 +50,13 @@ function SingleProduct() {
   if (!isLoading && error) {
     return (
       <>
-        <Alert severity="error">{error}</Alert>
+        <Alert severity='error'>{error}</Alert>
         <Typography>
           <Link to={"/products"}>Go back to see other products</Link>
         </Typography>
       </>
     );
   }
-  useEffect(() => {
-    console.dir(user);
-    if (user) {
-      dispatch(fetchUserCart());
-    }
-  }, []);
 
   function handleAdd() {
     dispatch(addToCart(product));
@@ -64,12 +66,14 @@ function SingleProduct() {
     };
     if (user) {
       dispatch(addToCartDB(req));
+    } else {
+      dispatch(setLocalCart(cartItems));
     }
   }
 
   return (
     <div>
-      <img alt="product image" src={product.imageUrl} />
+      <img alt='product image' src={product.imageUrl} />
       <h3>{product.title}</h3>
       <h3>Artist: {product.artistName}</h3>
 
@@ -77,13 +81,13 @@ function SingleProduct() {
       <p>${product.price}</p>
       <IconButton
         onClick={handleAdd}
-        size="small"
-        color="primary edge="
+        size='small'
+        color='primary edge='
         start
-        aria-label="label"
+        aria-label='label'
       >
         <AddShoppingCartIcon />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           Add to cart
         </Typography>
       </IconButton>
