@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
 import { Routes, Route } from "react-router-dom";
@@ -9,7 +9,25 @@ import NotFoundPage from "./pages/NotFoundPage";
 import UsersListPage from "./pages/UsersListPage";
 import ProductListpage from "./pages/ProductsListPage";
 
+// socket
+import socket from "./utils/socket";
+import { useDispatch } from "react-redux";
+import { fetchAllProductsAsync } from "./store";
+
 const AppRoutes = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("I am now connected to the server!");
+
+      // admin create a new product
+      socket.on("product/create", () => {
+        dispatch(fetchAllProductsAsync());
+      });
+    });
+  }, []);
+
   return (
     <main>
       <h1 className="title">Welcome to Grace shopper</h1>
