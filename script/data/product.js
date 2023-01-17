@@ -992,7 +992,7 @@ module.exports = [
     age: 7,
     artistName: "Ellie Stoppard ",
     countInStock: 75,
-    imageUrl: "/images/garen.png",
+    imageUrl: "/images/garden.png",
   },
   {
     title: "Helping The Animals Escape From The Zoo",
