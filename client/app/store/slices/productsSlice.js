@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import socket from "../../utils/socket";
 
 // @desc : get all products
 export const fetchAllProductsAsync = createAsyncThunk(
@@ -7,6 +8,9 @@ export const fetchAllProductsAsync = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get("/api/products");
+
+      socket.emit("product/create", response.data);
+
       return response.data;
     } catch (error) {
       const errMsg = error.response.data;
