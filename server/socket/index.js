@@ -1,5 +1,3 @@
-const Product = require("../db/models/productModel");
-
 module.exports = (io) => {
   io.on("connection", (socket) => {
     console.log(socket.id, " has made a persistent connection to the server!");
@@ -9,8 +7,11 @@ module.exports = (io) => {
     });
 
     socket.on("product/edit", (message) => {
-      // console.log(message);
       socket.broadcast.emit("product/edit", message);
+    });
+
+    socket.on("product/delete", (id) => {
+      socket.broadcast.emit("product/delete", id);
     });
   });
 };
