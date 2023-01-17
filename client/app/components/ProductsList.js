@@ -3,7 +3,14 @@ import { fetchAllProductsAsync } from "../store/slices/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { IconButton, Typography, Pagination, Stack } from "@mui/material";
+import {
+  IconButton,
+  Typography,
+  Pagination,
+  Stack,
+  Backdrop,
+  CircularProgress,
+} from "@mui/material";
 
 //pagination
 import paginate from "../utils/paginate";
@@ -56,6 +63,17 @@ function ProductsList() {
       </div>
     );
   });
+
+  if (isLoading) {
+    return (
+      <Backdrop
+        open={isLoading}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
   return (
     <Fragment>
       {renderedProductsList}
