@@ -93,6 +93,11 @@ export const editCartDB = createAsyncThunk(
   }
 );
 
+//@desc: take current cart and save it in localStorage
+export const setLocalCart = (currentCart) => {
+  localStorage.setItem("cart", JSON.stringify(currentCart));
+};
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: { cartItems: [] },
@@ -127,6 +132,13 @@ const cartSlice = createSlice({
         product.quantity--;
       }
     },
+    //@desc: pull cart from localstorage and set as cart in state
+    getLocalCart: (state, action) => {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        state.cartItems = cart;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
@@ -151,6 +163,11 @@ const cartSlice = createSlice({
 });
 
 export const selectCart = (state) => state.cart;
-export const { addToCart, deleteProduct, incrementOne, subtractOne } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  deleteProduct,
+  incrementOne,
+  subtractOne,
+  getLocalCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

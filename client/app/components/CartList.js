@@ -10,6 +10,8 @@ import {
   subtractOne,
   deleteFromCartDB,
   editCartDB,
+  getLocalCart,
+  setLocalCart,
 } from "../store/slices/cartSlice";
 
 const CartList = () => {
@@ -20,6 +22,8 @@ const CartList = () => {
   useEffect(() => {
     if (user) {
       dispatch(fetchUserCart());
+    } else {
+      dispatch(getLocalCart());
     }
   }, []);
 
