@@ -51,7 +51,7 @@ export const editExistedProduct = createAsyncThunk(
         },
       };
       const res = await axios.put(`/api/products/${id}`, product, config);
-      socket.emit("product/edit", res.data);
+      socket.emit("product/edit", res.data.product.id);
       return res.data;
     } catch (error) {
       const errMsg = error.response.data;
@@ -73,6 +73,7 @@ export const deleteExisedProduct = createAsyncThunk(
         },
       };
       const res = await axios.delete(`/api/products/${id}`, config);
+      socket.emit("product/delete", id);
       return { id: id };
     } catch (error) {
       const errMsg = error.response.data;

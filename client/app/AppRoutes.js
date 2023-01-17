@@ -32,8 +32,7 @@ const AppRoutes = () => {
         dispatch(fetchAllProductsAsync());
       }
 
-      message.product.id === product.id &&
-        dispatch(fetchOneProductAsync(message.product.id));
+      message === product.id && dispatch(fetchOneProductAsync(message));
       // }
     });
 
