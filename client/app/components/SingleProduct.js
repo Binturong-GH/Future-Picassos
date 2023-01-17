@@ -1,20 +1,48 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { fetchOneProductAsync } from "../store/slices/singleProductSlice";
 import { selectCart, addToCart } from "../store/slices/cartSlice";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { IconButton, Typography } from "@mui/material";
+import {
+  IconButton,
+  Typography,
+  Alert,
+  Backdrop,
+  CircularProgress,
+} from "@mui/material";
 
 function SingleProduct() {
   const dispatch = useDispatch();
-  const { product } = useSelector((state) => state.product);
+  const { isLoading, product, error } = useSelector((state) => state.product);
   const { cartItems } = useSelector(selectCart);
   const { productId } = useParams();
 
   useEffect(() => {
     dispatch(fetchOneProductAsync(productId));
   }, []);
+
+  if (isLoading) {
+    return (
+      <Backdrop
+        open={isLoading}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
+
+  if (!isLoading && error) {
+    return (
+      <>
+        <Alert severity="error">{error}</Alert>
+        <Typography>
+          <Link to={"/products"}>Go back to see other products</Link>
+        </Typography>
+      </>
+    );
+  }
 
   return (
     <div>
