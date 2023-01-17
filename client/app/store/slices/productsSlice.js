@@ -8,9 +8,6 @@ export const fetchAllProductsAsync = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get("/api/products");
-
-      socket.emit("product/create", response.data);
-
       return response.data;
     } catch (error) {
       const errMsg = error.response.data;
@@ -32,6 +29,7 @@ export const createNewProduct = createAsyncThunk(
         },
       };
       const res = await axios.post("/api/products", product, config);
+      socket.emit("product/create", res.data);
       return res.data;
     } catch (error) {
       const errMsg = error.response.data;
