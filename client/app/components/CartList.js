@@ -30,17 +30,16 @@ const CartList = () => {
 
   const cartRows = cartItems.map((cartItem) => {
     function handleSubtract() {
-      dispatch(subtractOne(cartItem.id)).then(setLocalCart(cartItems));
+      dispatch(subtractOne(cartItem.id));
       const req = {
         productId: cartItem.id,
         quantity: cartItem.quantity - 1,
       };
       if (user) {
         dispatch(editCartDB(req));
+      } else {
+        dispatch(setLocalCart(cartItems));
       }
-      // else {
-      //   dispatch(setLocalCart(cartItems));
-      // }
     }
 
     function handleIncrement() {
