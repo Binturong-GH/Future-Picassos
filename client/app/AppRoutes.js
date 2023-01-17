@@ -20,19 +20,39 @@ const AppRoutes = () => {
 
   useEffect(() => {
     socket.on("connect", () => {
-      // admin create a new product
-      socket.on("product/create", (message) => {
-        dispatch(fetchAllProductsAsync());
-      });
-
-      // admin edit a exist product
-      socket.on("product/edit", (message) => {
-        if (product.id === message.product.id) {
-          dispatch(fetchOneProductAsync(message.product.id));
-        }
-      });
+      console.log("Connected");
     });
-  }, []);
+
+    socket.on("product/create", (message) => {
+      dispatch(fetchAllProductsAsync());
+    });
+
+    socket.on("product/edit", (message) => {
+      if (location.pathname === "/products") {
+        dispatch(fetchAllProductsAsync());
+      }
+
+      message.product.id === product.id &&
+        dispatch(fetchOneProductAsync(message.product.id));
+      // }
+    });
+
+    socket.on("product/delete", (message) => {
+      if (location.pathname === "/products") {
+        dispatch(fetchAllProductsAsync());
+      }
+      if (product.id === message) {
+        dispatch(fetchOneProductAsync(message));
+      }
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("product/create");
+      socket.off("product/edit");
+      socket.off("product/delete");
+    };
+  }, [product]);
 
   return (
     <main>
