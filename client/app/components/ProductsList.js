@@ -29,6 +29,7 @@ function ProductsList() {
       ? Number(localStorage.getItem("currentPageAtAllProducts"))
       : 0
   );
+  //productsPerPage is the value used to render all products
   const [productsPerPage, setProductsPerPage] = useState([]);
   const handlePageChange = (event, value) => {
     localStorage.setItem("currentPageAtAllProducts", value - 1);
