@@ -7,6 +7,8 @@ import {
   addToCart,
   fetchUserCart,
   addToCartDB,
+  setLocalCart,
+  getLocalCart,
 } from "../store/slices/cartSlice";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
@@ -65,6 +67,8 @@ function SingleProduct() {
     };
     if (user) {
       dispatch(addToCartDB(req));
+    } else {
+      dispatch(setLocalCart(cartItems));
     }
   }
 
@@ -79,8 +83,8 @@ function SingleProduct() {
       <IconButton
         onClick={handleAdd}
         size="small"
-        color="primary edge="
-        start
+        color="primary"
+        edge="start"
         aria-label="label"
       >
         <AddShoppingCartIcon />
