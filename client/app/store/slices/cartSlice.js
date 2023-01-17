@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
+
 /*
 to consider:
 Your application may have multiple API requests, and you may want to set request headers for all of them. Instead of adding the headers to each request, you can put them as default headers, and they will apply to all the requests. To do so, use the defaults.headers property of the axios object.
@@ -98,14 +99,26 @@ const cartSlice = createSlice({
   initialState: { cartItems: [] },
   reducers: {
     addToCart: (state, action) => {
-      const itemInCart = state.cartItems.filter(
+      //check if exist in cart
+      const itemExists = state.cartItems.find(
         (item) => item.id === action.payload.id
       );
-      if (itemInCart.length > 0) {
-        itemInCart[0].quantity++;
-      } else {
+
+      //if not, push to array
+      if (!itemExists) {
         state.cartItems.push({ ...action.payload, quantity: 1 });
+      } else {
+        const updatedCart = state.cartItems.map((prod) => {
+          if (prod.id === action.payload.id) {
+            prod.quantity++;
+            return prod;
+          } else {
+            return prod;
+          }
+        });
+        state.cartItems = updatedCart;
       }
+      //if so, map to increase quantity
     },
     deleteProduct: (state, action) => {
       const remainingItems = state.cartItems.filter(
@@ -126,6 +139,22 @@ const cartSlice = createSlice({
       if (product.quantity > 1) {
         product.quantity--;
       }
+    },
+    //@desc: pull cart from localstorage and set as cart in state
+    getLocalCart: (state, action) => {
+      let cart;
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+
+      console.log("getlocalcart on slice page, here is cart", cart);
+      if (cart) {
+        state.cartItems = cart;
+      }
+    },
+
+    setLocalCart: (state, action) => {
+      localStorage.setItem("cart", JSON.stringify(state.cartItems));
     },
   },
   extraReducers: (builder) => {
@@ -151,6 +180,12 @@ const cartSlice = createSlice({
 });
 
 export const selectCart = (state) => state.cart;
-export const { addToCart, deleteProduct, incrementOne, subtractOne } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  deleteProduct,
+  incrementOne,
+  subtractOne,
+  getLocalCart,
+  setLocalCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;
