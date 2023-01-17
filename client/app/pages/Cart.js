@@ -1,18 +1,24 @@
 //cart screen page
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import CartList from '../components/CartList';
-import { fetchUserCart, addToCart } from '../store';
-import { selectCart } from '../store/slices/cartSlice';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import CartList from "../components/CartList";
+import { fetchUserCart, addToCart } from "../store";
+import { selectCart } from "../store/slices/cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchUserCart(), []);
   });
+
+  const redirectToPaymentPage = () => {
+    navigate("/payment");
+  };
 
   const subtotal = cartItems
     .reduce(
@@ -38,13 +44,7 @@ const Cart = () => {
       <p>shipping: ${shipping}</p>
       <p>tax: ${tax}</p>
       <p>order total: ${total}</p>
-      <button
-        onClick={() => {
-          console.log('proceeding to checkout!');
-        }}
-      >
-        Proceed to Checkout
-      </button>
+      <button onClick={redirectToPaymentPage}>Proceed to Checkout</button>
     </>
   );
 };
