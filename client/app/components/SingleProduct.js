@@ -34,6 +34,8 @@ function SingleProduct() {
     console.dir(user);
     if (user) {
       dispatch(fetchUserCart());
+    } else {
+      dispatch(getLocalCart());
     }
   }, []);
 
