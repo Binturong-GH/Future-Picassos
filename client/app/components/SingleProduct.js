@@ -33,6 +33,8 @@ function SingleProduct() {
   useEffect(() => {
     if (user) {
       dispatch(fetchUserCart());
+    } else {
+      dispatch(getLocalCart());
     }
   }, []);
 
