@@ -28,13 +28,6 @@ function SingleProduct() {
     dispatch(fetchOneProductAsync(productId));
   }, []);
 
-  useEffect(() => {
-    console.dir(user);
-    if (user) {
-      dispatch(fetchUserCart());
-    }
-  }, []);
-
   if (isLoading) {
     return (
       <Backdrop
@@ -56,6 +49,12 @@ function SingleProduct() {
       </>
     );
   }
+  useEffect(() => {
+    console.dir(user);
+    if (user) {
+      dispatch(fetchUserCart());
+    }
+  }, []);
 
   function handleAdd() {
     dispatch(addToCart(product));
@@ -79,8 +78,8 @@ function SingleProduct() {
       <IconButton
         onClick={handleAdd}
         size="small"
-        color="primary"
-        edge="start"
+        color="primary edge="
+        start
         aria-label="label"
       >
         <AddShoppingCartIcon />
