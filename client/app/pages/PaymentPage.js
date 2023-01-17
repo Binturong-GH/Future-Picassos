@@ -170,7 +170,7 @@ export default function PaymentPage() {
         <h4>Review Order</h4>
       </div>
       <div>
-        <div>
+        <div className="card=header">
           {cartItems && cartItems.length ? (
             <table>
               <thead>
@@ -202,8 +202,8 @@ export default function PaymentPage() {
           aria-hidden="true"
         ></div>
       </div>
-      <div className="col-md-12">
-        <div className="form-group text-end">
+      <div>
+        <div>
           <button type="button">Place Order</button>
         </div>
       </div>
