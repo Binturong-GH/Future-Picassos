@@ -1,18 +1,14 @@
 //cart screen page
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import CartList from '../components/CartList';
-import { fetchUserCart, addToCart } from '../store';
-import { selectCart } from '../store/slices/cartSlice';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import CartList from "../components/CartList";
+import { fetchUserCart, addToCart } from "../store";
+import { selectCart } from "../store/slices/cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
-
-  useEffect(() => {
-    dispatch(fetchUserCart(), []);
-  });
 
   const subtotal = cartItems
     .reduce(
@@ -40,7 +36,7 @@ const Cart = () => {
       <p>order total: ${total}</p>
       <button
         onClick={() => {
-          console.log('proceeding to checkout!');
+          console.log("proceeding to checkout!");
         }}
       >
         Proceed to Checkout
