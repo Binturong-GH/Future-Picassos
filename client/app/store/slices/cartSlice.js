@@ -1,25 +1,34 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-// const catchAsync = (fn) => {
-//   return (req, res, next) => fn(req, res, next).catch(next);
-// };
-// use this instead of try catch ?
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+import axios from "axios";
+/*
+to consider:
+Your application may have multiple API requests, and you may want to set request headers for all of them. Instead of adding the headers to each request, you can put them as default headers, and they will apply to all the requests. To do so, use the defaults.headers property of the axios object.
+https://rapidapi.com/guides/request-headers-axios
+*/
 
 export const fetchUserCart = createAsyncThunk(
-  'cart/fetchUserCart',
-  async (id) => {
+  "cart/fetchUserCart",
+  async () => {
     try {
-      const token = JSON.parse(localStorage.getItem('jwt'));
+      const token = JSON.parse(localStorage.getItem("jwt"));
       const config = {
         headers: {
-          'Content-type': 'application/json',
+          "Content-type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
 
       const { data } = await axios.get(`/api/cart`, config);
-      return data;
+      const cartArr = data.cartDetails.map((prod) => {
+        return {
+          id: prod.productInfo.id,
+          imageUrl: prod.productInfo.imageUrl,
+          price: prod.productInfo.price,
+          title: prod.productInfo.title,
+          quantity: prod.quantity,
+        };
+      });
+      return cartArr;
     } catch (err) {
       console.error(err);
     }
@@ -27,10 +36,17 @@ export const fetchUserCart = createAsyncThunk(
 );
 
 export const addToCartDB = createAsyncThunk(
-  'cart/addToCartDB',
+  "cart/addToCartDB",
   async (newCartEntry) => {
     try {
-      const { data } = await axios.post('/api/cart', newCartEntry);
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.post("/api/cart", newCartEntry, config);
       return data;
     } catch (err) {
       console.error(err);
@@ -39,11 +55,19 @@ export const addToCartDB = createAsyncThunk(
 );
 
 export const deleteFromCartDB = createAsyncThunk(
-  'cart/deleteFromCartDB',
+  "cart/deleteFromCartDB",
   async (toDelete) => {
     try {
-      await axios.delete('/api/cart', toDelete);
-      return toDelete.productId;
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: toDelete,
+      };
+      await axios.delete("/api/cart", config);
+      return { productId: toDelete.id };
     } catch (err) {
       console.error(err);
     }
@@ -51,10 +75,17 @@ export const deleteFromCartDB = createAsyncThunk(
 );
 
 export const editCartDB = createAsyncThunk(
-  '/cart/editCartDB',
+  "/cart/editCartDB",
   async (toEdit) => {
     try {
-      const { data } = await axios.put('/api/cart', toEdit);
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put("/api/cart", toEdit, config);
       return data;
     } catch (err) {
       console.error(err);
@@ -63,7 +94,7 @@ export const editCartDB = createAsyncThunk(
 );
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState: { cartItems: [] },
   reducers: {
     addToCart: (state, action) => {
@@ -77,10 +108,10 @@ const cartSlice = createSlice({
       }
     },
     deleteProduct: (state, action) => {
-      const deleteProduct = state.cartItems.filter(
+      const remainingItems = state.cartItems.filter(
         (item) => item.id !== action.payload
       );
-      state.cartItems = deleteProduct;
+      state.cartItems = remainingItems;
     },
     incrementOne: (state, action) => {
       const product = state.cartItems.filter(
@@ -99,16 +130,22 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
-      state.cartItems.push(...action.payload);
+      return { cartItems: action.payload };
     });
     builder.addCase(addToCartDB.fulfilled, (state, action) => {
-      state.cartItems.push(action.payload);
+      // state.cartItems.push(action.payload);
+      console.log("item added to cart db");
     });
     builder.addCase(deleteFromCartDB.fulfilled, (state, action) => {
-      return state.filter((product) => product.productId !== action.payload);
+      console.log("db updated!");
+      // return {
+      //   cartItems: state.cartItems.filter(
+      //     (product) => product.productId !== action.payload
+      //   ),
+      // };
     });
     builder.addCase(editCartDB.fulfilled, (state, action) => {
-      return action.payload;
+      // return action.payload;
     });
   },
 });
