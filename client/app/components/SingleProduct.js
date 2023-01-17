@@ -23,7 +23,7 @@ function SingleProduct() {
   const { cartItems } = useSelector(selectCart);
   const { productId } = useParams();
   const { user } = useSelector((state) => state.auth);
-  console.log("test for reset main branch");
+
   useEffect(() => {
     dispatch(fetchOneProductAsync(productId));
   }, []);
