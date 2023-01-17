@@ -53,8 +53,6 @@ exports.addNewOrder = catchAsync(async (req, res, next) => {
 
   // 3. send created order back to client
   res.status(201).json({
-    status: "success",
-    order: createdOrder.orderItems,
-    shipping: createdOrder.shippingAddress,
+    status: "Success your order was placed!",
   });
 });

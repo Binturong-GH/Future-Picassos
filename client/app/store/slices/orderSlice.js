@@ -5,7 +5,7 @@ export const addNewOrderAsync = createAsyncThunk(
   "order/addOrder",
   async (newOrder) => {
     try {
-      const { data } = await axios.post("/api/payment", newOrder);
+      const { data } = await axios.post("/api/order", newOrder);
       return data;
     } catch (err) {
       console.error(err);
