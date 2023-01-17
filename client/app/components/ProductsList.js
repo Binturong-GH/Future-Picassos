@@ -3,7 +3,7 @@ import { fetchAllProductsAsync } from "../store/slices/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Typography, Grid, Box } from "@mui/material";
 import {
   selectCart,
   addToCart,
@@ -46,28 +46,42 @@ function ProductsList() {
       }
     }
     return (
-      <div className='productsList' key={product.id}>
-        <Link to={`/products/${product.id}`}>
-          <img className='productsImg' src={product.imageUrl} />
-          <h3>{product.title}</h3>
-          <h3>${product.price}</h3>
-        </Link>
-        <IconButton
-          onClick={handleAdd}
-          size='small'
-          color='primary'
-          edge='start'
-          aria-label='label'
-        >
-          <AddShoppingCartIcon />
-          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            Add to cart
-          </Typography>
-        </IconButton>
-      </div>
+      <Grid item xs={2} sm={4} md={4} key={product.id}>
+        <div className="productsList">
+          <Link to={`/products/${product.id}`}>
+            <img className="productsImg" src={product.imageUrl} />
+            <h3>{product.title}</h3>
+            <h3>${product.price}</h3>
+          </Link>
+          <IconButton
+            onClick={handleAdd}
+            size="small"
+            color="primary"
+            edge="start"
+            aria-label="label"
+          >
+            <AddShoppingCartIcon />
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Add to cart
+            </Typography>
+          </IconButton>
+        </div>
+      </Grid>
     );
   });
-  return <Fragment>{renderedProductsList}</Fragment>;
+  return (
+    <Fragment>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3, lg: 4 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          {renderedProductsList}
+        </Grid>
+      </Box>
+    </Fragment>
+  );
 }
 
 export default ProductsList;
