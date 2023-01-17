@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Cart from "./pages/Cart";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -16,8 +16,8 @@ import { fetchAllProductsAsync, fetchOneProductAsync } from "./store";
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { product } = useSelector((state) => state.product);
-
   useEffect(() => {
     socket.on("connect", () => {
       console.log("Connected");
@@ -28,16 +28,21 @@ const AppRoutes = () => {
     });
 
     socket.on("product/edit", (message) => {
-      if (location.pathname === "/products") {
+      if (
+        location.pathname === "/products" ||
+        location.pathname === "/admin/products"
+      ) {
         dispatch(fetchAllProductsAsync());
       }
 
       message === product.id && dispatch(fetchOneProductAsync(message));
-      // }
     });
 
     socket.on("product/delete", (message) => {
-      if (location.pathname === "/products") {
+      if (
+        location.pathname === "/products" ||
+        location.pathname === "/admin/products"
+      ) {
         dispatch(fetchAllProductsAsync());
       }
       if (product.id === message) {
