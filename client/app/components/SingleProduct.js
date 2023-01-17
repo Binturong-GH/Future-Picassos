@@ -79,8 +79,8 @@ function SingleProduct() {
       <IconButton
         onClick={handleAdd}
         size="small"
-        color="primary edge="
-        start
+        color="primary"
+        edge="start"
         aria-label="label"
       >
         <AddShoppingCartIcon />
