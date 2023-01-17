@@ -8,10 +8,7 @@ export const fetchOneProductAsync = createAsyncThunk(
       const response = await axios.get(`/api/products/${productId}`);
       return response.data;
     } catch (error) {
-      const errMsg =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+      const errMsg = error.response.data;
       throw new Error(errMsg);
     }
   }
@@ -31,12 +28,11 @@ const singleProductSlice = createSlice({
     });
     builder.addCase(fetchOneProductAsync.fulfilled, (state, action) => {
       state.isLoading = false;
-
       state.product = action.payload;
+      state.error = null;
     });
     builder.addCase(fetchOneProductAsync.rejected, (state, action) => {
       state.isLoading = false;
-
       state.error = action.error.message;
     });
   },

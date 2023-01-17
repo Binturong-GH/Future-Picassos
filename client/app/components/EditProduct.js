@@ -45,13 +45,13 @@ export default function EditProduct({ handleClose, open, id }) {
 
   const formik = useFormik({
     initialValues: {
-      title: product.title,
-      imageUrl: product.imageUrl,
-      price: product.price,
-      description: product.description,
-      artistName: product.artistName,
-      age: product.age,
-      countInStock: product.countInStock,
+      title: product.title || "",
+      imageUrl: product.imageUrl || "",
+      price: product.price || 0,
+      description: product.description || "",
+      artistName: product.artistName || "",
+      age: product.age || 0,
+      countInStock: product.countInStock || 0,
     },
     enableReinitialize: true,
     validationSchema: validate,
@@ -132,7 +132,7 @@ export default function EditProduct({ handleClose, open, id }) {
                 inputProps={{
                   step: 0.01,
                 }}
-                value={formik.values.price}
+                value={formik.values.price === 0 ? "" : formik.values.price}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={formik.touched.price && Boolean(formik.errors.price)}
@@ -160,7 +160,7 @@ export default function EditProduct({ handleClose, open, id }) {
                 name="age"
                 label="age"
                 type="number"
-                value={formik.values.age}
+                value={formik.values.age === 0 ? "" : formik.values.age}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={formik.touched.age && Boolean(formik.errors.age)}
@@ -172,7 +172,11 @@ export default function EditProduct({ handleClose, open, id }) {
                 name="countInStock"
                 label="Count In Stock"
                 type="number"
-                value={formik.values.countInStock}
+                value={
+                  formik.values.countInStock === 0
+                    ? ""
+                    : formik.values.countInStock
+                }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={

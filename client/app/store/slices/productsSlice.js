@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import socket from "../../utils/socket";
 
 // @desc : get all products
 export const fetchAllProductsAsync = createAsyncThunk(
@@ -28,6 +29,7 @@ export const createNewProduct = createAsyncThunk(
         },
       };
       const res = await axios.post("/api/products", product, config);
+      socket.emit("product/create", res.data);
       return res.data;
     } catch (error) {
       const errMsg = error.response.data;
@@ -49,6 +51,7 @@ export const editExistedProduct = createAsyncThunk(
         },
       };
       const res = await axios.put(`/api/products/${id}`, product, config);
+      socket.emit("product/edit", res.data.product.id);
       return res.data;
     } catch (error) {
       const errMsg = error.response.data;
@@ -70,6 +73,7 @@ export const deleteExisedProduct = createAsyncThunk(
         },
       };
       const res = await axios.delete(`/api/products/${id}`, config);
+      socket.emit("product/delete", id);
       return { id: id };
     } catch (error) {
       const errMsg = error.response.data;

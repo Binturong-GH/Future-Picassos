@@ -23,6 +23,13 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 
 exports.getProduct = catchAsync(async (req, res, next) => {
   const product = await Product.findByPk(req.params.id);
+
+  if (!product) {
+    const error = new Error("Product with this id is not longer exist.");
+    error.status = 404;
+    throw error;
+  }
+
   res.json(product);
 });
 
