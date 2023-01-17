@@ -1,18 +1,40 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { fetchAllProductsAsync } from "../store/slices/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Typography, Pagination, Stack } from "@mui/material";
+
+//pagination
+import paginate from "../utils/paginate";
 
 function ProductsList() {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
+  const { isLoading, products } = useSelector((state) => state.products);
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
   }, []);
 
-  const renderedProductsList = products.map((product) => {
+  //pagination
+  const [page, setPage] = useState(
+    localStorage.getItem("currentPageAtAllProducts")
+      ? Number(localStorage.getItem("currentPageAtAllProducts"))
+      : 0
+  );
+  const [productsPerPage, setProductsPerPage] = useState([]);
+  const handlePageChange = (event, value) => {
+    localStorage.setItem("currentPageAtAllProducts", value - 1);
+    setPage(value - 1);
+  };
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (!isLoading && products.length > 0) {
+      setProductsPerPage(paginate(products)[page]);
+    }
+  }, [isLoading, products, page]);
+
+  const renderedProductsList = productsPerPage.map((product) => {
     return (
       <div className="productsList" key={product.id}>
         <Link to={`/products/${product.id}`}>
@@ -34,7 +56,18 @@ function ProductsList() {
       </div>
     );
   });
-  return <Fragment>{renderedProductsList}</Fragment>;
+  return (
+    <Fragment>
+      {renderedProductsList}
+      <Stack spacing={2}>
+        <Pagination
+          count={paginate(products).length}
+          page={page + 1}
+          onChange={handlePageChange}
+        />
+      </Stack>
+    </Fragment>
+  );
 }
 
 export default ProductsList;
