@@ -28,7 +28,6 @@ function SingleProduct() {
     dispatch(fetchOneProductAsync(productId));
   }, []);
 
-
   if (isLoading) {
     return (
       <Backdrop
@@ -49,7 +48,7 @@ function SingleProduct() {
         </Typography>
       </>
     );
-
+  }
   useEffect(() => {
     console.dir(user);
     if (user) {
@@ -66,12 +65,11 @@ function SingleProduct() {
     if (user) {
       dispatch(addToCartDB(req));
     }
-
   }
 
   return (
     <div>
-      <img alt='product image' src={product.imageUrl} />
+      <img alt="product image" src={product.imageUrl} />
       <h3>{product.title}</h3>
       <h3>Artist: {product.artistName}</h3>
 
@@ -79,13 +77,13 @@ function SingleProduct() {
       <p>${product.price}</p>
       <IconButton
         onClick={handleAdd}
-        size='small'
-        color='primary edge='
+        size="small"
+        color="primary edge="
         start
-        aria-label='label'
+        aria-label="label"
       >
         <AddShoppingCartIcon />
-        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Add to cart
         </Typography>
       </IconButton>
