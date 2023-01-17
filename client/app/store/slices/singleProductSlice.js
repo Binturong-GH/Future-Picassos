@@ -28,8 +28,8 @@ const singleProductSlice = createSlice({
     });
     builder.addCase(fetchOneProductAsync.fulfilled, (state, action) => {
       state.isLoading = false;
-
       state.product = action.payload;
+      state.error = null;
     });
     builder.addCase(fetchOneProductAsync.rejected, (state, action) => {
       state.isLoading = false;
