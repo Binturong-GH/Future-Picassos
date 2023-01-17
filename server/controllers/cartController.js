@@ -1,4 +1,3 @@
-const { default: axios } = require("axios");
 const {
   models: { Product, User, Cart },
 } = require("../db");
