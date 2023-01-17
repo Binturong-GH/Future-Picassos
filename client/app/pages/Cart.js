@@ -4,11 +4,17 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartList from "../components/CartList";
 import { fetchUserCart, addToCart } from "../store";
+import { useNavigate } from "react-router-dom";
 import { selectCart } from "../store/slices/cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
+  const navigate = useNavigate();
+
+  const redirectToPayment = () => {
+    navigate("/payment");
+  };
 
   const subtotal = cartItems
     .reduce(
@@ -34,13 +40,7 @@ const Cart = () => {
       <p>shipping: ${shipping}</p>
       <p>tax: ${tax}</p>
       <p>order total: ${total}</p>
-      <button
-        onClick={() => {
-          console.log("proceeding to checkout!");
-        }}
-      >
-        Proceed to Checkout
-      </button>
+      <button onClick={redirectToPayment}>Proceed to Checkout</button>
     </>
   );
 };
