@@ -3,6 +3,7 @@ import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Cart from "./pages/Cart";
+import PaymentPage from "./pages/PaymentPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -66,6 +67,7 @@ const AppRoutes = () => {
         <Route path="/products" element={<ProductsList />} />
         <Route path="/products/:productId" element={<SingleProduct />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/payment" element={<PaymentPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin/users" element={<UsersListPage />} />
