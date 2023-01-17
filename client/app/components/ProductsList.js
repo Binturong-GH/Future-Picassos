@@ -10,6 +10,7 @@ import {
   Stack,
   Backdrop,
   CircularProgress,
+  Alert,
 } from "@mui/material";
 
 //pagination
@@ -17,7 +18,7 @@ import paginate from "../utils/paginate";
 
 function ProductsList() {
   const dispatch = useDispatch();
-  const { isLoading, products } = useSelector((state) => state.products);
+  const { isLoading, products, error } = useSelector((state) => state.products);
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
   }, []);
@@ -74,6 +75,11 @@ function ProductsList() {
       </Backdrop>
     );
   }
+
+  if (!isLoading && error) {
+    return <Alert severity="error">{error}</Alert>;
+  }
+
   return (
     <Fragment>
       {renderedProductsList}
