@@ -31,7 +31,6 @@ function ProductsList() {
   const { cartItems } = useSelector(selectCart);
   const { user } = useSelector((state) => state.auth);
 
-
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
   }, []);
@@ -43,14 +42,13 @@ function ProductsList() {
     }
   }, []);
 
-
   //pagination
   const [page, setPage] = useState(
     localStorage.getItem("currentPageAtAllProducts")
       ? Number(localStorage.getItem("currentPageAtAllProducts"))
       : 0
   );
-  //productsPerPage is the value used to render all products
+
   const [productsPerPage, setProductsPerPage] = useState([]);
   const handlePageChange = (event, value) => {
     localStorage.setItem("currentPageAtAllProducts", value - 1);
@@ -64,8 +62,7 @@ function ProductsList() {
     }
   }, [isLoading, products, page]);
 
-
-  const renderedProductsList = products.map((product) => {
+  const renderedProductsList = productsPerPage.map((product) => {
     function handleAdd() {
       console.log("triggered handleAdd on ProductsList");
       dispatch(addToCart(product));
@@ -82,21 +79,21 @@ function ProductsList() {
     }
 
     return (
-      <div className='productsList' key={product.id}>
+      <div className="productsList" key={product.id}>
         <Link to={`/products/${product.id}`}>
-          <img className='productsImg' src={product.imageUrl} />
+          <img className="productsImg" src={product.imageUrl} />
           <h3>{product.title}</h3>
           <h3>${product.price}</h3>
         </Link>
         <IconButton
           onClick={handleAdd}
-          size='small'
-          color='primary'
-          edge='start'
-          aria-label='label'
+          size="small"
+          color="primary"
+          edge="start"
+          aria-label="label"
         >
           <AddShoppingCartIcon />
-          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Add to cart
           </Typography>
         </IconButton>
