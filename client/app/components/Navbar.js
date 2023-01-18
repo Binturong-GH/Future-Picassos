@@ -93,15 +93,15 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar color="primary" position="static">
+      <AppBar color='primary' position='static'>
         <Toolbar>
           <Box sx={{ color: "white", mr: 2 }}>
             <IconButton
               onClick={redirectToHome}
-              size="small"
-              color="inherit"
-              edge="start"
-              aria-label="label"
+              size='small'
+              color='inherit'
+              edge='start'
+              aria-label='label'
             >
               <HomeIcon />
             </IconButton>
@@ -109,8 +109,8 @@ const Navbar = () => {
 
           <Typography
             onClick={redirectToHome}
-            variant="h6"
-            component="div"
+            variant='h6'
+            component='div'
             sx={{
               flexGrow: 1,
             }}
@@ -118,19 +118,19 @@ const Navbar = () => {
             Future Picassos
           </Typography>
 
-          <Stack direction="row" spacing={2} color="white">
-            <Box sx={{ color: "white" }}>
+          <Stack direction='row' spacing={2} color='white'>
+            <Box sx={{ color: "white", display: "flex", alignItems: "center" }}>
               <IconButton
                 onClick={redirectToAllProducts}
-                size="small"
-                color="inherit"
-                edge="start"
-                aria-label="label"
+                size='small'
+                color='inherit'
+                edge='start'
+                aria-label='label'
               >
                 <ColorLensIcon />
                 <Typography
-                  variant="h8"
-                  component="div"
+                  variant='h8'
+                  component='div'
                   sx={{ flexGrow: 1, ml: 1 }}
                 >
                   All Art
@@ -140,9 +140,9 @@ const Navbar = () => {
 
             {isLogged ? (
               <Button
-                id="user-button"
+                id='user-button'
                 aria-controls={open ? "user-menu" : undefined}
-                aria-haspopup="true"
+                aria-haspopup='true'
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
               >
@@ -154,7 +154,7 @@ const Navbar = () => {
               </Button>
             ) : (
               <Button>
-                <Link to="/login">
+                <Link to='/login'>
                   <Typography sx={{ color: "white" }}>Sign In</Typography>
                 </Link>
               </Button>
@@ -162,9 +162,9 @@ const Navbar = () => {
 
             {isLogged && user.role === "admin" && (
               <Button
-                id="admin-button"
+                id='admin-button'
                 aria-controls={openAdmin ? "admin-menu" : undefined}
-                aria-haspopup="true"
+                aria-haspopup='true'
                 aria-expanded={openAdmin ? "true" : undefined}
                 onClick={handleAdminMenuClick}
               >
@@ -175,10 +175,10 @@ const Navbar = () => {
             <Box sx={{ color: "white", ml: 2 }}>
               <IconButton
                 onClick={redirectToCart}
-                size="small"
-                color="inherit"
-                edge="start"
-                aria-label="label"
+                size='small'
+                color='inherit'
+                edge='start'
+                aria-label='label'
                 sx={{ m: 4 }}
               >
                 <Badge
@@ -194,7 +194,7 @@ const Navbar = () => {
                   <ShoppingCartIcon />
                 </Badge>
 
-                <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+                <Typography variant='h8' component='div' sx={{ flexGrow: 1 }}>
                   Cart
                 </Typography>
               </IconButton>
@@ -204,7 +204,7 @@ const Navbar = () => {
       </AppBar>
 
       <Menu
-        id="user-menu"
+        id='user-menu'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -218,7 +218,7 @@ const Navbar = () => {
       </Menu>
 
       <Menu
-        id="admin-menu"
+        id='admin-menu'
         anchorEl={adminAnchorEl}
         open={openAdmin}
         onClose={handleAdminMenuClose}
