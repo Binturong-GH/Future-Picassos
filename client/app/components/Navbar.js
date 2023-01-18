@@ -162,7 +162,7 @@ const Navbar = () => {
           "aria-labelledby": "user-button",
         }}
       >
-        <MenuList onClick={handleClose}>
+        <MenuList onClick={handleClose} sx={{ px: 2 }}>
           <div onClick={handleLogout}>Logout</div>
         </MenuList>
       </Menu>
