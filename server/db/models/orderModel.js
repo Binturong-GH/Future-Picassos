@@ -1,7 +1,8 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require("sequelize");
+const { date } = require("yup");
+const db = require("../db");
 
-const Order = db.define('order', {
+const Order = db.define("order", {
   orderItems: {
     type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
@@ -42,6 +43,7 @@ const Order = db.define('order', {
   paidAt: {
     type: Sequelize.DATE,
     allowNull: false,
+    defaultValue: Date.now(),
   },
   isDelivered: {
     type: Sequelize.BOOLEAN,
@@ -50,7 +52,6 @@ const Order = db.define('order', {
   },
   deliveredAt: {
     type: Sequelize.DATE,
-    allowNull: false,
   },
 });
 

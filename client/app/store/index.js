@@ -33,12 +33,14 @@ import { authReducer, getMe, signup, login, logout } from "./slices/authSlice";
 
 // users slice
 import { usersReducer, getAllUsers, deleteUser } from "./slices/usersSlice";
+import { orderReducer } from "./slices/orderSlice";
 
 const store = configureStore({
   reducer: {
     products: productReducer,
     product: singleProductReducer,
     cart: cartReducer,
+    order: orderReducer,
     auth: authReducer,
     users: usersReducer,
   },
