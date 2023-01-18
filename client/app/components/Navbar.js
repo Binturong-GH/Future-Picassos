@@ -23,7 +23,11 @@ import { getMe, logout } from "../store";
 import { Link, useNavigate } from "react-router-dom";
 
 //cart slice to check cart total
-import { selectCart } from "../store/slices/cartSlice";
+import {
+  selectCart,
+  fetchUserCart,
+  getLocalCart,
+} from "../store/slices/cartSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -34,6 +38,13 @@ const Navbar = () => {
   useEffect(() => {
     dispatch(getMe());
   }, [isLogged]);
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchUserCart());
+    } else {
+      dispatch(getLocalCart());
+    }
+  }, []);
 
   // MUI handle dropdown menu
 
@@ -78,7 +89,6 @@ const Navbar = () => {
   const cartTotal = (cartArr) => {
     return cartArr.reduce((total, prod) => total + prod.quantity, 0);
   };
-  console.log(cartItems);
 
   return (
     <>
@@ -87,7 +97,7 @@ const Navbar = () => {
           <IconButton
             onClick={redirectToHome}
             size='small'
-            color='primary'
+            color='white'
             edge='start'
             aria-label='label'
           >
@@ -105,11 +115,13 @@ const Navbar = () => {
             Future Picassos
           </Typography>
 
-          <Stack direction='row' spacing={2} color='white'>
+          <Stack direction='row' spacing={2}>
             <IconButton
               onClick={redirectToAllProducts}
               size='small'
-              color='primary'
+              sx={{
+                color: "white",
+              }}
               edge='start'
               aria-label='label'
             >
@@ -127,11 +139,17 @@ const Navbar = () => {
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
               >
-                <PermIdentityIcon />
+                <PermIdentityIcon
+                  sx={{
+                    color: "white",
+                  }}
+                />
               </Button>
             ) : (
               <Button>
-                <Link to='/login'>Sign In</Link>
+                <Link to='/login' color='white'>
+                  Sign In
+                </Link>
               </Button>
             )}
 
@@ -150,13 +168,17 @@ const Navbar = () => {
             <IconButton
               onClick={redirectToCart}
               size='small'
-              color='primary'
+              sx={{
+                color: "white",
+              }}
               edge='start'
               aria-label='label'
             >
               <Badge
                 badgeContent={cartTotal(cartItems)}
-                color='secondary'
+                sx={{
+                  color: "success",
+                }}
                 anchorOrigin={{
                   vertical: "top",
                   horizontal: "left",
