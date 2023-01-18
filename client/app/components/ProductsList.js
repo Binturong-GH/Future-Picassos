@@ -53,6 +53,11 @@ function ProductsList() {
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
+            border: 1,
+            borderColor: "grey.200",
+            borderRadius: 1,
+            boxShadow: "2",
+            py: 2,
           }}
         >
           <Link to={`/products/${product.id}`}>
