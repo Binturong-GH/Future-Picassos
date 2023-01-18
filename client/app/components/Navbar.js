@@ -8,6 +8,7 @@ import {
   Menu,
   MenuList,
   Box,
+  Badge,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
@@ -22,14 +23,29 @@ import { getMe, logout } from "../store";
 // router
 import { Link, useNavigate } from "react-router-dom";
 
+//cart slice to check cart total
+import {
+  selectCart,
+  fetchUserCart,
+  getLocalCart,
+} from "../store/slices/cartSlice";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLogged, user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector(selectCart);
 
   useEffect(() => {
     dispatch(getMe());
   }, [isLogged]);
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchUserCart());
+    } else {
+      dispatch(getLocalCart());
+    }
+  }, []);
 
   // MUI handle dropdown menu
 
@@ -69,6 +85,10 @@ const Navbar = () => {
 
   const redirectToCart = () => {
     navigate("/cart");
+  };
+
+  const cartTotal = (cartArr) => {
+    return cartArr.reduce((total, prod) => total + prod.quantity, 0);
   };
 
   return (
@@ -126,7 +146,11 @@ const Navbar = () => {
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
               >
-                <PermIdentityIcon />
+                <PermIdentityIcon
+                  sx={{
+                    color: "white",
+                  }}
+                />
               </Button>
             ) : (
               <Button>
@@ -157,7 +181,19 @@ const Navbar = () => {
                 aria-label="label"
                 sx={{ m: 4 }}
               >
-                <ShoppingCartIcon />
+                <Badge
+                  badgeContent={cartTotal(cartItems)}
+                  sx={{
+                    color: "success",
+                  }}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                >
+                  <ShoppingCartIcon />
+                </Badge>
+
                 <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
                   Cart
                 </Typography>
