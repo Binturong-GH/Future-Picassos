@@ -82,7 +82,7 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar color='secondary' position='static'>
+      <AppBar color='primary' position='static'>
         <Toolbar>
           <IconButton
             onClick={redirectToHome}
@@ -98,12 +98,14 @@ const Navbar = () => {
             onClick={redirectToHome}
             variant='h6'
             component='div'
-            sx={{ flexGrow: 1 }}
+            sx={{
+              flexGrow: 1,
+            }}
           >
             Future Picassos
           </Typography>
 
-          <Stack direction='row' spacing={2}>
+          <Stack direction='row' spacing={2} color='white'>
             <IconButton
               onClick={redirectToAllProducts}
               size='small'

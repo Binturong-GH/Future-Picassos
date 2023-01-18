@@ -60,7 +60,7 @@ export default function ProductsListPage() {
   useEffect(() => {
     if (isLoading) return;
     if (products.length > 0) {
-      if (page > Math.ceil(products.length / 10) - 1) {
+      if (page > Math.ceil(products.length / 12) - 1) {
         localStorage.setItem("currentPage", page - 1);
         setPage((prev) => prev - 1);
       } else {

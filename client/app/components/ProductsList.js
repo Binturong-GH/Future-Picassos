@@ -6,11 +6,14 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
   IconButton,
   Typography,
+  Grid,
+  Box,
   Pagination,
   Stack,
   Backdrop,
   CircularProgress,
   Alert,
+  Button,
 } from "@mui/material";
 
 //pagination
@@ -62,9 +65,7 @@ function ProductsList() {
     }
   }, [isLoading, products, page]);
 
-
   const renderedProductsList = productsPerPage.map((product) => {
-
     function handleAdd() {
       console.log("triggered handleAdd on ProductsList");
       dispatch(addToCart(product));
@@ -81,25 +82,58 @@ function ProductsList() {
     }
 
     return (
-      <div className="productsList" key={product.id}>
-        <Link to={`/products/${product.id}`}>
-          <img className="productsImg" src={product.imageUrl} />
-          <h3>{product.title}</h3>
-          <h3>${product.price}</h3>
-        </Link>
-        <IconButton
-          onClick={handleAdd}
-          size="small"
-          color="primary"
-          edge="start"
-          aria-label="label"
+      <Grid item xs={2} sm={4} md={4} key={product.id}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            border: 1,
+            borderColor: "grey.200",
+            borderRadius: 1,
+            boxShadow: "2",
+            py: 2,
+          }}
         >
-          <AddShoppingCartIcon />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Add to cart
-          </Typography>
-        </IconButton>
-      </div>
+          <Link to={`/products/${product.id}`}>
+            <Box
+              component="img"
+              sx={{
+                height: 233,
+                width: 350,
+                maxHeight: { xs: 200, md: 233 },
+                maxWidth: { xs: 180, md: 250, lg: 300 },
+              }}
+              alt={product.title}
+              src={product.imageUrl}
+            />
+
+            <h3>{product.title}</h3>
+            <h3>${product.price}</h3>
+          </Link>
+          <Button
+            sx={{
+              display: "flex",
+              ":hover": {
+                color: "white",
+              },
+            }}
+            onClick={handleAdd}
+            variant="contained"
+          >
+            <AddShoppingCartIcon />
+
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, ml: 1 }}
+            >
+              Add to cart
+            </Typography>
+          </Button>
+        </Box>
+      </Grid>
     );
   });
 
@@ -109,20 +143,29 @@ function ProductsList() {
         open={isLoading}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <CircularProgress color='inherit' />
+        <CircularProgress color="inherit" />
       </Backdrop>
     );
   }
 
   if (!isLoading && error) {
-    return <Alert severity='error'>{error}</Alert>;
+    return <Alert severity="error">{error}</Alert>;
   }
 
   return (
     <Fragment>
-      {renderedProductsList}
+      <Box sx={{ flexGrow: 1, my: 6, mx: 4 }}>
+        <Grid
+          container
+          spacing={{ xs: 4, md: 6, lg: 8 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          {renderedProductsList}
+        </Grid>
+      </Box>
       <Stack spacing={2}>
         <Pagination
+          sx={{ mx: "auto" }}
           count={paginate(products).length}
           page={page + 1}
           onChange={handlePageChange}
