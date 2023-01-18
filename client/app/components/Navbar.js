@@ -133,7 +133,7 @@ const Navbar = () => {
                   component="div"
                   sx={{ flexGrow: 1, ml: 1 }}
                 >
-                  All Artist
+                  All Art
                 </Typography>
               </IconButton>
             </Box>
