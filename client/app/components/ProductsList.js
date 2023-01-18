@@ -27,10 +27,9 @@ import {
 
 function ProductsList() {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
+  const { products, isLoading, error } = useSelector((state) => state.products);
   const { cartItems } = useSelector(selectCart);
   const { user } = useSelector((state) => state.auth);
-
 
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
@@ -42,7 +41,6 @@ function ProductsList() {
       dispatch(getLocalCart());
     }
   }, []);
-
 
   //pagination
   const [page, setPage] = useState(
@@ -62,7 +60,6 @@ function ProductsList() {
       setProductsPerPage(paginate(products)[page]);
     }
   }, [isLoading, products, page]);
-
 
   const renderedProductsList = products.map((product) => {
     function handleAdd() {
@@ -109,13 +106,13 @@ function ProductsList() {
         open={isLoading}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color='inherit' />
       </Backdrop>
     );
   }
 
   if (!isLoading && error) {
-    return <Alert severity="error">{error}</Alert>;
+    return <Alert severity='error'>{error}</Alert>;
   }
 
   return (
