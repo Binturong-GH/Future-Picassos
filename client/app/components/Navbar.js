@@ -7,6 +7,7 @@ import {
   Button,
   Menu,
   MenuList,
+  Box,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
@@ -74,15 +75,17 @@ const Navbar = () => {
     <>
       <AppBar color="primary" position="static">
         <Toolbar>
-          <IconButton
-            onClick={redirectToHome}
-            size="small"
-            color="primary"
-            edge="start"
-            aria-label="label"
-          >
-            <HomeIcon />
-          </IconButton>
+          <Box sx={{ color: "white", mr: 2 }}>
+            <IconButton
+              onClick={redirectToHome}
+              size="small"
+              color="inherit"
+              edge="start"
+              aria-label="label"
+            >
+              <HomeIcon />
+            </IconButton>
+          </Box>
 
           <Typography
             onClick={redirectToHome}
@@ -96,18 +99,24 @@ const Navbar = () => {
           </Typography>
 
           <Stack direction="row" spacing={2} color="white">
-            <IconButton
-              onClick={redirectToAllProducts}
-              size="small"
-              color="primary"
-              edge="start"
-              aria-label="label"
-            >
-              <ColorLensIcon />
-              <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
-                All Products
-              </Typography>
-            </IconButton>
+            <Box sx={{ color: "white" }}>
+              <IconButton
+                onClick={redirectToAllProducts}
+                size="small"
+                color="inherit"
+                edge="start"
+                aria-label="label"
+              >
+                <ColorLensIcon />
+                <Typography
+                  variant="h8"
+                  component="div"
+                  sx={{ flexGrow: 1, ml: 1 }}
+                >
+                  All Artist
+                </Typography>
+              </IconButton>
+            </Box>
 
             {isLogged ? (
               <Button
@@ -137,18 +146,21 @@ const Navbar = () => {
               </Button>
             )}
 
-            <IconButton
-              onClick={redirectToCart}
-              size="small"
-              color="primary"
-              edge="start"
-              aria-label="label"
-            >
-              <ShoppingCartIcon />
-              <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
-                Cart
-              </Typography>
-            </IconButton>
+            <Box sx={{ color: "white", ml: 2 }}>
+              <IconButton
+                onClick={redirectToCart}
+                size="small"
+                color="inherit"
+                edge="start"
+                aria-label="label"
+                sx={{ m: 4 }}
+              >
+                <ShoppingCartIcon />
+                <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+                  Cart
+                </Typography>
+              </IconButton>
+            </Box>
           </Stack>
         </Toolbar>
       </AppBar>
