@@ -3,9 +3,27 @@ import axios from "axios";
 
 export const addNewOrderAsync = createAsyncThunk(
   "order/addOrder",
-  async (newOrder) => {
+  async ({
+    orderItems,
+    shippingAddress,
+    paymentMethod,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+    isPaid,
+  }) => {
     try {
-      const { data } = await axios.post("/api/order", newOrder);
+      const { data } = await axios.post("/api/order", {
+        orderItems,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice,
+        taxPrice,
+        shippingPrice,
+        totalPrice,
+        isPaid,
+      });
       return data;
     } catch (err) {
       console.error(err);

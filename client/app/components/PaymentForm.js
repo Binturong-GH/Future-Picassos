@@ -1,16 +1,30 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { addNewOrderAsync } from "../store/slices/orderSlice";
 
 export default function PaymentForm() {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
+  const [orderItems, setOrderItems] = useState("");
+  const [shippingAddress, setShippingAddress] = useState("");
   const dispatch = useDispatch();
+
+ 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(addNewOrderAsync({ name, address }));
-    setName("");
-    setAddress("");
+    dispatch(
+      addNewOrderAsync({
+        orderItems,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice,
+        taxPrice,
+        shippingPrice,
+        totalPrice,
+        isPaid,
+      })
+    );
+    setOrderItems("");
+    setShippingAddress("");
   };
 
   return (
@@ -28,9 +42,10 @@ export default function PaymentForm() {
                   <div className="form-group mb-3">
                     <label> First Name</label>
                     <input
-                      name="firstName"
-                      value={name}
-                      onChange={(event) => setName(event.target.value)}
+                      name="firstNameInOrderItems"
+                      className="form-control"
+                      value={orderItems}
+                      onChange={(event) => setOrderItems(event.target.value)}
                     />
                   </div>
                 </div>
@@ -38,9 +53,9 @@ export default function PaymentForm() {
                   <div className="form-group mb-3">
                     <label> Last Name</label>
                     <input
-                      type="text"
-                      name="lastname"
-                      className="form-control"
+                      name="LastNameInOrderItems"
+                      value={orderItems}
+                      onChange={(event) => setOrderItems(event.target.value)}
                     />
                   </div>
                 </div>
@@ -48,15 +63,21 @@ export default function PaymentForm() {
                 <div className="col-md-6">
                   <div className="form-group mb-3">
                     <label> Email Address</label>
-                    <input type="email" name="email" className="form-control" />
+                    <input
+                      className="form-control"
+                      name="emailInOrderItems"
+                      value={orderItems}
+                      onChange={(event) => setOrderItems(event.target.value)}
+                    />
                   </div>
                 </div>
                 <div className="col-md-6">
                   <div className="form-group mb-3">
                     <label>Address</label>
                     <textarea
-                      rows="2"
                       name="address"
+                      value={orderItems}
+                      onChange={(event) => setOrderItems(event.target.value)}
                       className="form-control"
                     ></textarea>
                   </div>
@@ -98,7 +119,7 @@ export default function PaymentForm() {
 
                 <div className="col-md-12">
                   <div className="form-group text-end">
-                    <button type="button">Place Order</button>
+                    <button type="submit">Place Order</button>
                   </div>
                 </div>
               </div>
