@@ -61,9 +61,11 @@ const AppRoutes = () => {
 
   return (
     <main>
-      <h1 className="title">Welcome to Grace shopper</h1>
       <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
+        <Route
+          path="/"
+          element={<h1 className="home">Welcome to Future Picassos!</h1>}
+        />
         <Route path="/products" element={<ProductsList />} />
         <Route path="/products/:productId" element={<SingleProduct />} />
         <Route path="/cart" element={<Cart />} />

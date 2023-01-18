@@ -90,7 +90,7 @@ const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1 }}
           >
-            Grace Shopper
+            Future Picassos 
           </Typography>
 
           <Stack direction="row" spacing={2}>

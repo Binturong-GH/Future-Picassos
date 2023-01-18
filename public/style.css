@@ -40,3 +40,8 @@ nav a {
 form div {
   margin: 1em;
 }
+
+.home {
+text-align: center;
+color: blueviolet
+}
