@@ -7,6 +7,7 @@ import {
   Button,
   Menu,
   MenuList,
+  Badge,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
@@ -21,10 +22,14 @@ import { getMe, logout } from "../store";
 // router
 import { Link, useNavigate } from "react-router-dom";
 
+//cart slice to check cart total
+import { selectCart } from "../store/slices/cartSlice";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLogged, user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector(selectCart);
 
   useEffect(() => {
     dispatch(getMe());
@@ -70,48 +75,53 @@ const Navbar = () => {
     navigate("/cart");
   };
 
+  const cartTotal = (cartArr) => {
+    return cartArr.reduce((total, prod) => total + prod.quantity, 0);
+  };
+  console.log(cartItems);
+
   return (
     <>
-      <AppBar color="secondary" position="static">
+      <AppBar color='secondary' position='static'>
         <Toolbar>
           <IconButton
             onClick={redirectToHome}
-            size="small"
-            color="primary"
-            edge="start"
-            aria-label="label"
+            size='small'
+            color='primary'
+            edge='start'
+            aria-label='label'
           >
             <HomeIcon />
           </IconButton>
 
           <Typography
             onClick={redirectToHome}
-            variant="h6"
-            component="div"
+            variant='h6'
+            component='div'
             sx={{ flexGrow: 1 }}
           >
-            Future Picassos 
+            Future Picassos
           </Typography>
 
-          <Stack direction="row" spacing={2}>
+          <Stack direction='row' spacing={2}>
             <IconButton
               onClick={redirectToAllProducts}
-              size="small"
-              color="primary"
-              edge="start"
-              aria-label="label"
+              size='small'
+              color='primary'
+              edge='start'
+              aria-label='label'
             >
               <ColorLensIcon />
-              <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+              <Typography variant='h8' component='div' sx={{ flexGrow: 1 }}>
                 All Products
               </Typography>
             </IconButton>
 
             {isLogged ? (
               <Button
-                id="user-button"
+                id='user-button'
                 aria-controls={open ? "user-menu" : undefined}
-                aria-haspopup="true"
+                aria-haspopup='true'
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
               >
@@ -119,15 +129,15 @@ const Navbar = () => {
               </Button>
             ) : (
               <Button>
-                <Link to="/login">Sign In</Link>
+                <Link to='/login'>Sign In</Link>
               </Button>
             )}
 
             {isLogged && user.role === "admin" && (
               <Button
-                id="admin-button"
+                id='admin-button'
                 aria-controls={openAdmin ? "admin-menu" : undefined}
-                aria-haspopup="true"
+                aria-haspopup='true'
                 aria-expanded={openAdmin ? "true" : undefined}
                 onClick={handleAdminMenuClick}
               >
@@ -137,13 +147,22 @@ const Navbar = () => {
 
             <IconButton
               onClick={redirectToCart}
-              size="small"
-              color="primary"
-              edge="start"
-              aria-label="label"
+              size='small'
+              color='primary'
+              edge='start'
+              aria-label='label'
             >
-              <ShoppingCartIcon />
-              <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+              <Badge
+                badgeContent={cartTotal(cartItems)}
+                color='secondary'
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                <ShoppingCartIcon />
+              </Badge>
+              <Typography variant='h8' component='div' sx={{ flexGrow: 1 }}>
                 Cart
               </Typography>
             </IconButton>
@@ -152,7 +171,7 @@ const Navbar = () => {
       </AppBar>
 
       <Menu
-        id="user-menu"
+        id='user-menu'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -169,7 +188,7 @@ const Navbar = () => {
       </Menu>
 
       <Menu
-        id="admin-menu"
+        id='admin-menu'
         anchorEl={adminAnchorEl}
         open={openAdmin}
         onClose={handleAdminMenuClose}
