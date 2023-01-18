@@ -27,7 +27,7 @@ import {
 
 function ProductsList() {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
+  const { products, isLoading, error } = useSelector((state) => state.products);
   const { cartItems } = useSelector(selectCart);
   const { user } = useSelector((state) => state.auth);
 
@@ -62,7 +62,9 @@ function ProductsList() {
     }
   }, [isLoading, products, page]);
 
+
   const renderedProductsList = productsPerPage.map((product) => {
+
     function handleAdd() {
       console.log("triggered handleAdd on ProductsList");
       dispatch(addToCart(product));
@@ -107,13 +109,13 @@ function ProductsList() {
         open={isLoading}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color='inherit' />
       </Backdrop>
     );
   }
 
   if (!isLoading && error) {
-    return <Alert severity="error">{error}</Alert>;
+    return <Alert severity='error'>{error}</Alert>;
   }
 
   return (
