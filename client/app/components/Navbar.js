@@ -130,7 +130,9 @@ const Navbar = () => {
               </Button>
             ) : (
               <Button>
-                <Link to="/login">Sign In</Link>
+                <Link to="/login">
+                  <Typography sx={{ color: "white" }}>Sign In</Typography>
+                </Link>
               </Button>
             )}
 
