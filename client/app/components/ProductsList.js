@@ -13,6 +13,7 @@ import {
   Backdrop,
   CircularProgress,
   Alert,
+  Button,
 } from "@mui/material";
 
 //pagination
@@ -111,18 +112,26 @@ function ProductsList() {
             <h3>{product.title}</h3>
             <h3>${product.price}</h3>
           </Link>
-          <IconButton
+          <Button
+            sx={{
+              display: "flex",
+              ":hover": {
+                color: "white",
+              },
+            }}
             onClick={handleAdd}
-            size="small"
-            color="primary"
-            edge="start"
-            aria-label="label"
+            variant="contained"
           >
             <AddShoppingCartIcon />
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, ml: 1 }}
+            >
               Add to cart
             </Typography>
-          </IconButton>
+          </Button>
         </Box>
       </Grid>
     );
