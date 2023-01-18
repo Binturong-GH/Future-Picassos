@@ -145,3 +145,8 @@ label {
 button {
   border-radius: 0;
 }
+
+.home {
+text-align: center;
+color: blueviolet
+}
