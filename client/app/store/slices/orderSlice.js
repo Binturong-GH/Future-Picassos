@@ -33,15 +33,20 @@ export const addNewOrderAsync = createAsyncThunk(
 
 const orderSlice = createSlice({
   name: "order",
-  initialState: { isLoading: false, order: [], errorOfCreate: null },
-  reducers: {},
+  initialState: { isLoading: false, order: null, errorOfCreate: null },
+  reducers: {
+    clearOrder(state, action) {
+      state.order = null;
+    },
+  },
   extraReducers(builder) {
     builder.addCase(addNewOrderAsync.fulfilled, (state, action) => {
       state.isLoading = false;
       state.errorOfCreate = null;
-      state.order.push(action.payload);
+      state.order = action.payload.order;
     });
   },
 });
 
 export const orderReducer = orderSlice.reducer;
+export const { clearOrder } = orderSlice.actions;
