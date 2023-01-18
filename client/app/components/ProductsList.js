@@ -145,7 +145,7 @@ function ProductsList() {
 
   return (
     <Fragment>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, my: 6, mx: 4 }}>
         <Grid
           container
           spacing={{ xs: 4, md: 6, lg: 8 }}
