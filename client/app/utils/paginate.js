@@ -1,5 +1,5 @@
 const paginate = (totalData) => {
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
   const pages = Math.ceil(totalData.length / itemsPerPage);
 
   const newData = Array.from({ length: pages }, (_, index) => {
