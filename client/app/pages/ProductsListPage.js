@@ -178,87 +178,90 @@ export default function ProductsListPage() {
         />
       </>
 
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", m: 2 }}>
         <Typography variant="h3">Products</Typography>
-        <Button variant="contained" onClick={handleCreateProduct}>
+        <Button variant="contained" onClick={handleCreateProduct} sx={{ p: 1 }}>
           <AddIcon /> <span> Create a new Product</span>
         </Button>
       </Box>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">Index</TableCell>
-              <TableCell>ID</TableCell>
-              <TableCell align="center">Image</TableCell>
-              <TableCell align="right">Title</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Count in stock</TableCell>
-              <TableCell align="right">Edit</TableCell>
-              <TableCell align="right">Delete</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {productsPerPage.map((product, index) => (
-              <TableRow
-                key={product.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell align="center">{index + 1}</TableCell>
-                <TableCell component="th" scope="row">
-                  {product.id}
-                </TableCell>
-                <TableCell align="center">
-                  <Box
-                    component="img"
-                    sx={{
-                      height: 133,
-                      width: 150,
-                    }}
-                    alt={product.title}
-                    src={product.imageUrl}
-                  />
-                </TableCell>
-
-                <TableCell align="right">{product.title}</TableCell>
-                <TableCell align="right">{product.price}</TableCell>
-                <TableCell align="right">
-                  {product.countInStock > 0 ? (
-                    product.countInStock
-                  ) : (
-                    <Typography>Out of stock</Typography>
-                  )}
-                </TableCell>
-
-                <TableCell align="right">
-                  <IconButton
-                    aria-label="edit"
-                    onClick={() => {
-                      handleEditProduct(product.id);
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                </TableCell>
-
-                <TableCell align="right">
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => {
-                      handleDeleteProduct(product);
-                    }}
-                  >
-                    <DeleteIcon sx={{ color: pink[500] }} />
-                  </IconButton>
-                </TableCell>
+      <Box sx={{ mx: 2 }}>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Index</TableCell>
+                <TableCell>ID</TableCell>
+                <TableCell align="center">Image</TableCell>
+                <TableCell align="right">Title</TableCell>
+                <TableCell align="right">Price</TableCell>
+                <TableCell align="right">Count in stock</TableCell>
+                <TableCell align="right">Edit</TableCell>
+                <TableCell align="right">Delete</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {productsPerPage.map((product, index) => (
+                <TableRow
+                  key={product.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell align="center">{index + 1}</TableCell>
+                  <TableCell component="th" scope="row">
+                    {product.id}
+                  </TableCell>
+                  <TableCell align="center">
+                    <Box
+                      component="img"
+                      sx={{
+                        height: 133,
+                        width: 150,
+                      }}
+                      alt={product.title}
+                      src={product.imageUrl}
+                    />
+                  </TableCell>
+
+                  <TableCell align="right">{product.title}</TableCell>
+                  <TableCell align="right">{product.price}</TableCell>
+                  <TableCell align="right">
+                    {product.countInStock > 0 ? (
+                      product.countInStock
+                    ) : (
+                      <Typography>Out of stock</Typography>
+                    )}
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <IconButton
+                      aria-label="edit"
+                      onClick={() => {
+                        handleEditProduct(product.id);
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => {
+                        handleDeleteProduct(product);
+                      }}
+                    >
+                      <DeleteIcon sx={{ color: pink[500] }} />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
       <Stack spacing={2}>
         <Pagination
+          sx={{ mx: "auto" }}
           count={paginate(products).length}
           page={page + 1}
           onChange={handlePageChange}

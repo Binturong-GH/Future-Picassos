@@ -16,6 +16,7 @@ import {
   IconButton,
   Pagination,
   Stack,
+  Box,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
@@ -77,55 +78,61 @@ export default function UsersList() {
         <CircularProgress color="inherit" />
       </Backdrop>
       {!isLoading && error && <Alert severity="error">{error}</Alert>}
-      <Typography variant="h3">Users</Typography>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">Index</TableCell>
 
-              <TableCell>ID</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="right">Admin</TableCell>
-              <TableCell align="right">Delete</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {usersPerPage.map((user, index) => (
-              <TableRow
-                key={user.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell align="center">{index + 1}</TableCell>
-                <TableCell component="th" scope="row">
-                  {user.id}
-                </TableCell>
-                <TableCell align="right">{user.name}</TableCell>
-                <TableCell align="right">{user.email}</TableCell>
-                <TableCell align="right">
-                  <Icon color={user.role === "admin" ? "success" : "error"}>
-                    {user.role === "admin" ? <CheckIcon /> : <ClearIcon />}
-                  </Icon>
-                </TableCell>
-                <TableCell align="right">
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => {
-                      handleDeleteUser(user.id);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
+      <Typography variant="h3" sx={{ m: 2 }}>
+        Users
+      </Typography>
+      <Box sx={{ m: 2 }}>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Index</TableCell>
+
+                <TableCell>ID</TableCell>
+                <TableCell align="right">Name</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">Admin</TableCell>
+                <TableCell align="right">Delete</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {usersPerPage.map((user, index) => (
+                <TableRow
+                  key={user.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell align="center">{index + 1}</TableCell>
+                  <TableCell component="th" scope="row">
+                    {user.id}
+                  </TableCell>
+                  <TableCell align="right">{user.name}</TableCell>
+                  <TableCell align="right">{user.email}</TableCell>
+                  <TableCell align="right">
+                    <Icon color={user.role === "admin" ? "success" : "error"}>
+                      {user.role === "admin" ? <CheckIcon /> : <ClearIcon />}
+                    </Icon>
+                  </TableCell>
+                  <TableCell align="right">
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => {
+                        handleDeleteUser(user.id);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
 
       <Stack spacing={2}>
         <Pagination
+          sx={{ mx: "auto" }}
           count={paginate(users).length}
           onChange={handlePageChange}
         />

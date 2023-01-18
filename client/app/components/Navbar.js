@@ -7,6 +7,7 @@ import {
   Button,
   Menu,
   MenuList,
+  Box,
   Badge,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
@@ -92,22 +93,24 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar color='primary' position='static'>
+      <AppBar color="primary" position="static">
         <Toolbar>
-          <IconButton
-            onClick={redirectToHome}
-            size='small'
-            color='white'
-            edge='start'
-            aria-label='label'
-          >
-            <HomeIcon />
-          </IconButton>
+          <Box sx={{ color: "white", mr: 2 }}>
+            <IconButton
+              onClick={redirectToHome}
+              size="small"
+              color="inherit"
+              edge="start"
+              aria-label="label"
+            >
+              <HomeIcon />
+            </IconButton>
+          </Box>
 
           <Typography
             onClick={redirectToHome}
-            variant='h6'
-            component='div'
+            variant="h6"
+            component="div"
             sx={{
               flexGrow: 1,
             }}
@@ -115,27 +118,31 @@ const Navbar = () => {
             Future Picassos
           </Typography>
 
-          <Stack direction='row' spacing={2}>
-            <IconButton
-              onClick={redirectToAllProducts}
-              size='small'
-              sx={{
-                color: "white",
-              }}
-              edge='start'
-              aria-label='label'
-            >
-              <ColorLensIcon />
-              <Typography variant='h8' component='div' sx={{ flexGrow: 1 }}>
-                All Products
-              </Typography>
-            </IconButton>
+          <Stack direction="row" spacing={2} color="white">
+            <Box sx={{ color: "white" }}>
+              <IconButton
+                onClick={redirectToAllProducts}
+                size="small"
+                color="inherit"
+                edge="start"
+                aria-label="label"
+              >
+                <ColorLensIcon />
+                <Typography
+                  variant="h8"
+                  component="div"
+                  sx={{ flexGrow: 1, ml: 1 }}
+                >
+                  All Art
+                </Typography>
+              </IconButton>
+            </Box>
 
             {isLogged ? (
               <Button
-                id='user-button'
+                id="user-button"
                 aria-controls={open ? "user-menu" : undefined}
-                aria-haspopup='true'
+                aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
               >
@@ -147,17 +154,17 @@ const Navbar = () => {
               </Button>
             ) : (
               <Button>
-                <Link to='/login' color='white'>
-                  Sign In
+                <Link to="/login">
+                  <Typography sx={{ color: "white" }}>Sign In</Typography>
                 </Link>
               </Button>
             )}
 
             {isLogged && user.role === "admin" && (
               <Button
-                id='admin-button'
+                id="admin-button"
                 aria-controls={openAdmin ? "admin-menu" : undefined}
-                aria-haspopup='true'
+                aria-haspopup="true"
                 aria-expanded={openAdmin ? "true" : undefined}
                 onClick={handleAdminMenuClick}
               >
@@ -165,37 +172,39 @@ const Navbar = () => {
               </Button>
             )}
 
-            <IconButton
-              onClick={redirectToCart}
-              size='small'
-              sx={{
-                color: "white",
-              }}
-              edge='start'
-              aria-label='label'
-            >
-              <Badge
-                badgeContent={cartTotal(cartItems)}
-                sx={{
-                  color: "success",
-                }}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
+            <Box sx={{ color: "white", ml: 2 }}>
+              <IconButton
+                onClick={redirectToCart}
+                size="small"
+                color="inherit"
+                edge="start"
+                aria-label="label"
+                sx={{ m: 4 }}
               >
-                <ShoppingCartIcon />
-              </Badge>
-              <Typography variant='h8' component='div' sx={{ flexGrow: 1 }}>
-                Cart
-              </Typography>
-            </IconButton>
+                <Badge
+                  badgeContent={cartTotal(cartItems)}
+                  sx={{
+                    color: "success",
+                  }}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                >
+                  <ShoppingCartIcon />
+                </Badge>
+
+                <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+                  Cart
+                </Typography>
+              </IconButton>
+            </Box>
           </Stack>
         </Toolbar>
       </AppBar>
 
       <Menu
-        id='user-menu'
+        id="user-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -203,16 +212,13 @@ const Navbar = () => {
           "aria-labelledby": "user-button",
         }}
       >
-        <MenuList onClick={handleClose}>Profile</MenuList>
-        <MenuList onClick={handleClose}>Order History</MenuList>
-
-        <MenuList onClick={handleClose}>
+        <MenuList onClick={handleClose} sx={{ px: 2 }}>
           <div onClick={handleLogout}>Logout</div>
         </MenuList>
       </Menu>
 
       <Menu
-        id='admin-menu'
+        id="admin-menu"
         anchorEl={adminAnchorEl}
         open={openAdmin}
         onClose={handleAdminMenuClose}
@@ -220,10 +226,10 @@ const Navbar = () => {
           "aria-labelledby": "admin-button",
         }}
       >
-        <MenuList onClick={handleAdminMenuClose}>
+        <MenuList onClick={handleAdminMenuClose} sx={{ px: 2 }}>
           <Link to={"/admin/users"}>Users</Link>
         </MenuList>
-        <MenuList onClick={handleAdminMenuClose}>
+        <MenuList onClick={handleAdminMenuClose} sx={{ px: 2 }}>
           <Link to={"/admin/products"}>product</Link>
         </MenuList>
       </Menu>
