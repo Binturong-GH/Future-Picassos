@@ -40,7 +40,6 @@ export default function PaymentForm({
     setFirstName("");
     setCode("");
     setExpiration("");
-    navigate("/order");
   };
 
   return (
