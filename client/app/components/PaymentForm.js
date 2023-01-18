@@ -42,14 +42,9 @@ export default function PaymentForm({
     setExpiration("");
   };
 
-  const redirectToOrderDetail = () => {
-    navigate("/order");
-  };
-
   return (
     <div>
       <form id="addOrder-form" onSubmit={handleSubmit}>
-        {" "}
         <div className="row">
           <div className="col-md-6">
             <div className="card">
@@ -124,9 +119,7 @@ export default function PaymentForm({
 
                   <div className="col-md-12">
                     <div className="form-group text-end">
-                      <button onClick={redirectToOrderDetail} type="submit">
-                        Place Order
-                      </button>
+                      <button type="submit">Place Order</button>
                     </div>
                   </div>
                 </div>
