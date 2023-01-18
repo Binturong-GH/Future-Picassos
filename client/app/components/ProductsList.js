@@ -81,7 +81,7 @@ function ProductsList() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid
           container
-          spacing={{ xs: 2, md: 3, lg: 4 }}
+          spacing={{ xs: 4, md: 6, lg: 8 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {renderedProductsList}
