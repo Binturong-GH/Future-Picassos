@@ -156,6 +156,7 @@ function ProductsList() {
       </Box>
       <Stack spacing={2}>
         <Pagination
+          sx={{ mx: "auto" }}
           count={paginate(products).length}
           page={page + 1}
           onChange={handlePageChange}
