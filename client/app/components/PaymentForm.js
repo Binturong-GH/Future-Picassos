@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addNewOrderAsync } from "../store/slices/orderSlice";
+import { useNavigate } from "react-router-dom";
 
-export default function PaymentForm() {
-  const [orderItems, setOrderItems] = useState("");
+export default function PaymentForm({
+  itemsPrice,
+  taxPrice,
+  shippingPrice,
+  totalPrice,
+  orderItems,
+}) {
   const [shippingAddress, setShippingAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [expiration, setExpiration] = useState("");
+  const [code, setCode] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("Handle Submit working?");
     dispatch(
       addNewOrderAsync({
         orderItems,
@@ -19,155 +31,110 @@ export default function PaymentForm() {
         taxPrice,
         shippingPrice,
         totalPrice,
-        isPaid,
+        isPaid: true,
       })
     );
-    setOrderItems("");
     setShippingAddress("");
     setPaymentMethod("");
+    setLastName("");
+    setFirstName("");
+    setCode("");
+    setExpiration("");
+  };
+
+  const redirectToOrderDetail = () => {
+    navigate("/order");
   };
 
   return (
     <div>
-      <form id="addOrder-form" onSubmit={handleSubmit}></form>
-      <div className="row">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-header">
-              <h4>Shipping & Payment Information</h4>
-            </div>
-            <div className="card-body">
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="form-group mb-3">
-                    <label> First Name</label>
-                    <input
-                      name="firstNameInOrderItems"
-                      className="form-control"
-                      value={orderItems}
-                      onChange={(event) => setOrderItems(event.target.value)}
-                    />
+      <form id="addOrder-form" onSubmit={handleSubmit}>
+        {" "}
+        <div className="row">
+          <div className="col-md-6">
+            <div className="card">
+              <div className="card-header">
+                <h4>Shipping & Payment Information</h4>
+              </div>
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group mb-3">
+                      <label> First Name</label>
+                      <input
+                        value={firstName}
+                        onChange={(event) => setFirstName(event.target.value)}
+                        name="firstNameInOrderItems"
+                        className="form-control"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="form-group mb-3">
-                    <label> Last Name</label>
-                    <input
-                      name="LastNameInOrderItems"
-                      className="form-control"
-                      value={orderItems}
-                      onChange={(event) => setOrderItems(event.target.value)}
-                    />
+                  <div className="col-md-6">
+                    <div className="form-group mb-3">
+                      <label> Last Name</label>
+                      <input
+                        value={lastName}
+                        onChange={(event) => setLastName(event.target.value)}
+                        name="LastNameInOrderItems"
+                        className="form-control"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-6"></div>
-                <div className="col-md-6">
-                  <div className="form-group mb-3">
-                    <label> Email Address</label>
-                    <input
-                      className="form-control"
-                      name="emailInOrderItems"
-                      value={orderItems}
-                      onChange={(event) => setOrderItems(event.target.value)}
-                    />
+                  <div className="col-md-6">
+                    <div className="form-group mb-3">
+                      <label>Shipping Address</label>
+                      <textarea
+                        name="shipping-address"
+                        value={shippingAddress}
+                        onChange={(event) =>
+                          setShippingAddress(event.target.value)
+                        }
+                        className="form-control"
+                      ></textarea>
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-6">
                   <div className="form-group mb-3">
-                    <label>Address</label>
-                    <textarea
-                      name="address"
-                      value={shippingAddress}
-                      onChange={(event) =>
-                        setShippingAddress(event.target.value)
-                      }
-                      className="form-control"
-                    ></textarea>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="form-group mb-3">
-                    <label>City</label>
+                    <label> Credit Card Number</label>
                     <input
+                      value={paymentMethod}
+                      onChange={(event) => setPaymentMethod(event.target.value)}
                       type="text"
-                      name="city"
                       className="form-control"
-                      value={shippingAddress}
-                      onChange={(event) =>
-                        setShippingAddress(event.target.value)
-                      }
                     />
                   </div>
-                </div>
-                <div className="col-md-4">
                   <div className="form-group mb-3">
-                    <label>State</label>
+                    <label>Exp. Date</label>
                     <input
-                      value={shippingAddress}
-                      onChange={(event) =>
-                        setShippingAddress(event.target.value)
-                      }
+                      value={expiration}
+                      onChange={(event) => setExpiration(event.target.value)}
                       type="text"
-                      name="state"
                       className="form-control"
                     />
                   </div>
-                </div>
-                <div className="col-md-4">
                   <div className="form-group mb-3">
-                    <label>Zip Code</label>
+                    <label>Security Code</label>
                     <input
-                      value={shippingAddress}
-                      onChange={(event) =>
-                        setShippingAddress(event.target.value)
-                      }
+                      value={code}
+                      onChange={(event) => setCode(event.target.value)}
                       type="text"
                       name="zipcode"
                       className="form-control"
                     />
                   </div>
-                </div>
-                <div className="form-group mb-3">
-                  <label> Credit Card Number</label>
-                  <input
-                    value={paymentMethod}
-                    onChange={(event) => setPaymentMethods(event.target.value)}
-                    type="number"
-                    name="phone"
-                    className="form-control"
-                  />
-                </div>
-                <div className="form-group mb-3">
-                  <label>Exp. Date</label>
-                  <input
-                    value={paymentMethod}
-                    onChange={(event) => setPaymentMethods(event.target.value)}
-                    type="text"
-                    name="zipcode"
-                    className="form-control"
-                  />
-                </div>
-                <div className="form-group mb-3">
-                  <label>Security Code</label>
-                  <input
-                    value={paymentMethod}
-                    onChange={(event) => setPaymentMethods(event.target.value)}
-                    type="text"
-                    name="zipcode"
-                    className="form-control"
-                  />
-                </div>
 
-                <div className="col-md-12">
-                  <div className="form-group text-end">
-                    <button type="submit">Place Order</button>
+                  <div className="col-md-12">
+                    <div className="form-group text-end">
+                      <button onClick={redirectToOrderDetail} type="submit">
+                        Place Order
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

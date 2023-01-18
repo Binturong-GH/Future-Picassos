@@ -23,9 +23,23 @@ export default function PaymentPage() {
     parseFloat(tax)
   ).toFixed(2);
 
+  const orderItems = cartItems.map((item) => {
+    return item.id;
+  });
+
   return (
     <div>
-      <div>{<PaymentForm />}</div>
+      <div>
+        {
+          <PaymentForm
+            itemsPrice={subtotal}
+            taxPrice={tax}
+            shippingPrice={shipping}
+            totalPrice={total}
+            orderItems={orderItems}
+          />
+        }
+      </div>
       <div className="reviewOrder">
         <div>{<CartList />}</div>
         <p>subtotal: ${subtotal}</p>

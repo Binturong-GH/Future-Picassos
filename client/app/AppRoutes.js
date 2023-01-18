@@ -9,6 +9,7 @@ import SignupPage from "./pages/SignupPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import UsersListPage from "./pages/UsersListPage";
 import ProductListpage from "./pages/ProductsListPage";
+import OrderDetailPage from "./pages/OrderDetailPage";
 
 // socket
 import socket from "./utils/socket";
@@ -67,6 +68,7 @@ const AppRoutes = () => {
         <Route path="/products" element={<ProductsList />} />
         <Route path="/products/:productId" element={<SingleProduct />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/order" element={<OrderDetailPage />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
