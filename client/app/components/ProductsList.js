@@ -61,7 +61,18 @@ function ProductsList() {
           }}
         >
           <Link to={`/products/${product.id}`}>
-            <img className="productsImg" src={product.imageUrl} />
+            <Box
+              component="img"
+              sx={{
+                height: 233,
+                width: 350,
+                maxHeight: { xs: 200, md: 233 },
+                maxWidth: { xs: 220, md: 250, lg: 300 },
+              }}
+              alt={product.title}
+              src={product.imageUrl}
+            />
+
             <h3>{product.title}</h3>
             <h3>${product.price}</h3>
           </Link>
