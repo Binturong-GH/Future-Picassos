@@ -103,7 +103,7 @@ function ProductsList() {
                 height: 233,
                 width: 350,
                 maxHeight: { xs: 200, md: 233 },
-                maxWidth: { xs: 220, md: 250, lg: 300 },
+                maxWidth: { xs: 180, md: 250, lg: 300 },
               }}
               alt={product.title}
               src={product.imageUrl}
