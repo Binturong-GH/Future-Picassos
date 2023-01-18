@@ -50,9 +50,7 @@ function ProductsList() {
         <div className="productsList">
           <Link to={`/products/${product.id}`}>
             <img className="productsImg" src={product.imageUrl} />
-            <h3>
-              <Link to={`/products/${product.id}`}>{product.title}</Link>
-            </h3>
+            <h3>{product.title}</h3>
             <h3>${product.price}</h3>
           </Link>
           <IconButton
