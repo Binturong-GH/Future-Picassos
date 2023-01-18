@@ -47,7 +47,14 @@ function ProductsList() {
     }
     return (
       <Grid item xs={2} sm={4} md={4} key={product.id}>
-        <div className="productsList">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
           <Link to={`/products/${product.id}`}>
             <img className="productsImg" src={product.imageUrl} />
             <h3>{product.title}</h3>
@@ -65,7 +72,7 @@ function ProductsList() {
               Add to cart
             </Typography>
           </IconButton>
-        </div>
+        </Box>
       </Grid>
     );
   });
