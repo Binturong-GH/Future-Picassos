@@ -179,10 +179,10 @@ const Navbar = () => {
           "aria-labelledby": "admin-button",
         }}
       >
-        <MenuList onClick={handleAdminMenuClose}>
+        <MenuList onClick={handleAdminMenuClose} sx={{ px: 2 }}>
           <Link to={"/admin/users"}>Users</Link>
         </MenuList>
-        <MenuList onClick={handleAdminMenuClose}>
+        <MenuList onClick={handleAdminMenuClose} sx={{ px: 2 }}>
           <Link to={"/admin/products"}>product</Link>
         </MenuList>
       </Menu>
