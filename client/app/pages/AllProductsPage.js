@@ -11,11 +11,11 @@ import { fetchAllProductsAsync } from "../store";
 import { Box, Grid, Stack, Pagination } from "@mui/material";
 
 // Component
-import { ProductItem, LoadingSpinner } from "../components";
+import { ProductItem, LoadingSpinner, Error } from "../components";
 
 const AllProductsPage = () => {
   const dispatch = useDispatch();
-  const { products, isLoading } = useSelector((state) => state.products);
+  const { products, isLoading, error } = useSelector((state) => state.products);
   // fetch all products
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
@@ -33,6 +33,10 @@ const AllProductsPage = () => {
   // Render based on fetch state
   if (isLoading) {
     return <LoadingSpinner />;
+  }
+
+  if (!isLoading && error) {
+    return <Error error={"show me"} />;
   }
 
   return (
