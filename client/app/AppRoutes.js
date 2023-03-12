@@ -11,6 +11,8 @@ import UsersListPage from "./pages/UsersListPage";
 import ProductListpage from "./pages/ProductsListPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
 
+import { AllProductsPage } from "./pages";
+
 // socket
 import socket from "./utils/socket";
 import { useDispatch, useSelector } from "react-redux";
@@ -67,7 +69,7 @@ const AppRoutes = () => {
           path="/"
           element={<h1 className="home">Welcome to Future Picassos!</h1>}
         />
-        <Route path="/products" element={<ProductsList />} />
+        <Route path="/products" element={<AllProductsPage />} />
         <Route path="/products/:productId" element={<SingleProduct />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<OrderDetailPage />} />
