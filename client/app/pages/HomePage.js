@@ -102,16 +102,12 @@ const HomePage = () => {
               to="/products"
               size="large"
               sx={{
-                bgcolor: "#333",
-                color: "#fff",
+                bgcolor: "#fff",
+                color: "#333",
                 px: 4,
                 py: 2,
                 "&:hover": {
-                  bgcolor: "#fff",
-                  color: "#333",
-                },
-                "&active": {
-                  bgcolor: "#333",
+                  bgcolor: "#a3a3a3",
                   color: "#fff",
                 },
               }}
