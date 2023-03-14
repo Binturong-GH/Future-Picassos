@@ -1,4 +1,6 @@
 import React, { Fragment } from "react";
+
+// MUI
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -8,6 +10,8 @@ import Backdrop from "@mui/material/Backdrop";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
+// Router
+import { Link as RouterLink } from "react-router-dom";
 const imagesList = [
   {
     id: 1,
@@ -94,6 +98,8 @@ const HomePage = () => {
             </Typography>
             <Button
               variant="contained"
+              component={RouterLink}
+              to="/products"
               size="large"
               sx={{
                 bgcolor: "#333",
@@ -104,9 +110,18 @@ const HomePage = () => {
                   bgcolor: "#fff",
                   color: "#333",
                 },
+                "&active": {
+                  bgcolor: "#333",
+                  color: "#fff",
+                },
               }}
             >
-              <Typography sx={{ fontSize: 18, fontWeight: "bold" }}>
+              <Typography
+                sx={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                }}
+              >
                 Get Started
               </Typography>
             </Button>
