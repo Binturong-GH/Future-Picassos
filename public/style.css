@@ -1,9 +1,9 @@
 body {
   font-family: sans-serif;
+  margin: 0;
 }
 
-
-.title{
+.title {
   text-align: center;
 }
 
@@ -12,7 +12,7 @@ body {
   flex-wrap: wrap;
   text-align: center;
   justify-content: center;
-  padding: 40
+  padding: 40;
 }
 
 .productsImg {
@@ -45,7 +45,6 @@ form div {
   width: 16.6666666667%;
 }
 
-
 .col-md-6 {
   flex: 0 0 auto;
   width: 50%;
@@ -61,7 +60,6 @@ form div {
   width: 33.3333333333%;
 }
 
-
 .card {
   position: relative;
   display: flex;
@@ -73,7 +71,7 @@ form div {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   margin-right: auto;
-  margin-left: auto
+  margin-left: auto;
 }
 
 .card-header {
@@ -92,7 +90,7 @@ form div {
   margin-bottom: 1rem !important;
 }
 
-.form-control{
+.form-control {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -104,8 +102,8 @@ form div {
   background-clip: padding-box;
   border: 1px solid #ced4da;
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -135,11 +133,11 @@ label {
   margin-left: auto;
 }
 
-.reviewItems{
+.reviewItems {
   position: absolute;
   text-align: center;
-    top: 20px;
-    right: 20px;
+  top: 20px;
+  right: 20px;
 }
 
 button {
@@ -147,6 +145,6 @@ button {
 }
 
 .home {
-text-align: center;
-color: blueviolet
+  text-align: center;
+  color: blueviolet;
 }
