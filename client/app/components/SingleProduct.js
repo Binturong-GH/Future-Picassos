@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { fetchOneProductAsync } from "../store/slices/singleProductSlice";
 import {
   selectCart,
@@ -45,6 +45,7 @@ const styles = {
 
 function SingleProduct() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isLoading, product, error } = useSelector((state) => state.product);
   const { cartItems } = useSelector(selectCart);
   const { productId } = useParams();
@@ -100,7 +101,13 @@ function SingleProduct() {
 
   return (
     <Container maxWidth="lg" sx={styles.container}>
-      <Button variant="contained" sx={{ my: 4 }}>
+      <Button
+        variant="contained"
+        sx={{ my: 4 }}
+        onClick={() => {
+          navigate("/products");
+        }}
+      >
         back to Art
       </Button>
       <Box sx={styles.flexContainer}>
