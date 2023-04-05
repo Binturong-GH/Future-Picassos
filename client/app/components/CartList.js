@@ -119,101 +119,94 @@ const CartList = () => {
 
   return (
     <Fragment>
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center" sx={styles.table__head}>
-                  Item
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={(styles.hide, styles.table__head)}
-                >
-                  Title
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={(styles.hide, styles.table__head)}
-                >
-                  Price
-                </TableCell>
-                <TableCell align="center" sx={styles.table__head}>
-                  Quantity
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={(styles.hide, styles.table__head)}
-                >
-                  Subtotal
-                </TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cartItems.map((item) => {
-                return (
-                  <TableRow key={item.id}>
-                    <TableCell align="center">
-                      <Box
-                        component="img"
-                        sx={{
-                          maxWidth: 100,
-                          maxHeight: 80,
-                        }}
-                        src={item.imageUrl}
-                        alt={item.title}
-                      />
-                    </TableCell>
-                    <TableCell align="center" sx={styles.hide}>
-                      {item.title}
-                    </TableCell>
-                    <TableCell align="center" sx={styles.hide}>
-                      $ {item.price}
-                    </TableCell>
-                    <TableCell align="center">
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Button
-                          sx={styles.quantity__button}
-                          style={{
-                            maxWidth: "28px",
-                            maxHeight: "28px",
-                            minWidth: "28px",
-                            minHeight: "28px",
-                          }}
-                        >
-                          <AddIcon />
-                        </Button>
-                        <Typography>{item.quantity}</Typography>
-                        <Button
-                          sx={styles.quantity__button}
-                          style={{
-                            maxWidth: "28px",
-                            maxHeight: "28px",
-                            minWidth: "28px",
-                            minHeight: "28px",
-                          }}
-                        >
-                          <RemoveIcon />
-                        </Button>
-                      </Stack>
-                    </TableCell>
-                    <TableCell align="center" sx={styles.hide}>
-                      {item.quantity * item.price}
-                    </TableCell>
-                    <TableCell>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                align="center"
+                sx={{ fontSize: 20, fontWeight: "bold" }}
+              >
+                Item
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  display: {
+                    xs: "none",
+                    md: "table-cell",
+                  },
+                }}
+              >
+                Title
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  display: {
+                    xs: "none",
+                    md: "table-cell",
+                  },
+                }}
+              >
+                Price
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{ fontSize: 20, fontWeight: "bold" }}
+              >
+                Quantity
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  display: {
+                    xs: "none",
+                    md: "table-cell",
+                  },
+                }}
+              >
+                Subtotal
+              </TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {cartItems.map((item) => {
+              return (
+                <TableRow key={item.id}>
+                  <TableCell align="center">
+                    <Box
+                      component="img"
+                      sx={{
+                        maxWidth: 100,
+                        maxHeight: 80,
+                      }}
+                      src={item.imageUrl}
+                      alt={item.title}
+                    />
+                  </TableCell>
+                  <TableCell align="center" sx={styles.hide}>
+                    {item.title}
+                  </TableCell>
+                  <TableCell align="center" sx={styles.hide}>
+                    $ {item.price}
+                  </TableCell>
+                  <TableCell align="center">
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      justifyContent="center"
+                      alignItems="center"
+                    >
                       <Button
-                        variant="contained"
-                        color="error"
-                        sx={{
-                          p: 0,
-                        }}
+                        sx={styles.quantity__button}
                         style={{
                           maxWidth: "28px",
                           maxHeight: "28px",
@@ -221,16 +214,48 @@ const CartList = () => {
                           minHeight: "28px",
                         }}
                       >
-                        <DeleteIcon />
+                        <AddIcon />
                       </Button>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
+                      <Typography>{item.quantity}</Typography>
+                      <Button
+                        sx={styles.quantity__button}
+                        style={{
+                          maxWidth: "28px",
+                          maxHeight: "28px",
+                          minWidth: "28px",
+                          minHeight: "28px",
+                        }}
+                      >
+                        <RemoveIcon />
+                      </Button>
+                    </Stack>
+                  </TableCell>
+                  <TableCell align="center" sx={styles.hide}>
+                    {item.quantity * item.price}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      sx={{
+                        p: 0,
+                      }}
+                      style={{
+                        maxWidth: "28px",
+                        maxHeight: "28px",
+                        minWidth: "28px",
+                        minHeight: "28px",
+                      }}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Fragment>
   );
 };
