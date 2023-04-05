@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { fetchOneProductAsync } from "../store/slices/singleProductSlice";
@@ -17,9 +17,9 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
 import Typography from "@mui/material/Typography";
-
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { IconButton, Alert, Backdrop, CircularProgress } from "@mui/material";
+import Alert from "@mui/material/Alert";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const styles = {
   container: {
@@ -174,26 +174,3 @@ function SingleProduct() {
 }
 
 export default SingleProduct;
-/*
-<div>
-<img alt="product image" src={product.imageUrl} />
-<h3>{product.title}</h3>
-<h3>Artist: {product.artistName}</h3>
-
-<h4>Description: {product.description} </h4>
-<p>${product.price}</p>
-<IconButton
-  onClick={handleAdd}
-  size="small"
-  color="primary"
-  edge="start"
-  aria-label="label"
->
-  <AddShoppingCartIcon />
-  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-    Add to cart
-  </Typography>
-</IconButton>
-<div></div>
-</div>
-*/
