@@ -150,13 +150,13 @@ function SingleProduct() {
           <Typography variant="h4" sx={styles.spaceY}>
             Title: {product.title}
           </Typography>
-          <Typography variant="h5" sx={styles.spaceY}>
+          <Typography variant="h6" sx={styles.spaceY}>
             Artist: {product.artistName}
           </Typography>
-          <Typography variant="h5" sx={styles.spaceY}>
+          <Typography variant="h6" sx={styles.spaceY}>
             ${product.price}
           </Typography>
-          <Typography variant="h5" sx={styles.spaceY}>
+          <Typography variant="h6" sx={styles.spaceY}>
             Description:
           </Typography>
           <Typography variant="body1" sx={styles.spaceY}>
