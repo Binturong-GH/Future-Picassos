@@ -28,13 +28,36 @@ const styles = {
   },
   flexContainer: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: {
+      md: "row",
+      sm: "column",
+      xs: "column",
+    },
     justifyContent: "space-evenly",
   },
-  imageContainer: { width: "50%" },
+  imageContainer: {
+    width: {
+      md: "50%",
+      sm: "30%",
+      xs: "30%",
+    },
+    mx: "auto",
+  },
   inforContainer: {
-    width: "50%",
-    pl: 8,
+    width: {
+      md: "50%",
+      sm: "100%",
+    },
+    pl: {
+      md: 8,
+      sm: 0,
+      xs: 0,
+    },
+    pt: {
+      md: 0,
+      sm: 8,
+      xs: 4,
+    },
     display: "flex",
     flexDirection: "column",
   },
