@@ -1,5 +1,3 @@
-//cart list component, could reuse this on checkout page?
-
 import React, { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,7 +13,6 @@ import {
 } from "../store/slices/cartSlice";
 
 // MUI
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -251,30 +248,3 @@ const CartList = () => {
 };
 
 export default CartList;
-
-/**
-   <div>
-      <div>
-        {cartItems && cartItems.length ? (
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th> </th>
-                <th>Quantity</th>
-                <th> </th>
-                <th>Total</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>{cartRows}</tbody>
-          </table>
-        ) : (
-          <p>Your cart is currently empty - start shopping!</p>
-        )}
-      </div>
-    </div>
-
-
- */

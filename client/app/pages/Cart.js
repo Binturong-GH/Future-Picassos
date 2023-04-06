@@ -115,12 +115,4 @@ const Cart = () => {
     </Container>
   );
 };
-/**
-  <p>subtotal: ${subtotal}</p>
-      <p>shipping: ${shipping}</p>
-      <p>tax: ${tax}</p>
-      <p>order total: ${total}</p>
-      <button onClick={redirectToPayment}>Proceed to Checkout</button>
- */
-
 export default Cart;
