@@ -60,62 +60,40 @@ const CartList = () => {
     }
   }, []);
 
-  const cartRows = cartItems.map((cartItem) => {
-    function handleSubtract() {
-      dispatch(subtractOne(cartItem.id));
-      const req = {
-        productId: cartItem.id,
-        quantity: cartItem.quantity - 1,
-      };
-      if (user) {
-        dispatch(editCartDB(req));
-      } else {
-        dispatch(setLocalCart(cartItems));
-      }
+  function handleSubtract(cartItem) {
+    dispatch(subtractOne(cartItem.id));
+    const req = {
+      productId: cartItem.id,
+      quantity: cartItem.quantity - 1,
+    };
+    if (user) {
+      dispatch(editCartDB(req));
+    } else {
+      dispatch(setLocalCart(cartItems));
     }
+  }
 
-    function handleIncrement() {
-      console.log("cartItem", cartItem);
-      dispatch(incrementOne(cartItem.id));
-      const req = {
-        productId: cartItem.id,
-        quantity: cartItem.quantity + 1,
-      };
-      if (user) {
-        dispatch(editCartDB(req));
-      } else {
-        dispatch(setLocalCart(cartItems));
-      }
+  function handleIncrement(cartItem) {
+    dispatch(incrementOne(cartItem.id));
+    const req = {
+      productId: cartItem.id,
+      quantity: cartItem.quantity + 1,
+    };
+    if (user) {
+      dispatch(editCartDB(req));
+    } else {
+      dispatch(setLocalCart(cartItems));
     }
-    return (
-      <tr key={cartItem.id}>
-        <td>{cartItem.title}</td>
-        <td>${cartItem.price}</td>
-        <td>
-          <button onClick={handleSubtract}>subtract one</button>
-        </td>
-        <td>{cartItem.quantity}</td>
-        <td>
-          <button onClick={handleIncrement}>add one</button>
-        </td>
-        <td>{cartItem.quantity * cartItem.price}</td>
-        <td>
-          <button
-            onClick={() => {
-              dispatch(deleteProduct(cartItem.id));
-              if (user) {
-                dispatch(deleteFromCartDB(cartItem));
-              } else {
-                dispatch(setLocalCart(cartItems));
-              }
-            }}
-          >
-            Remove from Cart
-          </button>
-        </td>
-      </tr>
-    );
-  });
+  }
+
+  function handleDelete(cartItem) {
+    dispatch(deleteProduct(cartItem.id));
+    if (user) {
+      dispatch(deleteFromCartDB(cartItem));
+    } else {
+      dispatch(setLocalCart(cartItems));
+    }
+  }
 
   return (
     <Fragment>
@@ -179,8 +157,10 @@ const CartList = () => {
           </TableHead>
           <TableBody>
             {cartItems.map((item) => {
+              // console.log(item);
               return (
                 <TableRow key={item.id}>
+                  {/* Item's image */}
                   <TableCell align="center">
                     <Box
                       component="img"
@@ -192,12 +172,15 @@ const CartList = () => {
                       alt={item.title}
                     />
                   </TableCell>
+                  {/* Title */}
                   <TableCell align="center" sx={styles.hide}>
                     {item.title}
                   </TableCell>
+                  {/* Price */}
                   <TableCell align="center" sx={styles.hide}>
                     $ {item.price}
                   </TableCell>
+                  {/* Quantity */}
                   <TableCell align="center">
                     <Stack
                       direction="row"
@@ -206,6 +189,9 @@ const CartList = () => {
                       alignItems="center"
                     >
                       <Button
+                        onClick={() => {
+                          handleIncrement(item);
+                        }}
                         sx={styles.quantity__button}
                         style={{
                           maxWidth: "28px",
@@ -218,6 +204,7 @@ const CartList = () => {
                       </Button>
                       <Typography>{item.quantity}</Typography>
                       <Button
+                        onClick={() => handleSubtract(item)}
                         sx={styles.quantity__button}
                         style={{
                           maxWidth: "28px",
@@ -230,11 +217,14 @@ const CartList = () => {
                       </Button>
                     </Stack>
                   </TableCell>
+                  {/* Subtotal */}
                   <TableCell align="center" sx={styles.hide}>
                     {item.quantity * item.price}
                   </TableCell>
+                  {/* Delete */}
                   <TableCell>
                     <Button
+                      onClick={() => handleDelete(item)}
                       variant="contained"
                       color="error"
                       sx={{
