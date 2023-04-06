@@ -2,3 +2,7 @@
 
 - Design a responsive website layout for the single product page to improve user experience.
 - Design a "BACK TO ART" button for the single product page to implement seamless navigation between the single product page and the art page.
+
+### 1.0.2 (2023-04-05)
+
+- Design a responsive layout for the cart page.
