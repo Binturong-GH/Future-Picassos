@@ -7,6 +7,14 @@ import { fetchUserCart, addToCart } from "../store";
 import { useNavigate } from "react-router-dom";
 import { selectCart } from "../store/slices/cartSlice";
 
+// MUI
+import Stack from "@mui/material/Stack";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
+
 const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
@@ -33,16 +41,86 @@ const Cart = () => {
   ).toFixed(2);
 
   return (
-    <>
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
       <CartList />
-
-      <p>subtotal: ${subtotal}</p>
+      <Stack
+        direction="column"
+        spacing={2}
+        alignItems={{ xs: "center", sm: "center", md: "flex-end" }}
+      >
+        {/* Price information */}
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ mt: 4 }}
+        >
+          <Box
+            sx={{
+              width: "338px",
+              px: 4,
+              py: 2,
+              border: 1,
+              borderColor: "grey.500",
+            }}
+          >
+            {/* Subtotal */}
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography sx={{ fontWeight: "bold", fontSize: 24 }}>
+                Subtotal:
+              </Typography>
+              <div>$ {subtotal}</div>
+            </Stack>
+            {/* Shipping */}
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography sx={{ fontWeight: "regular", fontSize: 20 }}>
+                Shipping Fee:
+              </Typography>
+              <div>$ {shipping}</div>
+            </Stack>
+            <Divider sx={{ my: 2 }} />
+            {/* Order total */}
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography
+                variant="h4"
+                sx={{ fontWeight: "bold", fontSize: 32 }}
+              >
+                Order Total:
+              </Typography>
+              <div>$ {total}</div>
+            </Stack>
+          </Box>
+          {/* Proceed to checkout */}
+        </Stack>
+        <Button
+          onClick={redirectToPayment}
+          variant="contained"
+          style={{ width: "404px" }}
+        >
+          Proceed to Checkout
+        </Button>
+      </Stack>
+    </Container>
+  );
+};
+/**
+  <p>subtotal: ${subtotal}</p>
       <p>shipping: ${shipping}</p>
       <p>tax: ${tax}</p>
       <p>order total: ${total}</p>
       <button onClick={redirectToPayment}>Proceed to Checkout</button>
-    </>
-  );
-};
+ */
 
 export default Cart;
