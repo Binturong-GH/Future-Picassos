@@ -2,13 +2,11 @@ import React, { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCart,
-  fetchUserCart,
   deleteProduct,
   incrementOne,
   subtractOne,
   deleteFromCartDB,
   editCartDB,
-  getLocalCart,
   setLocalCart,
 } from "../store/slices/cartSlice";
 
@@ -43,19 +41,8 @@ const styles = {
   },
 };
 
-const CartList = () => {
+const CartList = ({ cartItems }) => {
   const dispatch = useDispatch();
-  const { cartItems } = useSelector(selectCart);
-  const { user } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(fetchUserCart());
-    } else {
-      console.log("cartlist useeffect - not user, dispatching getlocalcart");
-      dispatch(getLocalCart());
-    }
-  }, []);
 
   function handleSubtract(cartItem) {
     dispatch(subtractOne(cartItem.id));
@@ -154,7 +141,6 @@ const CartList = () => {
           </TableHead>
           <TableBody>
             {cartItems.map((item) => {
-              // console.log(item);
               return (
                 <TableRow key={item.id}>
                   {/* Item's image */}

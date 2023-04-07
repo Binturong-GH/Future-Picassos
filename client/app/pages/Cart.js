@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartList from "../components/CartList";
 import { fetchUserCart, addToCart } from "../store";
+import { getLocalCart } from "../store/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { selectCart } from "../store/slices/cartSlice";
 
@@ -18,11 +19,20 @@ import Button from "@mui/material/Button";
 const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const redirectToPayment = () => {
     navigate("/payment");
   };
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchUserCart());
+    } else {
+      dispatch(getLocalCart());
+    }
+  }, []);
 
   const subtotal = cartItems
     .reduce(
@@ -42,7 +52,7 @@ const Cart = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <CartList />
+      <CartList cartItems={cartItems} />
       <Stack
         direction="column"
         spacing={2}
