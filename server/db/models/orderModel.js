@@ -15,6 +15,7 @@ const Order = db.define("order", {
   paymentMethod: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: "visa",
   },
   itemsPrice: {
     type: Sequelize.DECIMAL(10, 2),
