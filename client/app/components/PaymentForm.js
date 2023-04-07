@@ -1,3 +1,172 @@
+import React, { Fragment } from "react";
+
+// Formik
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+// MUI
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+
+const validate = yup.object({
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
+  firstName: yup
+    .string("Enter your First Name")
+    .required("First name is required"),
+  lastName: yup
+    .string("Enter your Last Name")
+    .required("Last name is required"),
+
+  address: yup.string("Enter your Address").required("Address is required"),
+  country: yup.string("Enter your country").required("Country is required"),
+  state: yup.string("Enter your state").required("State is required"),
+  zipCode: yup.string("Enter your Zip Code").required("Zip code is required"),
+});
+
+const PaymentForm = () => {
+  const formik = useFormik({
+    initialValues: {
+      email: "foobar@example.com",
+      firstName: "John",
+      lastName: "Doe",
+      address: "dummy address",
+      country: "XX",
+      state: "XX",
+      zipCode: "00000",
+    },
+    validationSchema: validate,
+    onSubmit: (values) => {
+      console.log("1");
+    },
+  });
+  // 12@s.c
+  return (
+    <Fragment>
+      <form onSubmit={formik.handleSubmit}>
+        {/* Part 1: Name */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Firstname */}
+          <TextField
+            fullWidth
+            id="firstName"
+            name="firstName"
+            label="First Name"
+            value={formik.values.firstName}
+            onChange={formik.handleChange}
+            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+            helperText={formik.touched.firstName && formik.errors.firstName}
+          />
+          {/* lastname */}
+          <TextField
+            sx={{ ml: 4 }}
+            fullWidth
+            id="lastName"
+            name="lastName"
+            label="Last Name"
+            value={formik.values.lastName}
+            onChange={formik.handleChange}
+            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+            helperText={formik.touched.lastName && formik.errors.lastName}
+          />
+        </Box>
+        {/* Email */}
+        <Box>
+          <TextField
+            fullWidth
+            id="email"
+            name="email"
+            label="Email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
+        </Box>
+
+        {/* Address */}
+        <Box>
+          <TextField
+            fullWidth
+            id="address"
+            name="address"
+            label="Address"
+            value={formik.values.address}
+            onChange={formik.handleChange}
+            error={formik.touched.address && Boolean(formik.errors.address)}
+            helperText={formik.touched.address && formik.errors.address}
+          />
+        </Box>
+
+        {/*  Part: country, state, zip code */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Country */}
+          <TextField
+            fullWidth
+            id="country"
+            name="country"
+            label="Country"
+            value={formik.values.country}
+            onChange={formik.handleChange}
+            error={formik.touched.country && Boolean(formik.errors.country)}
+            helperText={formik.touched.country && formik.errors.country}
+          />
+
+          {/* State */}
+          <TextField
+            sx={{ ml: 2 }}
+            fullWidth
+            id="state"
+            name="state"
+            label="State"
+            value={formik.values.state}
+            onChange={formik.handleChange}
+            error={formik.touched.state && Boolean(formik.errors.state)}
+            helperText={formik.touched.state && formik.errors.state}
+          />
+
+          {/* Postcode */}
+          <TextField
+            sx={{ ml: 2 }}
+            fullWidth
+            id="zipCode"
+            name="zipCode"
+            label="Zip code"
+            value={formik.values.zipCode}
+            onChange={formik.handleChange}
+            error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
+            helperText={formik.touched.zipCode && formik.errors.zipCode}
+          />
+        </Box>
+        <Box sx={{ pl: 2 }}>
+          <Button color="primary" variant="contained" fullWidth type="submit">
+            Checkout
+          </Button>
+        </Box>
+      </form>
+    </Fragment>
+  );
+};
+
+export default PaymentForm;
+
+/*
+
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addNewOrderAsync } from "../store/slices/orderSlice";
@@ -131,3 +300,4 @@ export default function PaymentForm({
     </div>
   );
 }
+*/
