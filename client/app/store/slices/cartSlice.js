@@ -147,9 +147,10 @@ const cartSlice = createSlice({
         cart = JSON.parse(localStorage.getItem("cart"));
       }
 
-      console.log("getlocalcart on slice page, here is cart", cart);
       if (cart) {
         state.cartItems = cart;
+      } else {
+        state.cartItems = [];
       }
     },
 
