@@ -16,8 +16,6 @@ exports.addNewOrder = catchAsync(async (req, res, next) => {
     shippingPrice,
     totalPrice,
     isPaid,
-    paidAt,
-    deliveredAt,
   } = req.body;
 
   // 1. check if required field is empty
@@ -47,8 +45,6 @@ exports.addNewOrder = catchAsync(async (req, res, next) => {
     shippingPrice,
     totalPrice,
     isPaid,
-    paidAt,
-    deliveredAt,
   });
 
   // 3. send created order back to client

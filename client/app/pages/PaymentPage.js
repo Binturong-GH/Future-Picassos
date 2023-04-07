@@ -1,13 +1,61 @@
 import React, { useEffect } from "react";
-import PaymentForm from "../components/PaymentForm";
-import CartList from "../components/CartList";
-import { useSelector, useDispatch } from "react-redux";
-import { selectCart } from "../store/slices/cartSlice";
-import { clearOrder } from "../store/slices/orderSlice";
-import { Box, Grid, Typography, Alert, AlertTitle } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link } from "react-router-dom";
+// import PaymentForm from "../components/PaymentForm";
+// import CartList from "../components/CartList";
+// import { selectCart } from "../store/slices/cartSlice";
+// import { clearOrder } from "../store/slices/orderSlice";
+// import { Box, Grid, Typography, Alert, AlertTitle } from "@mui/material";
+// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+// import { Link } from "react-router-dom";
 
+// MUI
+import Box from "@mui/material/Box";
+
+// Components
+import ItemsForPayment from "../components/ItemsForPayment";
+import PaymentForm from "../components/PaymentForm";
+
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchUserCart,
+  getLocalCart,
+  selectCart,
+} from "../store/slices/cartSlice";
+
+export default function PaymentPage() {
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector(selectCart);
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchUserCart());
+    } else {
+      dispatch(getLocalCart());
+    }
+  }, []);
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: {
+          xs: "column-reverse",
+          sm: "column-reverse",
+          md: "row",
+        },
+        justifyContent: "space-between",
+      }}
+    >
+      <Box sx={{ flexGrow: 1, mr: 4 }}>
+        <PaymentForm />
+      </Box>
+      <ItemsForPayment cartItems={cartItems} />
+    </Box>
+  );
+}
+
+/*
 export default function PaymentPage() {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
@@ -80,3 +128,4 @@ export default function PaymentPage() {
     </>
   );
 }
+*/

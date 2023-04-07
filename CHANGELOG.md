@@ -7,6 +7,8 @@
 
 - Design a responsive layout for the cart page.
 
-### 1.2.1 (2023-04-05)
+### 1.3.1 (2023-04-05)
 
 - Fix bug: render the Cart page correctly by fixing the getLocalCart function.
+
+- Design a responsive website layout for the payment page.
