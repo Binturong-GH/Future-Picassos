@@ -160,7 +160,7 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
-      return { cartItems: action.payload };
+      state.cartItems = action.payload;
     });
     builder.addCase(addToCartDB.fulfilled, (state, action) => {
       // state.cartItems.push(action.payload);
