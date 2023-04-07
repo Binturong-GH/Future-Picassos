@@ -30,7 +30,17 @@ const ItemsForPayment = ({ cartItems }) => {
   ).toFixed(2);
 
   return (
-    <Box sx={{ m: 2, maxWidth: 250, border: 1, borderColor: "grey.500", p: 2 }}>
+    <Box
+      sx={{
+        m: 4,
+        width: {
+          md: 250,
+        },
+        border: 1,
+        borderColor: "grey.500",
+        p: 2,
+      }}
+    >
       {/* Part1: items */}
       <TableContainer>
         <Table>
@@ -49,8 +59,14 @@ const ItemsForPayment = ({ cartItems }) => {
                     <Box
                       component="img"
                       sx={{
-                        maxWidth: 50,
-                        maxHeight: 40,
+                        width: {
+                          xs: 100,
+                          md: 50,
+                        },
+                        heigth: {
+                          sx: 80,
+                          md: 40,
+                        },
                       }}
                       src={item.imageUrl}
                       alt={item.title}
