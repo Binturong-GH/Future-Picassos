@@ -87,33 +87,111 @@ export default function UsersList() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Index</TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    display: {
+                      xs: "none",
+                      md: "table-cell",
+                    },
+                  }}
+                >
+                  Index
+                </TableCell>
 
-                <TableCell>ID</TableCell>
-                <TableCell align="right">Name</TableCell>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">Admin</TableCell>
-                <TableCell align="right">Delete</TableCell>
+                <TableCell align="center">ID</TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    display: {
+                      xs: "none",
+                      md: "table-cell",
+                    },
+                  }}
+                >
+                  Name
+                </TableCell>
+                <TableCell align="center">Email</TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    display: {
+                      xs: "none",
+                      md: "table-cell",
+                    },
+                  }}
+                >
+                  Admin
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    display: {
+                      xs: "none",
+                      md: "table-cell",
+                    },
+                  }}
+                >
+                  Delete
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {usersPerPage.map((user, index) => (
                 <TableRow
                   key={user.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  sx={{
+                    "&:last-child td, &:last-child th": { border: 0 },
+                  }}
                 >
                   <TableCell align="center">{index + 1}</TableCell>
-                  <TableCell component="th" scope="row">
+                  <TableCell
+                    align="center"
+                    component="th"
+                    scope="row"
+                    sx={{
+                      display: {
+                        xs: "none",
+                        md: "table-cell",
+                      },
+                    }}
+                  >
                     {user.id}
                   </TableCell>
-                  <TableCell align="right">{user.name}</TableCell>
-                  <TableCell align="right">{user.email}</TableCell>
-                  <TableCell align="right">
+                  <TableCell
+                    align="center"
+                    sx={{
+                      display: {
+                        xs: "none",
+                        md: "table-cell",
+                      },
+                    }}
+                  >
+                    {user.name}
+                  </TableCell>
+                  <TableCell align="center">{user.email}</TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      display: {
+                        xs: "none",
+                        md: "table-cell",
+                      },
+                    }}
+                  >
                     <Icon color={user.role === "admin" ? "success" : "error"}>
                       {user.role === "admin" ? <CheckIcon /> : <ClearIcon />}
                     </Icon>
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell
+                    align="center"
+                    sx={{
+                      display: {
+                        xs: "none",
+                        md: "table-cell",
+                      },
+                    }}
+                  >
                     <IconButton
                       aria-label="delete"
                       onClick={() => {
