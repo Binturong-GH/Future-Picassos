@@ -63,9 +63,21 @@ export default function CreateProductPrompt({ handleClose, open }) {
         {!isLoading && errorOfCreate && (
           <Alert severity="error">{errorOfCreate}</Alert>
         )}
-        <DialogTitle>Create a new Product</DialogTitle>
-        <form onSubmit={formik.handleSubmit}>
-          <DialogContent>
+        <DialogTitle
+          sx={{
+            fontWeight: "bold",
+            fontSize: {
+              xs: 24,
+              md: 46,
+            },
+            textAlign: "center",
+            pb: 0,
+          }}
+        >
+          Create a new Product
+        </DialogTitle>
+        <form onSubmit={formik.handleSubmit} sx={{ pt: 0 }}>
+          <DialogContent sx={{ maxWidth: 500, pt: 0, mr: 4 }}>
             <Box display={"flex"} flexDirection={"column"}>
               <TextField
                 fullWidth
@@ -179,8 +191,12 @@ export default function CreateProductPrompt({ handleClose, open }) {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button type="submit">Create</Button>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit" variant="contained">
+              Create
+            </Button>
+            <Button onClick={handleClose} variant="contained" color="error">
+              Cancel
+            </Button>
           </DialogActions>
         </form>
       </Dialog>
