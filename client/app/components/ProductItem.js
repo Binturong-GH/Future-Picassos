@@ -1,9 +1,13 @@
 import React from "react";
 
 // Redux
-import { useDispatch } from "react-redux";
-import { addToCart } from "../store";
+import { useDispatch, useSelector } from "react-redux";
 
+import {
+  addToCart,
+  addToCartDB,
+  setLocalCart,
+} from "../store/slices/cartSlice";
 // Route
 import { Link as RouterLink } from "react-router-dom";
 
@@ -31,9 +35,19 @@ const styles = {
 
 const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const handleAdd = () => {
     dispatch(addToCart(product));
+    const req = {
+      productId: product.id,
+      quantity: 1,
+    };
+    if (user) {
+      dispatch(addToCartDB(req));
+    } else {
+      dispatch(setLocalCart(cartItems));
+    }
   };
 
   return (

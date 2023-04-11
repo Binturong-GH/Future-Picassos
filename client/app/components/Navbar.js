@@ -132,7 +132,10 @@ const Navbar = () => {
               variant="text"
               onClick={() => redirectTo("/cart")}
             >
-              <Badge badgeContent={4} sx={{ color: "white" }}>
+              <Badge
+                badgeContent={cartTotal(cartItems)}
+                sx={{ color: "white" }}
+              >
                 <ShoppingCartIcon />
               </Badge>
               <Typography sx={{ ml: 1 }}>Cart</Typography>
