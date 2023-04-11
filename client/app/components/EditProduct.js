@@ -67,14 +67,28 @@ export default function EditProduct({ handleClose, open, id }) {
   });
 
   return (
-    <div>
+    <Box>
       <Dialog
+        fullWidth
+        maxWidth="md"
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <DialogTitle>Update product</DialogTitle>
+        <DialogTitle
+          sx={{
+            fontWeight: "bold",
+            fontSize: {
+              xs: 24,
+              md: 46,
+            },
+            textAlign: "center",
+            pb: 0,
+          }}
+        >
+          Update product
+        </DialogTitle>
         <form onSubmit={formik.handleSubmit}>
           <DialogContent>
             <Box display={"flex"} flexDirection={"column"}>
@@ -189,12 +203,23 @@ export default function EditProduct({ handleClose, open, id }) {
               />
             </Box>
           </DialogContent>
-          <DialogActions>
-            <Button type="submit">Update</Button>
-            <Button onClick={handleClose}>Cancel</Button>
+          <DialogActions
+            sx={{
+              display: "flex",
+              flexDirection: "row-reverse",
+              justifyContent: "space-between",
+              px: 5,
+            }}
+          >
+            <Button type="submit" variant="contained">
+              Update
+            </Button>
+            <Button onClick={handleClose} variant="contained" color="error">
+              Cancel
+            </Button>
           </DialogActions>
         </form>
       </Dialog>
-    </div>
+    </Box>
   );
 }
