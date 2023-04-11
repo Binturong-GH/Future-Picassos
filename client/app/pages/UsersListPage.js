@@ -99,7 +99,7 @@ export default function UsersList() {
                   Index
                 </TableCell>
 
-                <TableCell>ID</TableCell>
+                <TableCell align="center">ID</TableCell>
                 <TableCell
                   align="center"
                   sx={{
@@ -146,6 +146,7 @@ export default function UsersList() {
                 >
                   <TableCell align="center">{index + 1}</TableCell>
                   <TableCell
+                    align="center"
                     component="th"
                     scope="row"
                     sx={{
