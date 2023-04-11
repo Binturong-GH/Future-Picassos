@@ -190,7 +190,14 @@ export default function CreateProductPrompt({ handleClose, open }) {
               />
             </Box>
           </DialogContent>
-          <DialogActions>
+          <DialogActions
+            sx={{
+              display: "flex",
+              flexDirection: "row-reverse",
+              justifyContent: "space-between",
+              px: 5,
+            }}
+          >
             <Button type="submit" variant="contained">
               Create
             </Button>
