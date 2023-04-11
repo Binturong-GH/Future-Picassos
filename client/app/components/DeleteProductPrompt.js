@@ -23,32 +23,54 @@ export default function DeleteProductPrompt({ handleClose, open, product }) {
   return (
     <>
       <Dialog
+        fullWidth
+        maxWidth="xs"
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Confirm delete product: {product.title}
+          <Typography
+            variant="h2"
+            sx={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Confirm
+          </Typography>
+          <Typography variant="h5" sx={{ textAlign: "center", mt: 2 }}>
+            delete product: {product.title}
+          </Typography>
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <Box
-              component="img"
-              sx={{
-                height: 133,
-                width: 150,
-              }}
-              alt={product.title}
-              src={product.imageUrl}
-            />
-          </DialogContentText>
+        <DialogContent sx={{ mx: "auto" }}>
+          <Box
+            component="img"
+            sx={{
+              height: 133,
+              width: 150,
+            }}
+            alt={product.title}
+            src={product.imageUrl}
+          />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDelete} autoFocus>
-            Yes
+        <DialogActions
+          sx={{
+            display: "flex",
+            flexDirection: "row-reverse",
+            justifyContent: "space-between",
+            px: 3,
+          }}
+        >
+          <Button
+            onClick={handleDelete}
+            autoFocus
+            variant="contained"
+            color="error"
+          >
+            Delete
           </Button>
-          <Button onClick={handleClose}>No</Button>
+          <Button onClick={handleClose} variant="contained">
+            Go Back
+          </Button>
         </DialogActions>
       </Dialog>
     </>
