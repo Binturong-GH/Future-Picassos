@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
+import { logout } from "./authSlice";
 
 /*
 to consider:
@@ -9,7 +10,7 @@ https://rapidapi.com/guides/request-headers-axios
 
 export const fetchUserCart = createAsyncThunk(
   "cart/fetchUserCart",
-  async () => {
+  async (_, { dispatch }) => {
     try {
       const token = JSON.parse(localStorage.getItem("jwt"));
       const config = {
@@ -31,7 +32,11 @@ export const fetchUserCart = createAsyncThunk(
       });
       return cartArr;
     } catch (err) {
-      console.error(err);
+      if (err) {
+        console.log(err);
+        // logout user once the token has expired.
+        dispatch(logout());
+      }
     }
   }
 );

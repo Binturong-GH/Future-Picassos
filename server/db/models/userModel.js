@@ -1,10 +1,10 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const keys = require('../../../config/keys');
+const Sequelize = require("sequelize");
+const db = require("../db");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const keys = require("../../../config/keys");
 
-const User = db.define('user', {
+const User = db.define("user", {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
@@ -24,8 +24,8 @@ const User = db.define('user', {
     },
   },
   role: {
-    type: Sequelize.ENUM('user', 'admin'),
-    defaultValue: 'user',
+    type: Sequelize.ENUM("user", "admin"),
+    defaultValue: "user",
   },
   password: {
     type: Sequelize.STRING,
@@ -37,7 +37,7 @@ const User = db.define('user', {
     validate: {
       confirmPassword(value) {
         if (value === this.password) return;
-        const error = new Error('Passwords are not the same');
+        const error = new Error("Passwords are not the same");
         error.status = 400;
         throw error;
       },
@@ -49,14 +49,14 @@ const User = db.define('user', {
 });
 
 // @desc: hash password only if password is modified
-User.addHook('beforeSave', async (user) => {
-  if (!user.changed('password')) return;
+User.addHook("beforeSave", async (user) => {
+  if (!user.changed("password")) return;
   user.password = await bcrypt.hash(user.password, 12);
 });
 
 // @desc: update passwordChangedAt when update password
-User.addHook('beforeSave', (user) => {
-  if (!user.changed('password') || user.isNewRecord) return;
+User.addHook("beforeSave", (user) => {
+  if (!user.changed("password") || user.isNewRecord) return;
   user.passwordChangedAt = Date.now() - 1000;
 });
 
@@ -86,7 +86,7 @@ User.verifyToken = async function (token) {
     const decode = await jwt.verify(token, process.env.JWT_SECRET);
     return decode;
   } catch (err) {
-    const error = new Error('Invalid Token, Please try to login in again.');
+    const error = new Error("Invalid Token, Please try to login in again.");
     error.status = 401;
     throw error;
   }
