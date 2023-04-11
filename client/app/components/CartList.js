@@ -43,6 +43,7 @@ const styles = {
 
 const CartList = ({ cartItems }) => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   function handleSubtract(cartItem) {
     dispatch(subtractOne(cartItem.id));

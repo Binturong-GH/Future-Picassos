@@ -1,6 +1,6 @@
 //cart screen page
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartList from "../components/CartList";
 import { fetchUserCart, addToCart } from "../store";
@@ -15,15 +15,27 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
   const { user } = useSelector((state) => state.auth);
+  // set open state of Toast
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const redirectToPayment = () => {
-    navigate("/payment");
+    if (cartItems.length) {
+      navigate("/payment");
+    } else {
+      setOpen(true);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -52,6 +64,18 @@ const Cart = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
+      {/* Toast Alert to prompt user if cart is empty when user try to prceed to checkout */}
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          Your cart is currently empty, let's start shopping before proceed to
+          checkout!
+        </Alert>
+      </Snackbar>
       <CartList cartItems={cartItems} />
       <Stack
         direction="column"
