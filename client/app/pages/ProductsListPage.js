@@ -23,6 +23,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import { pink } from "@mui/material/colors";
+const styles = {
+  hide_md: {
+    display: {
+      xs: "none",
+      md: "table-cell",
+    },
+  },
+  hide_sm: {
+    display: {
+      xs: "none",
+      sm: "table-cell",
+    },
+  },
+};
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -187,17 +201,28 @@ export default function ProductsListPage() {
 
       <Box sx={{ mx: 2 }}>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table
+            sx={{ minWidth: 650, minWidth: 100 }}
+            aria-label="simple table"
+          >
             <TableHead>
               <TableRow>
-                <TableCell align="center">Index</TableCell>
-                <TableCell>ID</TableCell>
+                <TableCell align="center" sx={styles.hide_sm}>
+                  Index
+                </TableCell>
+                <TableCell sx={styles.hide_sm}>ID</TableCell>
                 <TableCell align="center">Image</TableCell>
-                <TableCell align="right">Title</TableCell>
-                <TableCell align="right">Price</TableCell>
-                <TableCell align="right">Count in stock</TableCell>
-                <TableCell align="right">Edit</TableCell>
-                <TableCell align="right">Delete</TableCell>
+                <TableCell align="center" sx={styles.hide_sm}>
+                  Title
+                </TableCell>
+                <TableCell align="center" sx={styles.hide_sm}>
+                  Price
+                </TableCell>
+                <TableCell align="center" sx={styles.hide_md}>
+                  Count in stock
+                </TableCell>
+                <TableCell align="center">Edit</TableCell>
+                <TableCell align="center">Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -206,25 +231,39 @@ export default function ProductsListPage() {
                   key={product.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="center">{index + 1}</TableCell>
-                  <TableCell component="th" scope="row">
+                  <TableCell align="center" sx={styles.hide_sm}>
+                    {index + 1}
+                  </TableCell>
+                  <TableCell component="th" scope="row" sx={styles.hide_sm}>
                     {product.id}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" width="10%">
                     <Box
                       component="img"
                       sx={{
-                        height: 133,
-                        width: 150,
+                        // height: 133,
+                        // width: 150,
+                        width: {
+                          xs: 80,
+                          md: 150,
+                        },
+                        height: {
+                          xs: 80,
+                          md: 133,
+                        },
                       }}
                       alt={product.title}
                       src={product.imageUrl}
                     />
                   </TableCell>
 
-                  <TableCell align="right">{product.title}</TableCell>
-                  <TableCell align="right">{product.price}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center" sx={styles.hide_sm}>
+                    {product.title}
+                  </TableCell>
+                  <TableCell align="center" sx={styles.hide_sm}>
+                    {product.price}
+                  </TableCell>
+                  <TableCell align="center" sx={styles.hide_md}>
                     {product.countInStock > 0 ? (
                       product.countInStock
                     ) : (
@@ -232,7 +271,7 @@ export default function ProductsListPage() {
                     )}
                   </TableCell>
 
-                  <TableCell align="right">
+                  <TableCell align="center" width="10%">
                     <IconButton
                       aria-label="edit"
                       onClick={() => {
@@ -243,7 +282,7 @@ export default function ProductsListPage() {
                     </IconButton>
                   </TableCell>
 
-                  <TableCell align="right">
+                  <TableCell align="center" width="10%">
                     <IconButton
                       aria-label="delete"
                       onClick={() => {
