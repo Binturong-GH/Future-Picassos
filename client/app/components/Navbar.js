@@ -10,6 +10,7 @@ import {
   Badge,
   Stack,
 } from "@mui/material";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 // auth slice to check login status
@@ -141,76 +142,41 @@ const Navbar = () => {
               <Typography sx={{ ml: 1 }}>Cart</Typography>
             </Button>
             {/* Sign in */}
-            <Button variant="text" size="large" color="inherit">
-              <Link to="/login">
-                <Typography sx={{ color: "white" }}>Sign In </Typography>
-              </Link>
-            </Button>
+            {isLogged ? (
+              <Button
+                id="user-button"
+                aria-controls={open ? "user-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <PermIdentityIcon
+                  sx={{
+                    color: "white",
+                  }}
+                />
+              </Button>
+            ) : (
+              <Button variant="text" size="large" color="inherit">
+                <Link to="/login">
+                  <Typography sx={{ color: "white" }}>Sign In </Typography>
+                </Link>
+              </Button>
+            )}
+
+            {/* Admin menu */}
+            {isLogged && user.role === "admin" && (
+              <Button
+                id="admin-button"
+                aria-controls={openAdmin ? "admin-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openAdmin ? "true" : undefined}
+                onClick={handleAdminMenuClick}
+              >
+                <Typography sx={{ color: "white" }}>Admin</Typography>
+              </Button>
+            )}
           </Stack>
-
-          {/* <Stack direction="row" spacing={2} color="white">
-              {isLogged ? (
-                <Button
-                  id="user-button"
-                  aria-controls={open ? "user-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClick}
-                >
-                  <PermIdentityIcon
-                    sx={{
-                      color: "white",
-                    }}
-                  />
-                </Button>
-              ) : (
-                <Button>
-                  <Link to="/login">
-                    <Typography sx={{ color: "white" }}>Sign In</Typography>
-                  </Link>
-                </Button>
-              )}
-
-              {isLogged && user.role === "admin" && (
-                <Button
-                  id="admin-button"
-                  aria-controls={openAdmin ? "admin-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={openAdmin ? "true" : undefined}
-                  onClick={handleAdminMenuClick}
-                >
-                  Admin
-                </Button>
-              )}
-
-              <Box sx={{ color: "white", ml: 2 }}>
-                <IconButton
-                  onClick={redirectToCart}
-                  size="small"
-                  color="inherit"
-                  edge="start"
-                  aria-label="label"
-                  sx={{ m: 4 }}
-                >
-                  <Badge
-                    badgeContent={cartTotal(cartItems)}
-                    sx={{
-                      color: "success",
-                    }}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                  >
-                    <ShoppingCartIcon />
-                  </Badge>
-
-                  <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
-                    Cart
-                  </Typography>
-                </IconButton>
-              </Box>
-            </Stack> */}
         </Box>
       </AppBar>
 
