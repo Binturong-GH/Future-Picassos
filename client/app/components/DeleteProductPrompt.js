@@ -32,12 +32,11 @@ export default function DeleteProductPrompt({ handleClose, open, product }) {
       >
         <DialogTitle id="alert-dialog-title">
           <Typography
-            variant="h2"
-            sx={{ fontWeight: "bold", textAlign: "center" }}
+            sx={{ fontWeight: "bold", textAlign: "center", fontSize: 32 }}
           >
             Confirm
           </Typography>
-          <Typography variant="h5" sx={{ textAlign: "center", mt: 2 }}>
+          <Typography sx={{ textAlign: "center", mt: 2, fontSize: 24 }}>
             delete product: {product.title}
           </Typography>
         </DialogTitle>
