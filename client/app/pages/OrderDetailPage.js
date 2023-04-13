@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 
 // MUI
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 export default function OrderDetailPage() {
   const { order } = useSelector((state) => state.order);
@@ -21,26 +22,38 @@ export default function OrderDetailPage() {
   }
 
   return (
-    <div>
+    <Box>
       <Typography variant="h3" sx={{ m: 4 }}>
         Order Detail
       </Typography>
-      <ItemsForPayment
-        cartItems={order.orderItems.map((item) => {
-          item = JSON.parse(item);
-          return {
-            id: item.id,
-            imageUrl: item.imageUrl,
-            quantity: item.quantity,
-            price: item.subtotal / item.quantity,
-          };
-        })}
-        subtotal={order.itemsPrice}
-        tax={order.taxPrice}
-        shipping={order.shippingPrice}
-        total={order.totalPrice}
-      />
-      <OrderDetail shippingAddress={order.shippingAddress} />
-    </div>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: {
+            xs: "column",
+            md: "row-reverse",
+          },
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ItemsForPayment
+          cartItems={order.orderItems.map((item) => {
+            item = JSON.parse(item);
+            return {
+              id: item.id,
+              imageUrl: item.imageUrl,
+              quantity: item.quantity,
+              price: item.subtotal / item.quantity,
+            };
+          })}
+          subtotal={order.itemsPrice}
+          tax={order.taxPrice}
+          shipping={order.shippingPrice}
+          total={order.totalPrice}
+        />
+        <OrderDetail shippingAddress={order.shippingAddress} />
+      </Box>
+    </Box>
   );
 }
