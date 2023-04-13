@@ -94,10 +94,14 @@ const Navbar = () => {
           {/* Left: Project Name & Icon */}
           <Stack direction="row" space={0.5} sx={{ color: "white" }}>
             <Typography
-              variant="h6"
               component="div"
               sx={{
                 flexGrow: 1,
+                fontSize: {
+                  xs: 10,
+                  sm: 16,
+                  md: 24,
+                },
               }}
             >
               Future Picassos
@@ -111,6 +115,12 @@ const Navbar = () => {
               size="large"
               color="inherit"
               variant="text"
+              sx={{
+                display: {
+                  xs: "none",
+                  md: "block",
+                },
+              }}
             >
               Home
             </Button>
