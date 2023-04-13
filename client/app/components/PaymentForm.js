@@ -59,7 +59,7 @@ const PaymentForm = ({ orderItem, subtotal, shipping, tax, total }) => {
               subtotal: item.quantity * item.price,
             });
           }),
-          shippingAddress: `firstName:${values.firstName} lastName:${values.lastName} Address:${values.address}, ${values.country}, ${values.state}, ${values.zipCode}`,
+          shippingAddress: `${values.firstName} ${values.lastName}/Address:${values.address}, ${values.country}, ${values.state}, ${values.zipCode}`,
           itemsPrice: Number(subtotal),
           shippingPrice: Number(shipping),
           taxPrice: Number(tax),
