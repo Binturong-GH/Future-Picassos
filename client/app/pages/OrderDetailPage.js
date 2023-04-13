@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // router
 import { Navigate } from "react-router-dom";
@@ -8,14 +8,22 @@ import ItemsForPayment from "../components/ItemsForPayment";
 import OrderDetail from "../components/OrderDetail";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearOrder } from "../store/slices/orderSlice";
 
 // MUI
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 export default function OrderDetailPage() {
+  const dispatch = useDispatch();
   const { order } = useSelector((state) => state.order);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearOrder());
+    };
+  }, []);
 
   if (!order) {
     return <Navigate to="/cart" />;
