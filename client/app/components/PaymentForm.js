@@ -50,7 +50,7 @@ const PaymentForm = ({ orderItem, subtotal, shipping, tax, total }) => {
           orderItems: orderItem.map((item) => {
             return `productId:${item.id}`;
           }),
-          shippingAddress: ` ${values.firstName} ${values.lastName} ${values.address} ${values.country} ${values.state}, ${values.zipCode}`,
+          shippingAddress: `firstName:${values.firstName} lastName:${values.lastName} Address:${values.address}  Country:${values.country} State:${values.state}, Zipcode${values.zipCode}`,
           itemsPrice: Number(subtotal),
           shippingPrice: Number(shipping),
           taxPrice: Number(tax),
