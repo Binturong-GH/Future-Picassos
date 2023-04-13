@@ -52,9 +52,14 @@ const PaymentForm = ({ orderItem, subtotal, shipping, tax, total }) => {
       dispatch(
         addNewOrderAsync({
           orderItems: orderItem.map((item) => {
-            return `productId:${item.id}`;
+            return JSON.stringify({
+              id: item.id,
+              imageUrl: item.imageUrl,
+              quantity: item.quantity,
+              subtotal: item.quantity * item.price,
+            });
           }),
-          shippingAddress: `firstName:${values.firstName} lastName:${values.lastName} Address:${values.address}  Country:${values.country} State:${values.state}, Zipcode${values.zipCode}`,
+          shippingAddress: `firstName:${values.firstName} lastName:${values.lastName} Address:${values.address}, ${values.country}, ${values.state}, ${values.zipCode}`,
           itemsPrice: Number(subtotal),
           shippingPrice: Number(shipping),
           taxPrice: Number(tax),
