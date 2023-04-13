@@ -1,7 +1,10 @@
 import React, { Fragment } from "react";
 
+// router
+import { Navigate } from "react-router-dom";
+
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNewOrderAsync } from "../store/slices/orderSlice";
 
 // Formik
@@ -33,6 +36,7 @@ const validate = yup.object({
 
 const PaymentForm = ({ orderItem, subtotal, shipping, tax, total }) => {
   const dispatch = useDispatch();
+  const { isLoading, order } = useSelector((state) => state.order);
   const formik = useFormik({
     initialValues: {
       email: "foobar@example.com",
@@ -59,7 +63,11 @@ const PaymentForm = ({ orderItem, subtotal, shipping, tax, total }) => {
       );
     },
   });
-  // 12@s.c
+
+  if (order) {
+    return <Navigate to="/order" />;
+  }
+
   return (
     <Fragment>
       <form onSubmit={formik.handleSubmit}>
