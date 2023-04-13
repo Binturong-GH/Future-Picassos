@@ -1,5 +1,9 @@
 import React, { Fragment } from "react";
 
+// Redux
+import { useDispatch } from "react-redux";
+import { addNewOrderAsync } from "../store/slices/orderSlice";
+
 // Formik
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -27,7 +31,8 @@ const validate = yup.object({
   zipCode: yup.string("Enter your Zip Code").required("Zip code is required"),
 });
 
-const PaymentForm = () => {
+const PaymentForm = ({ orderItem, subtotal, shipping, tax, total }) => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: "foobar@example.com",
@@ -40,7 +45,18 @@ const PaymentForm = () => {
     },
     validationSchema: validate,
     onSubmit: (values) => {
-      console.log("1");
+      dispatch(
+        addNewOrderAsync({
+          orderItems: orderItem.map((item) => {
+            return `productId:${item.id}`;
+          }),
+          shippingAddress: ` ${values.firstName} ${values.lastName} ${values.address} ${values.country} ${values.state}, ${values.zipCode}`,
+          itemsPrice: Number(subtotal),
+          shippingPrice: Number(shipping),
+          taxPrice: Number(tax),
+          totalPrice: Number(total),
+        })
+      );
     },
   });
   // 12@s.c
