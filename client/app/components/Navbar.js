@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import MUILink from "@mui/material/Link";
 
 // auth slice to check login status
 import { useDispatch, useSelector } from "react-redux";
@@ -104,53 +105,119 @@ const Navbar = () => {
                 },
               }}
             >
-              Future Picassos
+              <MUILink
+                component={Link}
+                to="/"
+                sx={{
+                  color: "white",
+                  ":hover": {
+                    color: "black",
+                  },
+                }}
+                underline="none"
+              >
+                Future Picassos
+              </MUILink>
             </Typography>
           </Stack>
 
           {/* Middle: Home, art  */}
-          <Stack direction="row" spacing={4} sx={{ ml: 5, color: "white" }}>
-            <Button
-              onClick={() => redirectTo("/")}
-              size="large"
-              color="inherit"
-              variant="text"
+          <Stack direction="row" alignItems="center" spacing={4} sx={{ ml: 5 }}>
+            <MUILink
+              component={Link}
+              to="/"
               sx={{
                 display: {
                   xs: "none",
                   md: "block",
                 },
+                color: "white",
+                fontSize: {
+                  md: 24,
+                },
+                fontWeight: "bold",
+                ":hover": {
+                  color: "black",
+                },
               }}
             >
               Home
-            </Button>
-            <Button
-              onClick={() => redirectTo("/products")}
-              size="large"
-              color="inherit"
-              variant="text"
+            </MUILink>
+            <MUILink
+              component={Link}
+              to="/products"
+              sx={{
+                color: "white",
+                fontSize: {
+                  xs: 16,
+                  sm: 20,
+                  md: 24,
+                },
+                fontWeight: "bold",
+                ":hover": {
+                  color: "black",
+                },
+              }}
             >
               Art
-            </Button>
+            </MUILink>
           </Stack>
 
           {/* Right: Cart and Sign in */}
-          <Stack direction="row" spacing={4} sx={{ ml: 5, color: "white" }}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={4}
+            sx={{ ml: 5, color: "white" }}
+          >
             {/* Cart */}
-            <Button
-              size="large"
-              color="inherit"
-              variant="text"
-              onClick={() => redirectTo("/cart")}
+            <MUILink
+              component={Link}
+              to="/cart"
+              sx={{
+                color: "white",
+                ":hover": {
+                  color: "black",
+                },
+                display: "flex",
+                alignItems: "center",
+              }}
             >
               <Badge
                 badgeContent={cartTotal(cartItems)}
-                sx={{ color: "white" }}
+                sx={{
+                  color: "white",
+                  fontSize: {
+                    xs: 16,
+                    sm: 20,
+                    md: 24,
+                  },
+                }}
+                showZero
               >
-                <ShoppingCartIcon />
+                <ShoppingCartIcon
+                  sx={{
+                    fontSize: {
+                      xs: 16,
+                      sm: 20,
+                      md: 24,
+                    },
+                  }}
+                />
               </Badge>
-              <Typography sx={{ ml: 1 }}>Cart</Typography>
-            </Button>
+              <Typography
+                sx={{
+                  ml: 1,
+                  fontSize: {
+                    xs: 16,
+                    sm: 20,
+                    md: 24,
+                  },
+                }}
+              >
+                Cart
+              </Typography>
+            </MUILink>
             {/* Sign in */}
             {isLogged ? (
               <Button
@@ -162,16 +229,36 @@ const Navbar = () => {
               >
                 <PermIdentityIcon
                   sx={{
+                    fontSize: {
+                      xs: 24,
+                      sm: 28,
+                      md: 32,
+                    },
                     color: "white",
+                    ":hover": {
+                      color: "black",
+                    },
                   }}
                 />
               </Button>
             ) : (
-              <Button variant="text" size="large" color="inherit">
-                <Link to="/login">
-                  <Typography sx={{ color: "white" }}>Sign In </Typography>
-                </Link>
-              </Button>
+              <MUILink
+                component={Link}
+                to="/login"
+                sx={{
+                  color: "white",
+                  fontSize: {
+                    xs: 16,
+                    sm: 20,
+                    md: 24,
+                  },
+                  ":hover": {
+                    color: "black",
+                  },
+                }}
+              >
+                Sign In
+              </MUILink>
             )}
 
             {/* Admin menu */}
@@ -182,8 +269,19 @@ const Navbar = () => {
                 aria-haspopup="true"
                 aria-expanded={openAdmin ? "true" : undefined}
                 onClick={handleAdminMenuClick}
+                sx={{
+                  color: "white",
+                  fontSize: {
+                    xs: 16,
+                    sm: 20,
+                    md: 24,
+                  },
+                  ":hover": {
+                    color: "black",
+                  },
+                }}
               >
-                <Typography sx={{ color: "white" }}>Admin</Typography>
+                Admin
               </Button>
             )}
           </Stack>
@@ -200,7 +298,20 @@ const Navbar = () => {
         }}
       >
         <MenuList onClick={handleClose} sx={{ px: 2 }}>
-          <div onClick={handleLogout}>Logout</div>
+          <Button
+            variant="text"
+            onClick={handleLogout}
+            sx={{
+              fontWeight: "bold",
+              ":hover": {
+                color: "red",
+
+                backgroundColor: "white",
+              },
+            }}
+          >
+            Logout
+          </Button>
         </MenuList>
       </Menu>
 
@@ -214,10 +325,14 @@ const Navbar = () => {
         }}
       >
         <MenuList onClick={handleAdminMenuClose} sx={{ px: 2 }}>
-          <Link to={"/admin/users"}>Users</Link>
+          <MUILink component={Link} to={"/admin/users"} underline="hover">
+            Users
+          </MUILink>
         </MenuList>
         <MenuList onClick={handleAdminMenuClose} sx={{ px: 2 }}>
-          <Link to={"/admin/products"}>product</Link>
+          <MUILink component={Link} to={"/admin/products"} underline="hover">
+            product
+          </MUILink>
         </MenuList>
       </Menu>
     </Box>
