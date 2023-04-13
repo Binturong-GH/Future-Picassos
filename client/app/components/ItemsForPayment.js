@@ -12,23 +12,7 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-const ItemsForPayment = ({ cartItems }) => {
-  const subtotal = cartItems
-    .reduce(
-      (sum, currentItem) => sum + currentItem.price * currentItem.quantity,
-      0
-    )
-    .toFixed(2);
-  const shipping = (cartItems.length ? 5 : 0).toFixed(2);
-  const tax = ((parseFloat(subtotal) + parseFloat(shipping)) * 0.0425).toFixed(
-    2
-  );
-  const total = (
-    parseFloat(subtotal) +
-    parseFloat(shipping) +
-    parseFloat(tax)
-  ).toFixed(2);
-
+const ItemsForPayment = ({ cartItems, subtotal, shipping, tax, total }) => {
   return (
     <Box
       sx={{
@@ -106,6 +90,17 @@ const ItemsForPayment = ({ cartItems }) => {
             Shipping Fee:
           </Typography>
           <div>$ {shipping}</div>
+        </Stack>
+        {/* Tax */}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Typography sx={{ fontWeight: "regular", fontSize: 20 }}>
+            tax:
+          </Typography>
+          <div>$ {tax}</div>
         </Stack>
         <Divider sx={{ my: 2 }} />
         {/* Order total */}

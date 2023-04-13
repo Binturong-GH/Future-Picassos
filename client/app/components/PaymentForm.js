@@ -1,5 +1,12 @@
 import React, { Fragment } from "react";
 
+// router
+import { Navigate } from "react-router-dom";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { addNewOrderAsync } from "../store/slices/orderSlice";
+
 // Formik
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -27,7 +34,9 @@ const validate = yup.object({
   zipCode: yup.string("Enter your Zip Code").required("Zip code is required"),
 });
 
-const PaymentForm = () => {
+const PaymentForm = ({ orderItem, subtotal, shipping, tax, total }) => {
+  const dispatch = useDispatch();
+  const { isLoading, order } = useSelector((state) => state.order);
   const formik = useFormik({
     initialValues: {
       email: "foobar@example.com",
@@ -40,10 +49,30 @@ const PaymentForm = () => {
     },
     validationSchema: validate,
     onSubmit: (values) => {
-      console.log("1");
+      dispatch(
+        addNewOrderAsync({
+          orderItems: orderItem.map((item) => {
+            return JSON.stringify({
+              id: item.id,
+              imageUrl: item.imageUrl,
+              quantity: item.quantity,
+              subtotal: item.quantity * item.price,
+            });
+          }),
+          shippingAddress: `${values.firstName} ${values.lastName}/Address:${values.address}, ${values.country}, ${values.state}, ${values.zipCode}`,
+          itemsPrice: Number(subtotal),
+          shippingPrice: Number(shipping),
+          taxPrice: Number(tax),
+          totalPrice: Number(total),
+        })
+      );
     },
   });
-  // 12@s.c
+
+  if (order) {
+    return <Navigate to="/order" />;
+  }
+
   return (
     <Fragment>
       <form onSubmit={formik.handleSubmit}>

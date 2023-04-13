@@ -26,6 +26,21 @@ export default function PaymentPage() {
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectCart);
   const { user } = useSelector((state) => state.auth);
+  const subtotal = cartItems
+    .reduce(
+      (sum, currentItem) => sum + currentItem.price * currentItem.quantity,
+      0
+    )
+    .toFixed(2);
+  const shipping = (cartItems.length ? 5 : 0).toFixed(2);
+  const tax = ((parseFloat(subtotal) + parseFloat(shipping)) * 0.0425).toFixed(
+    2
+  );
+  const total = (
+    parseFloat(subtotal) +
+    parseFloat(shipping) +
+    parseFloat(tax)
+  ).toFixed(2);
 
   useEffect(() => {
     if (user) {
@@ -48,9 +63,21 @@ export default function PaymentPage() {
       }}
     >
       <Box sx={{ flexGrow: 1, mr: 4 }}>
-        <PaymentForm />
+        <PaymentForm
+          orderItem={cartItems}
+          subtotal={subtotal}
+          tax={tax}
+          shipping={shipping}
+          total={total}
+        />
       </Box>
-      <ItemsForPayment cartItems={cartItems} />
+      <ItemsForPayment
+        cartItems={cartItems}
+        subtotal={subtotal}
+        tax={tax}
+        shipping={shipping}
+        total={total}
+      />
     </Box>
   );
 }
