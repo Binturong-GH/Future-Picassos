@@ -12,3 +12,12 @@
 - Fix bug: render the Cart page correctly by fixing the getLocalCart function.
 
 - Design a responsive website layout for the payment page.
+
+### 1.4.0 (2023-04-10)
+
+- Design a responsive layout for admin user and product page.
+
+### 1.5.0 (2023-04-13)
+
+- Feature: add feature to allow user to place a new order.
+- Design a responsive layout for navbar.
